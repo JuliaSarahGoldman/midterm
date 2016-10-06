@@ -1,12 +1,12 @@
-**Lab 3: Paths**
-        **Jose Rivas (jdr3@williams.edu) and John Freeman (jcf1@williams.edu)** 
-        **with code from Julia Goldman (jdg2@williams.edu).**
+**Procedurally Generated Coral**
+        **Jose Rivas (jdr3@williams.edu),**
+        **John Freeman (jcf1@williams.edu),**
+        **Julia Goldman (jdg2@williams.edu),**
+        **and Matheus de Carvalho Souza (mc13@williams.edu)** 
 
 Design
 ================================
-At a high level, this program goes through each pixel in an image from a scene file, traces some number of paths through it, and scatters each path some designated number of times, in order to approximate the total amount of light that would hit the object shown at that pixel. This is done through a nested for loop, where the outer loop creates an array of rays from the camera to the object at each pixel in our image (via [PathTracer::generateRayBuffer](#aa6c387e612890c11e1c5d54d3a110f32) and creates a modulation buffer with colors of RGB values equal to 1/(number of paths). The inside loop generates the array of surfels hit by our rays (via [G3D::TriTree::intersectRays](http://g3d.cs.williams.edu/g3d/G3D10/build/manual/class_g3_d_1_1_tri_tree_base.html#a4cba499bdba878f5476e792386fd0143)), calls [PathTracer::calcuulateDirectLight](#a3ef66c96b8f2e6d11dccd980fc5494cf) to calculate both the biradiance of a light sampled through [PathTracer::chooseLight](#a9e58615cbbb2508e8dcafb2561aef488) to each surfel and a ray from the light to the surfel stored in a shadow ray buffer, figures out which surfels are hit by lights (via [TriTree::IntersectRays](http://g3d.cs.williams.edu/g3d/G3D10/build/manual/class_g3_d_1_1_tri_tree_base.html#a124999e5b47fff667ee6e0f2d80a6840)), shades the image according to what points are hit by lights (via [PathTracer::shadeImage](#ae26bf2eb18515c746aaaae200e571a67), and finally scatters the original ray buffer (via [PathTracer::scatterRays](#aa0e036c150bd83f34ed8a0a243bc468b)) if it is not the last iteration of our inside loop.  
 
-All of these operations are done using concurrent threads, where each thread accesses a single index of each of our buffers corresponding to the pixel being mutated. These buffers are: a buffer to hold the primary rays (which are scattered after each iteration of the second loop), a modulation buffer to account for each added path's brightness contribution, a shadow ray buffer to hold all the rays from the light we sampled to a surfel, a surfel buffer to hold the surfel each primary ray points to, a buffer to tell us if a ray is in shadows (this allows us to know which locations to color), and a biradiance buffer, which tells us the biradiance from a light to the surfel. All of the above are the size of the image (the width times the length), so that we can run concurrently on each pixel without worrying about threads attempting to write to the same place.
 
 
 Results
