@@ -50,6 +50,22 @@ App::App(const GApp::Settings& settings) : GApp(settings) {
 }
 
 
+String App::makeTube(Array<float>& radii, Array<float>& heights, int slices){
+     String tube = String("OFF\n");
+     tube += format("%d %d 1\n", heights.size()*slices, (heights.size()-1)*slices);
+     for (int i = 0; i < heights.size(); ++i){
+        for(int j = 0; j < slices; ++j){
+            tube += format(STR(%f %f %f\n), radii[i]*(-sin(((2*pif()*j)/slices))), heights[i], radii[i]*(cos((2*pif()*j)/slices)));
+        }
+    }
+    for (int i = 0; i < heights.size()-1; ++i){
+        for(int j = 0; j < slices; ++j){
+            tube+= format(STR(4 %d %d %d %d\n), i*slices +slices + j, i*slices +slices + (j+1)%slices, i*slices + (j+1)%slices, i*slices + j );
+        }
+    }
+    return tube;
+}
+
 // Called before the application loop begins.  Load data here and
 // not in the constructor so that common exceptions will be
 // automatically caught.
