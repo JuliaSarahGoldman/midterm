@@ -9,67 +9,30 @@ Introduction
 
 ![Figure [teaser]: A Procedurally Generated Underwater Corral Reef using a Lindenmayer System.](evocativeTeaser.png border=1)
 
+![Basic generation example](http://teampisces.weebly.com/uploads/3/0/7/3/30733957/1899336_orig.gif)
+
 This program will procedurally generate five distinct species of corral using a Lindernmeyer System (L-system). By specifying the species and specifying a height, we can generate unique corral and anenomes that will look amazing in any underwater environment. Corral and anenomes, like trees, can be represented as a recursive structure made of cylinders that shrink as they go farther from the base. Thus, an L-System can be used to model Corral and anenomes.
-
-Specification
-================================
-
-Results
-================================
-The following are the many different models that were produced when running our program.
-
-Quality Demonstration
--------------------------------------------------------------------------------------
-
-![](quality2.png border=1)
-
-This shows our program running on a complex scene with many paths and 6 scattering events will produce a high quality image.
 
 Correctness Results
 -------------------------------------------------------------------------------------
-![Eye ray directions](eye-ray-directions.png width=150px border=1) ![Hit positions](positions.png width=150px border=1) ![Normals](normals.png width=150px border=1) ![Direct light](direct.png width=150px border=1)
+![branching](https://s-media-cache-ak0.pinimg.com/236x/0e/fc/48/0efc481f279a344ab624e246698fcb83.jpg) ![Simple Form](http://teampisces.weebly.com/uploads/3/0/7/3/30733957/748404459.png?468)
 
 Demonstration Images
 -------------------------------------------------------------------------------------
-![Corral 1](1.png) 
+![Coral forms](http://antoniosliapis.com//graphics/research/a_constructive_approach_for_the_generation_of_underwater_environments.png)
 
-![Corral2](http://www.whoi.edu/cms/images/oceanus/2005/4/v43n2-mullineaux2en_8563.jpg border=1) 
+![Coral 1](1.png) 
+
+![Coral2](http://www.whoi.edu/cms/images/oceanus/2005/4/v43n2-mullineaux2en_8563.jpg border=1) 
 
 ![](https://thinkingscifi.files.wordpress.com/2012/07/coral1.jpg border=1) 
 
 ![](http://wiki.seg.org/images/7/7f/Bleaching.jpg border=1)
 
-Phenomena Demonstration Images
------------------------------------------------------------------------------------
+![Shark image](http://c8.alamy.com/comp/BE348D/soft-coral-reef-and-hammerhead-sharks-dendronephthya-sphyrna-lewini-BE348D.jpg)
 
-Questions
-================================
-1. It takes four scattering events to produce a caustic. The first event is the light hitting the outside of a transparent material and refracting. The second event is the light "exiting" the material (hitting the other side) and refracting again. The third event is the light hitting a surface. The fourth event is the light hitting the camera.
-2. The rays project ran at $\O(n*p^{d}*L)$, where n is the number of pixels, p is the number of primary rays per pixel, d is the maximum path depth, and L is the number of lights in teh scene. We can derive this from our tests, where we found that the time is linear with respect to the number of lights, number of pixels, and number of primary rays. We never went deeper than a path depth of 2, but we know that each primary ray produces p scattering rays at each level d, so ultimately we end up with $p^{d}$ scattered rays.
-3. Using the same definition above, we derive that our Path tracer ran at $O(n*p*d*L)$. This is proven by our graphs, which show that this program is definitely linear with respect to the scattering depth and the number of paths. This program is therefore exponentially times faster with respect to the maximum path (scattering) depth d.
-4.  Use the uniform random number generator to generate a random number n between 0 and 100. Then multiply that number by 50.5.  This will give n a value between 0 and 5050, which is the sum of all the numbers from 0 to 100.  Then, make a counter i starting at 1 incrementing once per loop and subtract i from n.  If that subtraction makes n negative, then return i.  This is very similar to the light importance sampling from the lab. Below is code for it.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-def proportionalRNG(uniformRNG):
-        n = uniformRNG(0, 100) * 50.5;
-        for(i = 1; i <= 100; ++i):
-            n -= i
-            if(n < 0):
-                return i
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- 5. The point of the Path Tracing Algorithm used in this project is that we are able to sample a limit of the rendering algorithm with a high probability that our sample will produce a result similar to the true solution (what the rendering algorithm would produce). So, if we change the algorithm we are using, such that all of the samples were infinite, then, we would just be performing the rendering algorithm. 
+![Turtle image](http://2ap93t1x1l6e2f6gfo3ag4vw.wpengine.netdna-cdn.com/wp-content/uploads/2016/09/Sea-turtle-great-barrier-reef.jpg)
 
-Self-Review
-================================
-
-
-Schedule
-================================
-Friday October 7, 2016 - Get bending done - Julia Lead
-
-Tuesday October 11, 2016 - Generate Corral  
-
-Change Log
-================================
 
 <!-- Markdeep: -->
 <style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace;}</style><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
