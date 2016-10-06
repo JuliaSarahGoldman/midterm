@@ -66,6 +66,17 @@ String App::makeTube(Array<float>& radii, Array<float>& heights, int slices){
     return tube;
 }
 
+void App::createScene(String sceneName){
+    TextOutput output = TextOutput("scene\\"+ sceneName + ".off");
+    
+    //Create the models for the scene
+    String modelString(makeTube(Array<float>(1), Array<float>(1), 1));
+    output.writeSymbols(modelString);
+
+    // End the File
+    output.commit(true);
+}
+
 // Called before the application loop begins.  Load data here and
 // not in the constructor so that common exceptions will be
 // automatically caught.
