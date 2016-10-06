@@ -1,33 +1,23 @@
-**Procedurally Generated Coral**
-        **Jose Rivas (jdr3@williams.edu),**
-        **John Freeman (jcf1@williams.edu),**
+<meta charset="utf-8"><!-- -*- markdown -*- -->        
+        
+        **Procedurally Generated Coral**
+        **John Freeman (jcf1@williams.edu), Jose Rivas (jdr3@williams.edu),** 
         **Julia Goldman (jdg2@williams.edu),**
         **and Matheus de Carvalho Souza (mc13@williams.edu)** 
 
-Design
+![Figure [teaser]: A Procedurally Generated Underwater Corral Reef using a Lindenmayer System.](evocativeTeaser.png)
+
+Introduction
 ================================
+This program will procedurally generate five distinct species of corral using a Lindernmeyer System (L-system). By specifying the species and specifying a height, we can generate unique corral and anenomes that will look amazing in any underwater environment. Corral and anenomes, like trees, can be represented as a recursive structure made of cylinders that shrink as they go farther from the base. Thus, an L-System can be used to model Corral and anenomes.
 
 
+Specification
+================================
 
 Results
 ================================
-The following are results from our program.
-
-Correctness Results
--------------------------------------------------------------------------------------
-![Eye ray directions](eye-ray-directions.png width=150px border=1) ![Hit positions](positions.png width=150px border=1) ![Normals](normals.png width=150px border=1) ![Direct light](direct.png width=150px border=1)
-
-
-Performance
------------------------------------------------------------------------------------
-
-![Path Tracing is Linear with Respect to the Scattering Depth](graphScatter.png width=512px border=1)![Path Tracing is also Linear with Respect to the Number of Paths per Pixel](graphPath.png width=512px border=1)
-
-Using last week's Ray Tracing algorithm, the ray tracer was able to render Sponza at 640x400 resolution with Direct Illumination in 55.7 minutes. Our Path Tracer was able to perform this same feat in about a quarter of a second. This is exponentially faster, and shows the benefits of Monte Carlo Algorithms to approximate pixel values. 
-
-Demonstration Images
--------------------------------------------------------------------------------------
-![1 scattering event in 16.85 seconds](1.png width=120px border=1) ![2 events in 36.04 seconds](2.png width=120px border=1) ![3 events in 52.54 seconds](3.png width=120px border=1) ![4 events in 67.93 seconds](4.png width=120px border=1) ![10 events in 137.89 seconds](10.png width=120px border=1)
+The following are the many different models that were produced when running our program.
 
 Quality Demonstration
 -------------------------------------------------------------------------------------
@@ -35,6 +25,14 @@ Quality Demonstration
 ![The G3D San Miguel from the Balcony Camera's Perspective. The rendered used 500 paths with 6 scattering events at 1280 x 720 resolution and completed in 1.12 hours](quality2.png border=1)
 
 This shows our program running on a complex scene with many paths and 6 scattering events will produce a high quality image.
+
+Correctness Results
+-------------------------------------------------------------------------------------
+![Eye ray directions](eye-ray-directions.png width=150px border=1) ![Hit positions](positions.png width=150px border=1) ![Normals](normals.png width=150px border=1) ![Direct light](direct.png width=150px border=1)
+
+Demonstration Images
+-------------------------------------------------------------------------------------
+![1 scattering event in 16.85 seconds](1.png width=120px border=1) ![2 events in 36.04 seconds](2.png width=120px border=1) ![3 events in 52.54 seconds](3.png width=120px border=1) ![4 events in 67.93 seconds](4.png width=120px border=1) ![10 events in 137.89 seconds](10.png width=120px border=1)
 
 Phenomena Demonstration Images
 -----------------------------------------------------------------------------------
@@ -65,65 +63,15 @@ def proportionalRNG(uniformRNG):
 
 Self-Review
 ================================
-Below we will provide a short analysis of how we feel we did on this project.
 
-Code Design
----------------------------------
-Our code is structured in a logical ordering that is efficient and chronological, making it easy to follow the logic behind it.
 
-Code Readability
-----------------------------------
-We spent a lot of time making sure that our code was readable by using specific variable names and breaking the problem into a series of small helper functions that each have a specific job.
-
-Expected Code Correctness
------------------------------------
-There are small bugs in our code that result in impecfect pictures, but we are pleased by the overall image results and speed of our program, which meets all of the specifications of the project.
-
-Report Writing and Presentation Quality
-------------------------------------
-The report is presented following the specification provided in a neat and orderly fashion.
-
-Expected Report Correctness
------------------------------------
-To the best of our knowledge, we believe we answered all of the questions correctly and provided evidence for our program's correctness.
-
-Workflow as Documented in Journal
---------------------------------------
-Admittedly, this is our weakest area, because we did not update it every time we made changes, but we feel we were only stuck on a few issues that we did document in our journal.
-
-Overall Expected Grade
-----------------------------------------
-We believe we deserve an A on this project based on our program's correctness and our report.
-
-Skills
+Schedule
 ================================
+Saturday October 8, 2016 - 
+Tuesday October 11, 2016 - Generate Corral  
 
-The following is a summary of what we learned in this project.
-
-Software Engineering:
-    - We learned to always check what we are passing to each function when we have a bug
-    - We learned to never use integer division
-    - We learned more of the helpful features implemented into G3D, such as TriTree's intersectRays methods and surfel's scatter method
-
-Algorithmic:
-    - We learned why Monte Carlo algorithms are widely used
-    - We learned, in depth, the path tracing algorithm
-    - We learned how to do importance sampling on lights
-
-Mathematical:
-    - We learned that caustics are caused with a minimum of 4 scattering events
-    - We learned about the cool effects light can have on different surfaces
-    - We learned to bump rays using 0.0001f and not FLT_EPSILON
-
-Other:
-    - We learned how fun it is to make cool pictures
-
-Workflow
+Change Log
 ================================
-Jose: 6 Hour MVP + 10 Hour Polish
-John: 5.5 Hour MVP + 10 Hour Polish
-
-A lot of the stuff we did at the end was trying to figure out why some small issues were occuring. Thankfully, we still managed to complete everything with good amount of time to render tests. 
 
 <!-- Markdeep: -->
 <style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace;}</style><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
