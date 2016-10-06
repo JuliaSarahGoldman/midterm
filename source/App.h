@@ -14,6 +14,7 @@ protected:
     /** Called from onInit */
     void makeGUI();
     String makeTube(Array<float>& radii, Array<float>& heights, int slices);
+    void createScene(String sceneName);
 
 public:
     
