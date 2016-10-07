@@ -10,11 +10,22 @@
 /** \brief Application framework. */
 class App : public GApp {
 protected:
-
     /** Called from onInit */
     void makeGUI();
     String makeTube(Array<float>& radii, Array<float>& heights, int slices);
     void createScene(String sceneName);
+    void drawLine(Point2 point1, Point2 point2, Color3 c, shared_ptr<Image>& image);
+    void drawHLine(Point2 point1, Point2 point2, Color3 c, shared_ptr<Image>& image);
+    void drawVLine(Point2 point1, Point2 point2, Color3 c, shared_ptr<Image>& image);
+    void drawSteepLine(Point2 point1, Point2 point2, Color3 c, shared_ptr<Image>& image);
+    void drawFlatLine(Point2 point1, Point2 point2, Color3 c, shared_ptr<Image>& image);
+    void drawGradiantBackground(Color3 c1, Color3 c2, int height, int width,  shared_ptr<Image>& image);
+    void drawAxes(int rad, int rng, int xOff, int yOff, shared_ptr<Image>& image);
+    void drawVarGraph(bool isClock, int width, int height, int xOff, int yOff, int sign, shared_ptr<Image>& image);
+    void drawMyGraph(shared_ptr<Image>& image);
+    void drawClock(shared_ptr<Image>& image);
+    void drawCantorDust(float xSt, float xEn, float y, int level, shared_ptr<Image>& image);
+    void drawThickLine(Point2 point1, Point2 point2, Color3 c, int thickness, shared_ptr<Image>& image);
 
 public:
     
