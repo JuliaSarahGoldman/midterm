@@ -1,4 +1,4 @@
-<meta charset="utf-8"><!-- -*- markdown -*- -->        
+﻿<meta charset="utf-8"><!-- -*- markdown -*- -->        
         **Procedurally Generated Coral**
         **John Freeman (jcf1@williams.edu), Jose Rivas (jdr3@williams.edu),** 
         **Julia Goldman (jdg2@williams.edu),**
@@ -12,6 +12,50 @@ Introduction
 ![Basic generation example](http://teampisces.weebly.com/uploads/3/0/7/3/30733957/1899336_orig.gif)
 
 This program will procedurally generate five distinct species of corral using a Lindernmeyer System (L-system). By specifying the species and specifying a height, we can generate unique corral and anenomes that will look amazing in any underwater environment. Corral and anenomes, like trees, can be represented as a recursive structure made of cylinders that shrink as they go farther from the base. Thus, an L-System can be used to model Corral and anenomes.
+
+Specification
+============================================================================================
+
+Procedurally generate realistic coral using "Billboard" Texture and Normal Maps. 
+
+1. Make a user interface with the following controls:
+  1. Integer number box for the total different amount of species of coral to appear in the image.
+  2. Integer number box for the total number of coral to appear in the image.
+  3. Check box for adding fish to the image.
+  4. Check box for adding shadows.
+  5. A "Generate Scene" Button to geneate the scene.
+
+2. When the "Render" button is pressed, the program:
+  1. Immediately displays a waiting screen.
+  2. Renders an image as described below and then displays it in a new window with proper gamma
+     encoding.
+
+3. Scene Generation:
+  1. Create different object files representing different species of coral with slight variations.
+  2. Write a scene file that puts the coral in an ocean like setting with a sun hitting the top.
+  3. Add fish models in the scene to make it look realistic if the fish check box is checked.
+
+4. Code:
+  1. 
+  2. 
+
+5. Correctness Results:
+  1. Show the triangle mesh of a piece of coral, and demonstrate how it is being rotated.
+  2. Show a piece of coral and its shadow and the direction of the light.
+  3. Show a piece of coral along 4 different viewpoints.
+
+6. Demonstration Results:
+  1. A scene with multiple coral on a heightfield.
+  2. A scene with coral and a few fish floating around.
+  3. 
+
+7. Evocative Result:
+  1. Create a beautiful, unique scene that demonstrates the beauty of our creations. Put the coral in the ocean with shadows and fish going around to make it look like a real ocean scene.
+  2. Render the image using a path tracer in 1024x720 resolution using 1024 paths and 6 scattering events.
+
+Results
+=====================================================================================
+The following are the results of our procedural generation. We first demonstrate that the coral we create is visually accurate. Each coral should look as realistic as possible using the "billboard" method. We then show our coral in various different scenes, including with modeled fish floating around them.
 
 Correctness Results
 -------------------------------------------------------------------------------------
