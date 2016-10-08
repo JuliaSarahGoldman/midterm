@@ -15,7 +15,7 @@ int main(int argc, const char* argv[]) {
 
     // Change the window and other startup parameters by modifying the
     // settings class.  For example:
-    settings.window.caption             = argv[0];
+    settings.window.caption = argv[0];
 
     // Set enable to catch more OpenGL errors
     // settings.window.debugContext     = true;
@@ -23,21 +23,21 @@ int main(int argc, const char* argv[]) {
     // Some common resolutions:
     // settings.window.width            =  854; settings.window.height       = 480;
     // settings.window.width            = 1024; settings.window.height       = 768;
-    settings.window.width               = 1280; settings.window.height       = 720;
+    settings.window.width = 1280; settings.window.height = 720;
     //settings.window.width             = 1920; settings.window.height       = 1080;
     // settings.window.width            = OSWindow::primaryDisplayWindowSize().x; settings.window.height = OSWindow::primaryDisplayWindowSize().y;
-    settings.window.fullScreen          = false;
-    settings.window.resizable           = ! settings.window.fullScreen;
-    settings.window.framed              = ! settings.window.fullScreen;
+    settings.window.fullScreen = false;
+    settings.window.resizable = !settings.window.fullScreen;
+    settings.window.framed = !settings.window.fullScreen;
 
     // Set to true for a significant performance boost if your app can't render at 60fps, or if
     // you *want* to render faster than the display.
-    settings.window.asynchronous        = false;
+    settings.window.asynchronous = false;
 
     settings.hdrFramebuffer.depthGuardBandThickness = Vector2int16(64, 64);
     settings.hdrFramebuffer.colorGuardBandThickness = Vector2int16(0, 0);
-    settings.dataDir                    = FileSystem::currentDirectory();
-    settings.screenshotDirectory        = "../journal/";
+    settings.dataDir = FileSystem::currentDirectory();
+    settings.screenshotDirectory = "../journal/";
 
     settings.renderer.deferredShading = true;
     settings.renderer.orderIndependentTransparency = false;
@@ -50,220 +50,282 @@ App::App(const GApp::Settings& settings) : GApp(settings) {
 }
 
 
-void App::drawLine(Point2 point1, Point2 point2, Color3 c, shared_ptr<Image>& image){
-  if (point1.x == point2.x){
-    drawVLine(point1, point2, c, image);
-  }
-  else if (point1.y == point2.y){
-    drawHLine(point1, point2, c, image);
-  }
-  float slope = 1.0f * (point2.y - point1.y) / (point2.x - point1.x);
-  if (fabs(slope) <= 1){
-    drawFlatLine(point1, point2, c, image);
-  }
-  else{
-    drawSteepLine(point1, point2, c, image);
-  }
+void App::drawLine(Point2 point1, Point2 point2, Color3 c, shared_ptr<Image>& image) {
+    if (point1.x == point2.x) {
+        drawVLine(point1, point2, c, image);
+    }
+    else if (point1.y == point2.y) {
+        drawHLine(point1, point2, c, image);
+    }
+    float slope = 1.0f * (point2.y - point1.y) / (point2.x - point1.x);
+    if (fabs(slope) <= 1) {
+        drawFlatLine(point1, point2, c, image);
+    }
+    else {
+        drawSteepLine(point1, point2, c, image);
+    }
 }
 
-void App::drawHLine(Point2 point1, Point2 point2, Color3 c, shared_ptr<Image>& image){
-  float x0;
-  float x1;
-  if (point2.x >= point1.x){
-    x0 = point1.x;
-    x1 = point2.x;
-  }
-  else{
-    x0 = point2.x;
-    x1 = point1.x;
-  }
-  for (int x = x0; x <= x1; ++x){
-    image->set(x, point1.y, c);
-  }
+void App::drawHLine(Point2 point1, Point2 point2, Color3 c, shared_ptr<Image>& image) {
+    float x0;
+    float x1;
+    if (point2.x >= point1.x) {
+        x0 = point1.x;
+        x1 = point2.x;
+    }
+    else {
+        x0 = point2.x;
+        x1 = point1.x;
+    }
+    for (int x = x0; x <= x1; ++x) {
+        image->set(x, point1.y, c);
+    }
 }
 
-void App::drawVLine(Point2 point1, Point2 point2, Color3 c, shared_ptr<Image>& image){
-  float x0;
-  float x1;
-  if (point2.x >= point1.x){
-    x0 = point1.x;
-    x1 = point2.x;
-  }
-  else{
-    x0 = point2.x;
-    x1 = point1.x;
-  }
-  for (int x = x0; x <= x1; ++x){
-    image->set(x, point1.y, c);
-  }
+void App::drawVLine(Point2 point1, Point2 point2, Color3 c, shared_ptr<Image>& image) {
+    /*
+        float x0;
+        float x1;
+        if (point2.x >= point1.x) {
+            x0 = point1.x;
+            x1 = point2.x;
+        }
+        else {
+            x0 = point2.x;
+            x1 = point1.x;
+        }
+        for (int x = x0; x <= x1; ++x) {
+            image->set(x, point1.y, c);
+        }
+    */
+
+    // If drawVLine is called when x coords are equal, shouldn't we be drawing wrt y at a fixed x? See Below
+
+    float y0;
+    float y1;
+    if (point2.y >= point1.y) {
+        y0 = point1.y;
+        y1 = point2.y;
+    }
+    else {
+        y0 = point2.y;
+        y1 = point1.y;
+    }
+    for (int y = y0; y <= y1; ++y) {
+        image->set(point1.x, y, c);
+    }
+
 }
 
-void App::drawFlatLine(Point2 point1, Point2 point2, Color3 c, shared_ptr<Image>& image){
-  float x0;
-  float x1;
-  float y0;
-  float y1;
-  if (point2.x >= point1.x){
-    x0 = point1.x;
-    x1 = point2.x;
-    y0 = point1.y;
-    y1 = point2.y;
-  }
-  else{
-    x0 = point2.x;
-    x1 = point1.x;
-    y0 = point2.y;
-    y1 = point1.y;
-  }
-  float m = 1.0f * (point2.y - point1.y) / (point2.x - point1.x);;
-  float y = y0;
-  for (int x = (int) x0; x <= x1; ++x, y+=m){
-    image->set(x, (int) (y + .5f), c);
-  }
+void App::drawFlatLine(Point2 point1, Point2 point2, Color3 c, shared_ptr<Image>& image) {
+    float x0;
+    float x1;
+    float y0;
+    float y1;
+    if (point2.x >= point1.x) {
+        x0 = point1.x;
+        x1 = point2.x;
+        y0 = point1.y;
+        y1 = point2.y;
+    }
+    else {
+        x0 = point2.x;
+        x1 = point1.x;
+        y0 = point2.y;
+        y1 = point1.y;
+    }
+    float m = 1.0f * (point2.y - point1.y) / (point2.x - point1.x);
+    float y = y0;
+    for (int x = (int)x0; x <= x1; ++x, y += m) {
+        image->set(x, (int)(y + .5f), c);
+    }
 }
 
-void App::drawSteepLine(Point2 point1, Point2 point2, Color3 c, shared_ptr<Image>& image){
-  float x0;
-  float x1;
-  float y0;
-  float y1;
-  if (point2.y >= point1.y){
-    x0 = point1.x;
-    x1 = point2.x;
-    y0 = point1.y;
-    y1 = point2.y;
-  }
-  else{
-    x0 = point2.x;
-    x1 = point1.x;
-    y0 = point2.y;
-    y1 = point1.y;
-  }
-  float m = 1.0f * (point2.x - point1.x) / (point2.y - point1.y);;
-  float x = x0;
-  for (int y = (int) y0; y <= y1; ++y, x+=m){
-    image->set((int) (x + .5f), y, c);
-  }
+void App::drawSteepLine(Point2 point1, Point2 point2, Color3 c, shared_ptr<Image>& image) {
+    float x0;
+    float x1;
+    float y0;
+    float y1;
+    if (point2.y >= point1.y) {
+        x0 = point1.x;
+        x1 = point2.x;
+        y0 = point1.y;
+        y1 = point2.y;
+    }
+    else {
+        x0 = point2.x;
+        x1 = point1.x;
+        y0 = point2.y;
+        y1 = point1.y;
+    }
+    float m = 1.0f * (point2.x - point1.x) / (point2.y - point1.y);;
+    float x = x0;
+    for (int y = (int)y0; y <= y1; ++y, x += m) {
+        image->set((int)(x + .5f), y, c);
+    }
 }
 
 //added is how much the line is thickened by on each side
-void App::drawThickLine(Point2 point1, Point2 point2, Color3 c, int added, shared_ptr<Image>& image){
-  if (point1.x == point2.x){
-    for(int i = -added; i<=added; ++i){
-        drawVLine(Point2(point1.x+i, point1.y), Point2(point2.x+i,point1.y), c, image);
-    }
-  }
-  else if (point1.y == point2.y){
-    for(int i = -added; i<=added; ++i){
-        drawHLine(Point2(point1.x, point1.y+i), Point2(point2.x, point2.y+i), c, image);
-    }
-  }
-  float slope = 1.0f * (point2.y - point1.y) / (point2.x - point1.x);
-  if (fabs(slope) <= 1){
-    for(int i = -added; i<=added; ++i){
-        drawFlatLine(Point2(point1.x, point1.y+i), Point2(point2.x, point2.y+i), c, image);
-    }
-  }
-  else{
-    for(int i = -added; i<=added; ++i){
-        drawSteepLine(Point2(point1.x, point1.y+i), Point2(point2.x, point2.y+i), c, image);
-    }
-  }
-}
+void App::drawThickLine(Point2 point1, Point2 point2, Color3 c, int added, shared_ptr<Image>& image) {
+    float height(image->height());
+    float width(image->width());
 
-void App::drawGradiantBackground(Color3 c1, Color3 c2, int height, int width, shared_ptr<Image>& image){
-  Color3 current = c1;
-  for (int y = 0; y < height; ++y){
-    current = current + (c2 - c1) / (height - 1);
-    drawLine(Point2(0, y), Point2(width - 1, y), current, image);
-  }
-}
+    // Moved if statements into single for loop
+    // Do this for the other functions as well! 
+    for (int i = -added; i <= added; ++i) {
+        if (point1.x == point2.x) {
+            float x(point1.x + i);
+            if (x > 0 && x < width) {
+                // Changed from point1.x+i and point2.x+i to x, they're the same anyway.
+                drawVLine(Point2(x, point1.y), Point2(x, point1.y), c, image);
+            }
+        }
+        else if (point1.y == point2.y) {
+            float y(point1.y + i);
 
-void App::drawAxes(int rad, int rng, int xOff, int yOff, shared_ptr<Image>& image){
-  drawThickLine(Point2(0 + xOff, 10*rng + yOff), Point2(20*rad + xOff, 10*rng + yOff), Color3(1,0,0), 0, image);
-  drawThickLine(Point2(10*rad + xOff, 0 + yOff), Point2(10*rad + xOff, 20*rng + yOff), Color3(1,0,0), 0, image);
-  for (int x = 0; x <= 2*rad; ++x){
-    drawThickLine(Point2(xOff + x*10, yOff + rng*10 - 2), Point2(xOff + x*10, yOff + rng*10 + 2), Color3(1,0,0), 0, image);
-  }
-  for (int y = 0; y <= 2*rng; ++y){
-    drawThickLine(Point2(xOff + rad*10 - 2, yOff +y*10), Point2(xOff +rad*10 + 2, yOff + y*10), Color3(1,0,0), 0, image);
-  }
-}
+            if (y > 0 && y < height) {
+                // Changed from point1.y+i and point2.y+i to y, they're the same anyway.
+                drawHLine(Point2(point1.x, y), Point2(point2.x, y), c, image);
+            }
+        }
 
-void App::drawVarGraph(bool isClock, int width, int height, int xOff, int yOff, int sign, shared_ptr<Image>& image){
-  float realX = -1 * width;
-  float realY = 0;
-  Point2 p1 = Point2(-1, -1);
-  Point2 p2 = Point2(-1, -1);
-  for(int x = xOff; x <= 20 * width + xOff; ++x){
-    if (isClock){
-      realY = sign * sqrt(36 - realX*realX);
-    }
-    else{
-      realY = .13 * realX * realX * realX;
-    }
-    float pixY = 10 * height;
-    if (realY > 0){
-      pixY = 10 * height - 10 * realY;
-    }
-    if (realY < 0){
-      pixY = 10 * height - 10 * realY;
-    }
-    pixY += yOff;
-    p2 = Point2(1.0f * x, pixY);
-    if (p1.x != -1){
-      drawLine(p1, p2, Color3(0,0,0), image);
-    }
-    p1 = p2;
-    realX += .1;
-  }
-}
+        float slope = 1.0f * (point2.y - point1.y) / (point2.x - point1.x);
+        float x1(point1.x + i);
+        float y1(point1.y + i);
+        float x2(point2.x + i);
+        float y2(point2.y + i);
 
-void App::drawMyGraph(shared_ptr<Image>& image){
-  drawAxes(4, 10, 5, 5, image);
-  drawVarGraph(false, 4, 10, 5, 5, 1, image);
-}
-
-void App::drawClock(shared_ptr<Image>& image){
-  Point2 center = Point2(210, 65);
-  drawVarGraph(true, 6, 6, 150, 5, 1, image);
-  drawVarGraph(true, 6, 6, 150, 5, -1, image);
-  float rotation = 0;
-  int time = 0;
-  Point2 outer = Point2((float) (1.0f*center.x + (50.0f * cos(rotation))), (float) (1.0f*center.y + (50.0f * sin(rotation))));
-  drawLine(center, outer, Color3(1,0,0), image);
-  if (time % 5 == 0){
-    rotation += (3.14159/12);
-  }
-}
-
-void App::drawCantorDust(float xSt, float xEn, float y, int level, shared_ptr<Image>& image){
-  drawLine(Point2(xSt, y), Point2(xEn, y), Color3(0,0,1), image);
-  if (level > 1){
-    drawCantorDust(xSt, (xEn - xSt) / 3 + xSt, y + 10, level - 1, image);
-    drawCantorDust(2.0 * (xEn - xSt) / 3 + xSt, xEn, y + 10, level - 1, image);
-  }
-}
-
-String App::makeTube(Array<float>& radii, Array<float>& heights, int slices){
-     String tube = String("OFF\n");
-     tube += format("%d %d 1\n", heights.size()*slices, (heights.size()-1)*slices);
-     for (int i = 0; i < heights.size(); ++i){
-        for(int j = 0; j < slices; ++j){
-            tube += format(STR(%f %f %f\n), radii[i]*(-sin(((2*pif()*j)/slices))), heights[i], radii[i]*(cos((2*pif()*j)/slices)));
+        bool inBounds = (y1 > 0 && y1 < height) && (x1 > 0 && x1 < width) && (y2 > 0 && y2 < height) && (x2 > 0 && x2 < width);
+        if (inBounds) {
+            if (fabs(slope) <= 1) {
+                // Changed from point[1,2].x to point[1,2].x+i -> then to x[1,2] and y[1,2]
+                drawFlatLine(Point2(x1, y1), Point2(x2, y2), c, image);
+            }
+            else {
+                drawSteepLine(Point2(x1, y1), Point2(x2, y2), c, image);
+            }
         }
     }
-    for (int i = 0; i < heights.size()-1; ++i){
-        for(int j = 0; j < slices; ++j){
-            tube+= format(STR(4 %d %d %d %d\n), i*slices +slices + j, i*slices +slices + (j+1)%slices, i*slices + (j+1)%slices, i*slices + j );
+
+    // OLD CODE
+    /*
+     if (point1.x == point2.x){
+        for(int i = -added; i<=added; ++i){
+            drawVLine(Point2(point1.x+i, point1.y), Point2(point2.x+i,point1.y), c, image);
+        }
+      }
+      else if (point1.y == point2.y){
+        for(int i = -added; i<=added; ++i){
+            drawHLine(Point2(point1.x, point1.y+i), Point2(point2.x, point2.y+i), c, image);
+        }
+      }
+      float slope = 1.0f * (point2.y - point1.y) / (point2.x - point1.x);
+      if (fabs(slope) <= 1){
+        for(int i = -added; i<=added; ++i){
+            drawFlatLine(Point2(point1.x, point1.y+i), Point2(point2.x, point2.y+i), c, image);
+        }
+      }
+      else{
+        for(int i = -added; i<=added; ++i){
+            drawSteepLine(Point2(point1.x, point1.y+i), Point2(point2.x, point2.y+i), c, image);
+        }
+      }
+      */
+}
+
+void App::drawGradiantBackground(Color3 c1, Color3 c2, int height, int width, shared_ptr<Image>& image) {
+    Color3 current = c1;
+    for (int y = 0; y < height; ++y) {
+        current = current + (c2 - c1) / (height - 1);
+        drawLine(Point2(0, y), Point2(width - 1, y), current, image);
+    }
+}
+
+void App::drawAxes(int rad, int rng, int xOff, int yOff, shared_ptr<Image>& image) {
+    drawThickLine(Point2(0 + xOff, 10 * rng + yOff), Point2(20 * rad + xOff, 10 * rng + yOff), Color3(1, 0, 0), 5, image);
+    drawThickLine(Point2(10 * rad + xOff, 0 + yOff), Point2(10 * rad + xOff, 20 * rng + yOff), Color3(1, 0, 0), 5, image);
+    for (int x = 0; x <= 2 * rad; ++x) {
+        drawThickLine(Point2(xOff + x * 10, yOff + rng * 10 - 2), Point2(xOff + x * 10, yOff + rng * 10 + 2), Color3(1, 0, 0), 0, image);
+    }
+    for (int y = 0; y <= 2 * rng; ++y) {
+        drawThickLine(Point2(xOff + rad * 10 - 2, yOff + y * 10), Point2(xOff + rad * 10 + 2, yOff + y * 10), Color3(1, 0, 0), 0, image);
+    }
+}
+
+void App::drawVarGraph(bool isClock, int width, int height, int xOff, int yOff, int sign, shared_ptr<Image>& image) {
+    float realX = -1 * width;
+    float realY = 0;
+    Point2 p1 = Point2(-1, -1);
+    Point2 p2 = Point2(-1, -1);
+    for (int x = xOff; x <= 20 * width + xOff; ++x) {
+        if (isClock) {
+            realY = sign * sqrt(36 - realX*realX);
+        }
+        else {
+            realY = .13 * realX * realX * realX;
+        }
+        float pixY = 10 * height;
+        if (realY > 0) {
+            pixY = 10 * height - 10 * realY;
+        }
+        if (realY < 0) {
+            pixY = 10 * height - 10 * realY;
+        }
+        pixY += yOff;
+        p2 = Point2(1.0f * x, pixY);
+        if (p1.x != -1) {
+            drawLine(p1, p2, Color3(0, 0, 0), image);
+        }
+        p1 = p2;
+        realX += .1;
+    }
+}
+
+void App::drawMyGraph(shared_ptr<Image>& image) {
+    drawAxes(4, 10, 5, 5, image);
+    drawVarGraph(false, 4, 10, 5, 5, 1, image);
+}
+
+void App::drawClock(shared_ptr<Image>& image) {
+    Point2 center = Point2(210, 65);
+    drawVarGraph(true, 6, 6, 150, 5, 1, image);
+    drawVarGraph(true, 6, 6, 150, 5, -1, image);
+    float rotation = 0;
+    int time = 0;
+    Point2 outer = Point2((float)(1.0f*center.x + (50.0f * cos(rotation))), (float)(1.0f*center.y + (50.0f * sin(rotation))));
+    drawLine(center, outer, Color3(1, 0, 0), image);
+    if (time % 5 == 0) {
+        rotation += (3.14159 / 12);
+    }
+}
+
+void App::drawCantorDust(float xSt, float xEn, float y, int level, shared_ptr<Image>& image) {
+    drawLine(Point2(xSt, y), Point2(xEn, y), Color3(0, 0, 1), image);
+    if (level > 1) {
+        drawCantorDust(xSt, (xEn - xSt) / 3 + xSt, y + 10, level - 1, image);
+        drawCantorDust(2.0 * (xEn - xSt) / 3 + xSt, xEn, y + 10, level - 1, image);
+    }
+}
+
+String App::makeTube(Array<float>& radii, Array<float>& heights, int slices) {
+    String tube = String("OFF\n");
+    tube += format("%d %d 1\n", heights.size()*slices, (heights.size() - 1)*slices);
+    for (int i = 0; i < heights.size(); ++i) {
+        for (int j = 0; j < slices; ++j) {
+            tube += format(STR(%f %f %f\n), radii[i] * (-sin(((2 * pif()*j) / slices))), heights[i], radii[i] * (cos((2 * pif()*j) / slices)));
+        }
+    }
+    for (int i = 0; i < heights.size() - 1; ++i) {
+        for (int j = 0; j < slices; ++j) {
+            tube += format(STR(4 % d %d %d %d\n), i*slices + slices + j, i*slices + slices + (j + 1) % slices, i*slices + (j + 1) % slices, i*slices + j);
         }
     }
     return tube;
 }
 
-void App::createScene(String sceneName){
-    TextOutput output = TextOutput("scene\\"+ sceneName + ".off");
-    
+void App::createScene(String sceneName) {
+    TextOutput output = TextOutput("scene\\" + sceneName + ".off");
+
     //Create the models for the scene
     String modelString(makeTube(Array<float>(1), Array<float>(1), 1));
     output.writeSymbols(modelString);
@@ -281,8 +343,8 @@ void App::onInit() {
 
     // Call setScene(shared_ptr<Scene>()) or setScene(MyScene::create()) to replace
     // the default scene here.
-    
-    showRenderingStats      = false;
+
+    showRenderingStats = false;
 
     makeGUI();
     // For higher-quality screenshots:
@@ -293,7 +355,7 @@ void App::onInit() {
         //"G3D Sponza"
         "G3D Cornell Box" // Load something simple
         //developerWindow->sceneEditorWindow->selectedSceneName()  // Load the first scene encountered 
-        );
+    );
 }
 
 
@@ -305,7 +367,7 @@ void App::makeGUI() {
     developerWindow->videoRecordDialog->setEnabled(true);
 
     GuiPane* infoPane = debugPane->addPane("Info", GuiTheme::ORNATE_PANE_STYLE);
-    
+
     // Example of how to add debugging controls
     infoPane->addLabel("You can add GUI controls");
     infoPane->addLabel("in App::onInit().");
@@ -328,13 +390,13 @@ void App::makeGUI() {
         int width = 600;
         int height = 500;
         image = Image::create(width, height, ImageFormat::RGB32F());
-        drawGradiantBackground(Color3(0,1,0), Color3(0,0,1), height, width, image);
+        drawGradiantBackground(Color3(0, 1, 0), Color3(0, 0, 1), height, width, image);
         drawMyGraph(image);
         drawClock(image);
         drawCantorDust(20, 350, 220, 5, image);
         show(image);
     }
-    catch(...){
+    catch (...) {
         msgBox("Unable to load the image.");
     }
 }
@@ -431,10 +493,10 @@ bool App::onEvent(const GEvent& event) {
     // if ((event.type == GEventType::KEY_DOWN) && (event.key.keysym.sym == GKey::TAB)) { ... return true; }
     // if ((event.type == GEventType::KEY_DOWN) && (event.key.keysym.sym == 'p')) { ... return true; }
 
-    if ((event.type == GEventType::KEY_DOWN) && (event.key.keysym.sym == 'p')) { 
+    if ((event.type == GEventType::KEY_DOWN) && (event.key.keysym.sym == 'p')) {
         shared_ptr<DefaultRenderer> r = dynamic_pointer_cast<DefaultRenderer>(m_renderer);
-        r->setDeferredShading(! r->deferredShading());
-        return true; 
+        r->setDeferredShading(!r->deferredShading());
+        return true;
     }
 
     return false;
