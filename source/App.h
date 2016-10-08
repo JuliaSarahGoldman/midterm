@@ -27,6 +27,9 @@ protected:
     void drawCantorDust(float xSt, float xEn, float y, int level, shared_ptr<Image>& image);
     void drawThickLine(Point2 point1, Point2 point2, Color3 c, int thickness, shared_ptr<Image>& image);
 
+    //void generateShape(int depth, Point2int32 location, float cumulativeAngle, float drawLength, float moveAngle, Array<String>& symbolBuffer, Array<Array<Point2int32>>& edgeBuffer);
+    //String applyRules(int depth, Point2int32 location, float cumulativeAngle, float drawLength, float moveAngle, Array<String>& symbolBuffer, Array<Array<Point2int32>>& edgeBuffer);
+
 public:
     
     App(const GApp::Settings& settings = GApp::Settings());

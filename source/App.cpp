@@ -49,6 +49,50 @@ int main(int argc, const char* argv[]) {
 App::App(const GApp::Settings& settings) : GApp(settings) {
 }
 
+/*void App::generateShape(int depth, Point2int32 location, float cumulativeAngle, float drawLength, float moveAngle, Array<String>& symbolBuffer, Array<Array<Point2int32>>& edgeBuffer) {
+    if(depth == 0) return;
+
+    applyRules(depth, location, cumulativeAngle, drawLength, moveAngle, symbolBuffer, vertices, edgeBuffer);
+}
+
+void App::applyRules(int depth, Point2int32 location, float cumulativeAngle, float drawLength, float moveAngle, Array<String>& symbolBuffer, Array<Array<Point2int32>>& edgeBuffer) {
+    
+    float angle = cumulativeAngle;
+
+    for(int i(0); i < symbolBuffer.size(); ++i) {
+        if(symbolBuffer[i] == "-") {
+            angle -= moveAngle;
+        }    
+        else if(symbolBuffer[i] == "+") {
+            angle += moveAngle;
+        }    
+        else if(symbolBuffer[i] == "[") {
+            
+        }    
+        else if(symbolBuffer[i] == "]") {
+            
+        }    
+        else if(symbolBuffer[i] == "F") {
+            float radians = (angle/180.0f) * pif();
+            int x = lround(cos(radians));
+            int y = lround(sin(radians));
+
+            Point2int32 point(x, y);
+            Array<Point2int32> edge(location, point);
+            edgeBuffer.append(edge);
+            angle = cumulativeAngle;
+        }    
+        else if(symbolBuffer[i] == "X") {
+            Array<String> applyBuffer("-", "F", "-", "X", "+");
+            applyBuffer.append("F");
+            applyBuffer.append("+");
+            applyBuffer.append("X");
+
+            angle = cumulativeAngle;
+        }    
+    }
+}*/
+
 
 void App::drawLine(Point2 point1, Point2 point2, Color3 c, shared_ptr<Image>& image) {
     if (point1.x == point2.x) {
