@@ -100,7 +100,6 @@ void App::drawVLine(Point2 point1, Point2 point2, Color3 c, shared_ptr<Image>& i
     */
 
     // If drawVLine is called when x coords are equal, shouldn't we be drawing wrt y at a fixed x? See Below
-
     float y0;
     float y1;
     if (point2.y >= point1.y) {
