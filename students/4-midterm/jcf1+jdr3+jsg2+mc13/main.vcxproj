@@ -91,12 +91,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\App.cpp" />
-    <ClCompile Include="source\Drawing.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resources.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="data-files\greenCyl.Scene.Any" />
     <None Include="data-files\test.Scene.Any" />
     <None Include="doc-files\report.md.html" />
     <None Include="Doxyfile" />
