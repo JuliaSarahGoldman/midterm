@@ -6,13 +6,26 @@
         **Julia Goldman (jdg2@williams.edu),**
         **and Matheus de Carvalho Souza (mc13@williams.edu)** 
 
+2016-10-07: Thick lines
+=============================================================
+Matheus [21:45, 23:00]
+Maybe change drawVLine to write with respect to y, since x is the same? See code commeted into the function. 
+
+drawThickLine changes: 
+- Single outter for loop with inner if statements. Do that for other functions as well. 
+- Check if coordinates are inBound before drawing lines 
+- for flat and steep lines, add the thickness parameter to both x and y coordinates.
+
+Editing tips: 
+- Make all edits, and copy them to the buffer (and past it somewhere if you're afraid of changing the buffer). Then revert to old code. Comment old code out and paste edits in. This way we can easily go back to old code if we so decide. 
+
 2016-10-07: 136 Lab
 =============================================================
 11 am. Now leaving lab. Whoever comes next, if you want to keep working on this part of the code, I recommend either  trying to make 2D recursive branching structures using lines of a single width to get the strcuture of the needed code down, or attempting to make thicker lines.
 
 
 ![](2016-10-07_000_4-midterm_r1473_g3d_r875___.png)
-10:40 am. App can now replicate my 136 2D graphics lab. Not all of this functionality will be useful, but do no have a function for drawing arbitary 2D lines, and example code for using it. Next step: create a drawThickLine which can draw thicker lines. Can we just draw lines on either side of our line? 
+10:40 am. App can now replicate my 136 2D graphics lab. Not all of this functionality will be useful, but do now have a function for drawing arbitary 2D lines, and example code for using it. Next step: create a drawThickLine which can draw thicker lines. Can we just draw lines on either side of our line? 
 
 For horizontal line:
 above:*-------------------------------*
