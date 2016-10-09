@@ -1,6 +1,6 @@
 /** \file App.cpp */
 #include "App.h"
-
+#include "Drawing.h"
 // Tells C++ to invoke command-line main() function even on OS X and Win32.
 G3D_START_AT_MAIN();
 
@@ -59,22 +59,22 @@ void App::drawLine(Point2 point1, Point2 point2, Color3 c, shared_ptr<Image>& im
 }
 
 void App::applyRules(int depth, Point2int32 location, float cumulativeAngle, float drawLength, float moveAngle, Array<String>& symbolBuffer, Array<Array<Point2int32>>& edgeBuffer) {
-    
+
     float angle = cumulativeAngle;
 
     for(int i(0); i < symbolBuffer.size(); ++i) {
         if(symbolBuffer[i] == "-") {
             angle -= moveAngle;
-        }    
+        }
         else if(symbolBuffer[i] == "+") {
             angle += moveAngle;
-        }    
+        }
         else if(symbolBuffer[i] == "[") {
-            
-        }    
+
+        }
         else if(symbolBuffer[i] == "]") {
-            
-        }    
+
+        }
         else if(symbolBuffer[i] == "F") {
             float radians = (angle/180.0f) * pif();
             int x = lround(cos(radians));
@@ -84,7 +84,7 @@ void App::applyRules(int depth, Point2int32 location, float cumulativeAngle, flo
             Array<Point2int32> edge(location, point);
             edgeBuffer.append(edge);
             angle = cumulativeAngle;
-        }    
+        }
         else if(symbolBuffer[i] == "X") {
             Array<String> applyBuffer("-", "F", "-", "X", "+");
             applyBuffer.append("F");
@@ -92,7 +92,7 @@ void App::applyRules(int depth, Point2int32 location, float cumulativeAngle, flo
             applyBuffer.append("X");
 
             angle = cumulativeAngle;
-        }    
+        }
     }
 }*/
 
@@ -177,16 +177,39 @@ void App::makeGUI() {
 
     shared_ptr<G3D::Image> image;
     try {
-      /*  int width = 600;
+        int width = 600;
         int height = 500;
         image = Image::create(width, height, ImageFormat::RGB32F());
-        drawGradiantBackground(Color3(0, 1, 0), Color3(0, 0, 1), height, width, image);
-        drawMyGraph(image);
-        drawClock(image);
-        drawCantorDust(20, 350, 220, 5, image);
+
+        shared_ptr<Drawing> painter(new Drawing());
 
 
-        show(image);*/
+        painter->drawGradiantBackground(Color3(0, 1, 0), Color3(0, 0, 1), height, width, image);
+        // painter->drawThickLine(Point2int32(0, 0), Point2int32(599, 499), Color3(1, 0, 0), 5, image);
+        painter->drawLine(Point2int32(300, 0), Point2int32(300, 499), Color3(1, 0, 0), image);
+        painter->drawLine(Point2int32(0, 250), Point2int32(599, 250), Color3(1, 0, 0), image);
+        // Flat diagonals
+        painter->drawLine(Point2int32(0, 0), Point2int32(599, 499), Color3(1, 0, 0), image); // Negative
+        painter->drawLine(Point2int32(0, 499), Point2int32(599, 0), Color3(1, 0, 0), image); //Positive
+        //Steep diagonals
+        painter->drawLine(Point2int32(0, 0), Point2int32(100, 499), Color3(1, 0, 0), image); // Negative
+        painter->drawLine(Point2int32(100, 499), Point2int32(200, 0), Color3(1, 0, 0), image); // Positive
+
+        painter->drawThickLine(Point2int32(300, 0), Point2int32(300, 499), Color3(1, 0, 0),5, image);
+        painter->drawThickLine(Point2int32(0, 250), Point2int32(599, 250), Color3(1, 0, 0),5, image);
+        // Flat diagonals
+        painter->drawThickLine(Point2int32(0, 0), Point2int32(599, 499), Color3(1, 0, 0),5, image); // Negative
+        painter->drawThickLine(Point2int32(0, 499), Point2int32(599, 0), Color3(1, 0, 0),5, image); //Positive
+        //Steep diagonals
+        painter->drawThickLine(Point2int32(0, 0), Point2int32(100, 499), Color3(1, 0, 0),5, image); // Negative
+        painter->drawThickLine(Point2int32(100, 499), Point2int32(200, 0), Color3(1, 0, 0),5, image); // Positive
+
+       // drawMyGraph(image);
+        //drawClock(image);
+        //drawCantorDust(20, 350, 220, 5, image);
+
+
+        show(image);
     }
     catch (...) {
         msgBox("Unable to load the image.");
