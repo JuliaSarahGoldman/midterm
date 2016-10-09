@@ -48,16 +48,17 @@ int main(int argc, const char* argv[]) {
 
 App::App(const GApp::Settings& settings) : GApp(settings) {
     edgeBuffer = Array<Array<Point2int32>>();
+    thickBuffer = Array<float>();
 }
 
 void App::writeCoral() {
     shared_ptr<Drawing> painter(new Drawing());
     shared_ptr<G3D::Image> image;
-    generateShape(6, Point2int32(300,499), -90, 100, 25, Array<String>("F","X"));
+    generateShape(6, Point2int32(640,360), -90, 100, 15, 12.0f, Array<String>("X"));
 
     try {
-        int width = 600;
-        int height = 500;
+        int width = 1280;
+        int height = 720;
         image = Image::create(width, height, ImageFormat::RGB32F());
         image->setAll(Color4(1,1,1,0));
 
@@ -73,15 +74,15 @@ void App::writeCoral() {
     }
 }
 
-void App::generateShape(int depth, Point2int32 location, float cumulativeAngle, float drawLength, float moveAngle, Array<String>& symbolBuffer) {
+void App::generateShape(int depth, Point2int32 location, float cumulativeAngle, float drawLength, float moveAngle, float thick, Array<String>& symbolBuffer) {
     if(depth == 0) return;
 
 //void App::drawLine(Point2 point1, Point2 point2, Color3 c, shared_ptr<Image>& image) {
 
-    applyRules(depth, location, cumulativeAngle, drawLength, moveAngle, symbolBuffer);
+    applyRules(depth, location, cumulativeAngle, drawLength, moveAngle, thick, symbolBuffer);
 }
 
-void App::applyRules(int depth, Point2int32 location, float cumulativeAngle, float drawLength, float moveAngle, Array<String>& symbolBuffer) {
+void App::applyRules(int depth, Point2int32 location, float cumulativeAngle, float drawLength, float moveAngle, float thick, Array<String>& symbolBuffer) {
     //float angle = cumulativeAngle;
     //Point2int32 position = location;
     int isBracket = 0;
@@ -111,13 +112,17 @@ void App::applyRules(int depth, Point2int32 location, float cumulativeAngle, flo
             //position = location;
         }
         else if(symbolBuffer[i] == "F") {
+            float randLen = drawLength * G3D::Random::threadCommon().uniform(0.5f, 1.0);
+
+
             float radians = (angles[isBracket]/180.0f) * pif();
-            int x = lround(cos(radians) * drawLength) + positions[isBracket].x;
-            int y = lround(sin(radians) * drawLength) + positions[isBracket].y;
+            int x = lround(cos(radians) * randLen) + positions[isBracket].x;
+            int y = lround(sin(radians) * randLen) + positions[isBracket].y;
 
             Point2int32 point(x, y);
             Array<Point2int32> edge(positions[isBracket], point);
             edgeBuffer.append(edge);
+            thickBuffer.append(thick);
 
             positions[isBracket] = point;
         }
@@ -126,14 +131,23 @@ void App::applyRules(int depth, Point2int32 location, float cumulativeAngle, flo
             float count = G3D::Random::threadCommon().uniform(0.0f, 1.0);
             Array<String> applyBuffer = Array<String>();
 
-            if(count > 0.5f) {
-                applyBuffer.append("-", "[", "F", "X", "]");
-                applyBuffer.append("F");
-                applyBuffer.append("+");
-                applyBuffer.append("[");
-                applyBuffer.append("F");
-                applyBuffer.append("X");
-                applyBuffer.append("]");
+            if(count > 0.6f) {
+                applyBuffer.append("-", "[");
+                applyBuffer.append("F", "X", "]", "-", "[", "-");
+                applyBuffer.append("[", "F", "X", "]", "]", "+");
+                applyBuffer.append("[", "F", "X", "]", "+", "[");
+                applyBuffer.append("+", "[", "F", "X", "]", "]");
+                applyBuffer.append("-", "[", "-", "[", "-", "[");
+                applyBuffer.append("X", "F", "]", "]", "]", "+");
+                applyBuffer.append("[", "+", "[", "+", "[", "X");
+                applyBuffer.append("F", "]", "]", "]");
+            } else if (count > 0.2) {
+                applyBuffer.append("-", "[");
+                applyBuffer.append("F", "X", "]", "-", "[", "-");
+                applyBuffer.append("[", "F", "X", "]", "]", "+");
+                applyBuffer.append("[", "F", "X", "]", "+", "[");
+                applyBuffer.append("+", "[", "F", "X", "]", "]");
+                applyBuffer.append("[","F","X","]");
             } else {
                 applyBuffer.append("-", "[", "F", "X", "]");
                 applyBuffer.append("+");
@@ -166,7 +180,7 @@ void App::applyRules(int depth, Point2int32 location, float cumulativeAngle, flo
             applyBuffer.append("X");
             applyBuffer.append("]");*/
 
-            generateShape(depth - 1, positions[isBracket], angles[isBracket], drawLength * 0.8, moveAngle, applyBuffer);
+            generateShape(depth - 1, positions[isBracket], angles[isBracket], drawLength * 0.8f, moveAngle, thick * 0.7f, applyBuffer);
         }
     }
 }
