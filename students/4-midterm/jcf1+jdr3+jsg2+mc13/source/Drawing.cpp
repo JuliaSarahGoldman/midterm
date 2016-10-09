@@ -75,24 +75,19 @@ void Drawing::drawFlatLine(int x0, int x1, int y, float m, const Color4& c, shar
 
 
 void Drawing::drawFlatLine(const Point2int32& point1, const Point2int32& point2, int offset, const Color4& c, shared_ptr<Image>& image) const {
-    float x0;
-    float x1;
-    float y0;
-    float y1;
-    if (point2.x >= point1.x) {
-        x0 = point1.x;
-        x1 = point2.x;
-        y0 = point1.y;
-        y1 = point2.y;
+    float y(offset); // Offset y by thick coordinate
+    float x0(min<float>(point1.x, point2.x));
+    float x1(max<float>(point1.x, point2.x));
+
+    if (point2.x >= point1.x) { // Center y at appropriate 
+        y+= point1.y;
     }
     else {
-        x0 = point2.x;
-        x1 = point1.x;
-        y0 = point2.y;
-        y1 = point1.y;
+        y += point2.y;
     }
+
     float m = 1.0f * (point2.y - point1.y) / (point2.x - point1.x);
-    float y = y0+offset;
+
 
     for (int x = (int)x0; x <= x1; ++x, y += m) {
         if (inBounds(x, y, image)) {
@@ -111,31 +106,19 @@ void Drawing::drawSteepLine(int x, int y0, int y1, float m, const Color4& c, sha
 };
 
 void Drawing::drawSteepLine(const Point2int32& point1, const Point2int32& point2, int offset, const Color4& c, shared_ptr<Image>& image) const {
-    float x0;
-    float x1;
-    float y0;
-    float y1;
-    if (point2.y >= point1.y) {
-        x0 = point1.x;
-        x1 = point2.x;
-        y0 = point1.y;
-        y1 = point2.y;
+    float x(offset); // Offset x by thick coordinate
+    float y0(min<float>(point1.y, point2.y));
+    float y1(max<float>(point1.y, point2.y));
+
+    if (point2.y >= point1.y) { // Center x at appropriate 
+        x+= point1.x;
     }
     else {
-        x0 = point2.x;
-        x1 = point1.x;
-        y0 = point2.y;
-        y1 = point1.y;
+        x += point2.x;
     }
 
     // Inverse slope
-    float m_i = 1.0f * (point2.x - point1.x) / (point2.y - point1.y);;
-    float x = x0+offset;
-  
-    //float offY = m > 0 ? sin(pi() / 4)*offset : -sin(pi() / 4)*offset;
-    //float offX = m > 0 ? cos(pi() / 4)*offset : -cos(pi() / 4)*offset;
-
-    //float offX = offset / sin(atan(1 / m_i));
+    float m_i = 1.0f * (point2.x - point1.x) / (point2.y - point1.y);
 
     for (int y = (int)y0; y <= y1; ++y, x += m_i) {
         if (inBounds(x, y, image)) {
@@ -179,83 +162,10 @@ void Drawing::drawThickLine(const Point2int32& point1, const Point2int32& point2
             }
         }
     }
-  /*  for (int i(-halfGirth); i <= halfGirth; ++i) {
-        //        Point2int32 p1(point1.x + i, point1.y + i);
-        //        Point2int32 p2(point2.x + i, point2.y + i);
-        //        drawLine(p1, p2, c , image);
-        drawLine(point1, point2, i, c, image);
-    }*/
-}
+ }
 
 
-/*//added is how much the line is thickened by on each side
-void Drawing::drawThickLine(Point2int32 point1, Point2int32 point2, Color4 c, int added, shared_ptr<Image>& image) const {
-    float height(image->height());
-    float width(image->width());
 
-    // Moved if statements into single for loop
-    // Do this for the other functions as well!
-    for (int i = -added; i <= added; ++i) {
-        if (point1.x == point2.x) {
-            float x(point1.x + i);
-            if (x > 0 && x < width) {
-                // Changed from point1.x+i and point2.x+i to x, they're the same anyway.
-                drawVLine(Point2int32(x, point1.y), Point2int32(x, point1.y), c, image);
-            }
-        }
-        else if (point1.y == point2.y) {
-            float y(point1.y + i);
-
-            if (y > 0 && y < height) {
-                // Changed from point1.y+i and point2.y+i to y, they're the same anyway.
-                drawHLine(Point2int32(point1.x, y), Point2int32(point2.x, y), c, image);
-            }
-        }
-        // else {
-        float slope = 1.0f * (point2.y - point1.y) / (point2.x - point1.x);
-        float x1(point1.x + i);
-        float y1(point1.y + i);
-        float x2(point2.x + i);
-        float y2(point2.y + i);
-
-        bool inBounds = (y1 > 0 && y1 < height) && (x1 > 0 && x1 < width) && (y2 > 0 && y2 < height) && (x2 > 0 && x2 < width);
-        if (inBounds) {
-            if (fabs(slope) <= 1) {
-                // Changed from point[1,2].x to point[1,2].x+i -> then to x[1,2] and y[1,2]
-                drawFlatLine(Point2int32(x1, y1), Point2int32(x2, y2), c, image);
-            }
-            else {
-                drawSteepLine(Point2int32(x1, y1), Point2int32(x2, y2), c, image);
-            }
-        }
-        //    }
-    }
-    // OLD CODE
-    /*
-     if (point1.x == point2.x){
-        for(int i = -added; i<=added; ++i){
-            drawVLine(Point2int32(point1.x+i, point1.y), Point2int32(point2.x+i,point1.y), c, image);
-        }
-      }
-      else if (point1.y == point2.y){
-        for(int i = -added; i<=added; ++i){
-            drawHLine(Point2int32(point1.x, point1.y+i), Point2int32(point2.x, point2.y+i), c, image);
-        }
-      }
-      float slope = 1.0f * (point2.y - point1.y) / (point2.x - point1.x);
-      if (fabs(slope) <= 1){
-        for(int i = -added; i<=added; ++i){
-            drawFlatLine(Point2int32(point1.x, point1.y+i), Point2int32(point2.x, point2.y+i), c, image);
-        }
-      }
-      else{
-        for(int i = -added; i<=added; ++i){
-            drawSteepLine(Point2int32(point1.x, point1.y+i), Point2int32(point2.x, point2.y+i), c, image);
-        }
-      }
-
-}
-*/
 void Drawing::drawGradiantBackground(const Color4& c1, const Color4& c2, int height, int width, shared_ptr<Image>& image) const {
     Color4 current = c1;
     for (int y = 0; y < height; ++y) {
@@ -327,69 +237,5 @@ void Drawing::drawCantorDust(float xSt, float xEn, float y, int level, shared_pt
     if (level > 1) {
         drawCantorDust(xSt, (xEn - xSt) / 3 + xSt, y + 10, level - 1, image);
         drawCantorDust(2.0 * (xEn - xSt) / 3 + xSt, xEn, y + 10, level - 1, image);
-    }
-}
-
-String Drawing::createLString(const String& system) {
-
-    String newSystem("");
-    for (size_t current = 0; current < system.size(); current++) {
-        newSystem = newSystem + doRule(system[current]);
-    } return newSystem;
-}
-
-//Helper method for the creation of an LString so X and F go through different changes
-String Drawing::doRule(char toChange) {
-    if (toChange == 'X')
-        return "F-[[X]+X]+F[+FX]-X";
-    else if (toChange == 'F')
-        return "FF";
-    else { String toReturn; toReturn[0] = toChange; return toReturn; }
-
-}
-
-//Method to be called to create an LSystem that goes through n iterations
-void Drawing::drawLSystem(const int nIterate, int x, int y, float angle, const Color4& c, shared_ptr<Image>& image) {
-    String lString = createLString("XF");
-    std::stack<int> oldX;
-    std::stack<int> oldY;
-    float nextX = x;
-    float nextY = y;
-
-    //Make appropriate corrections to angle if not in radians
-    while (angle > 360) {
-        angle -= 360;
-    }
-    while (angle < 360) {
-        angle += 360;
-    }
-    if (angle > 2 * pi()) {
-        angle *= pi() / 180;
-    }
-
-    for (size_t current = 0; current < lString.size(); ++current) {
-        if (lString[current] == '[') {
-            oldX.push(x);
-            oldY.push(y);
-        }
-        else if (lString[current] == ']') {
-            x = oldX.top();
-            y = oldY.top();
-            oldX.pop();
-            oldY.pop();
-        }
-        else if (lString[current] == '+') {
-            nextX -= 20 * cos(angle);
-            nextY -= 30 * sin(angle);
-        }
-        else if (lString[current] == '-') {
-            nextX += 20 * cos(angle);
-            nextY -= 30 * sin(angle);
-        }
-        else if (lString[current] == 'F') {
-            drawLine(Point2int32(x, int(nextX + 0.5f)), Point2int32(y, int(nextY + 0.5f)), c, image);
-            x = nextX;
-            y = nextY;
-        } //X does nothing as it is simply a controller
     }
 }
