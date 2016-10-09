@@ -6,6 +6,31 @@
         **Julia Goldman (jdg2@williams.edu),**
         **and Matheus de Carvalho Souza (mc13@williams.edu)** 
 
+2016-10-09: Thick lines again
+=============================================================
+
+![Thick lines](2016-10-09_004_4-midterm_r1512_g3d_r875___Thick_lines.png)
+
+Diagonals are still not perfect.
+
+$$ t_y = \frac{t}{1 - (point2 - point1).direction().y)}$$ so the denominator approaches infinity as direction.y() approaches 1. 
+
+Thus results in diagonal lines having the proper thickness at direction.y or direction.x = 0, but increasing to 2*t at 30 degrees and 60 degrees repectively, going above twice the thickness as they approach 45 degrees. We need to think of away to solve this.
+
+2016-10-09: Thick lines work!
+=============================================================
+![Thick Lines](2016-10-09_002_4-midterm_r1508_g3d_r875_.png)
+
+Solution: for diagonal lines: 
+- flat lines: determine thickness with respect to the y component of the direction of the line. 
+- steep lines: determine thickness with respect to the x component of the direction of the line. 
+- iterate through range [-thickness, thickness] to draw lines. 
+
+$$ t_y = \frac{t}{(point2 - point1).direction().y)}$$ , where t is thickness and t_y thickness in y. 
+
+Still need to round point edges 
+
+
 2016-10-09: Crazy Coral
 =============================================================
 
@@ -14,25 +39,7 @@
 more coral generated with randomness.  Looks like a good start for fan coral.
 
 
-
-2016-10-09: Generating Using Randomness
-=============================================================
-
-![](2016-10-09_003_4-midterm_r1505_g3d_r875___.png)
-
-2016-10-09: Generating Using Randomness
-=============================================================
-
-![](2016-10-09_003_4-midterm_r1505_g3d_r875___.png)
-
-2016-10-09:
-=============================================================
-
-![](2016-10-09_005_4-midterm_r1513_g3d_r875__.jpg)
-
-
-
-2016-10-09: Attempting two plains.
+2016-10-09: Attempting two planes.
 =============================================================
 
 ![](2016-10-09_004_4-midterm_r1513_g3d_r875__.jpg)
@@ -55,7 +62,6 @@ Loop goes from -var to var. The gradiant should be black (0,0,0) at -var and var
 
 ![](2016-10-09_003_4-midterm_r1505_g3d_r875___.png)
 
->>>>>>> .r1514
 This was generated with updated L-Sysytem code allowing more complex rules and
 using some randomness in how we expand rules.
 
