@@ -92,7 +92,7 @@ void Drawing::drawFlatLine(const Point2int32& point1, const Point2int32& point2,
         y1 = point1.y;
     }
     float m = 1.0f * (point2.y - point1.y) / (point2.x - point1.x);
-    float y =  m < 0 ? y0+offset : y0-offset;
+    float y = y0+offset;
 
     for (int x = (int)x0; x <= x1; ++x, y += m) {
         if (inBounds(x, y, image)) {
@@ -165,13 +165,14 @@ void Drawing::drawThickLine(const Point2int32& point1, const Point2int32& point2
         float m = (point2.y - point1.y) / (point2.x - point1.x);
         Vector2 d(point2-point1);
         if (fabs(m) <= 1) { 
-            int t_y = halfGirth/d.direction().y;
+            int t_y = fabs(halfGirth/d.direction().y);
+            debugPrintf("%d\n",t_y );
             for(int i(-t_y); i < t_y; ++i) { 
                 drawFlatLine(point1, point2, i, c, image);
             }
         }
         else {
-            int t_x = halfGirth/d.direction().y; 
+            int t_x = abs(halfGirth/d.direction().x); 
             for(int i(-t_x); i < t_x; ++i) { 
                 drawSteepLine(point1, point2, i, c, image);
             }
