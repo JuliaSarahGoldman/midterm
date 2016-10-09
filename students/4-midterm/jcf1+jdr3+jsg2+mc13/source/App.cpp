@@ -47,54 +47,129 @@ int main(int argc, const char* argv[]) {
 
 
 App::App(const GApp::Settings& settings) : GApp(settings) {
+    edgeBuffer = Array<Array<Point2int32>>();
 }
 
-/*void App::generateShape(int depth, Point2int32 location, float cumulativeAngle, float drawLength, float moveAngle, Array<String>& symbolBuffer, Array<Array<Point2int32>>& edgeBuffer) {
+void App::writeCoral() {
+    shared_ptr<Drawing> painter(new Drawing());
+    shared_ptr<G3D::Image> image;
+    generateShape(6, Point2int32(300,499), -90, 100, 25, Array<String>("F","X"));
+
+    try {
+        int width = 600;
+        int height = 500;
+        image = Image::create(width, height, ImageFormat::RGB32F());
+        image->setAll(Color4(1,1,1,0));
+
+        for(int i(0); i < edgeBuffer.size(); ++i) {
+            Point2int32 s = edgeBuffer[i][0];
+            Point2int32 f = edgeBuffer[i][1];
+            painter->drawLine(s, f, Color3(1,0,0), image);   
+        }
+
+        show(image);
+    } catch (...) {
+        msgBox("Unable to load the image.");
+    }
+}
+
+void App::generateShape(int depth, Point2int32 location, float cumulativeAngle, float drawLength, float moveAngle, Array<String>& symbolBuffer) {
     if(depth == 0) return;
 
+//void App::drawLine(Point2 point1, Point2 point2, Color3 c, shared_ptr<Image>& image) {
 
-void App::drawLine(Point2 point1, Point2 point2, Color3 c, shared_ptr<Image>& image) {
-
-    applyRules(depth, location, cumulativeAngle, drawLength, moveAngle, symbolBuffer, vertices, edgeBuffer);
+    applyRules(depth, location, cumulativeAngle, drawLength, moveAngle, symbolBuffer);
 }
 
-void App::applyRules(int depth, Point2int32 location, float cumulativeAngle, float drawLength, float moveAngle, Array<String>& symbolBuffer, Array<Array<Point2int32>>& edgeBuffer) {
+void App::applyRules(int depth, Point2int32 location, float cumulativeAngle, float drawLength, float moveAngle, Array<String>& symbolBuffer) {
+    //float angle = cumulativeAngle;
+    //Point2int32 position = location;
+    int isBracket = 0;
+    Array<float> angles(cumulativeAngle);
+    Array<Point2int32> positions(location);
 
-    float angle = cumulativeAngle;
+    angles.resize(20);
+    positions.resize(20);
 
     for(int i(0); i < symbolBuffer.size(); ++i) {
         if(symbolBuffer[i] == "-") {
-            angle -= moveAngle;
+            //angle -= moveAngle;
+            angles[isBracket + 1] = angles[isBracket] - moveAngle;
         }
         else if(symbolBuffer[i] == "+") {
-            angle += moveAngle;
+            //angle += moveAngle;
+            angles[isBracket + 1] = angles[isBracket] + moveAngle;
         }
         else if(symbolBuffer[i] == "[") {
-
+            ++isBracket;
+            positions[isBracket] = positions[isBracket-1];
         }
         else if(symbolBuffer[i] == "]") {
+            --isBracket;
 
+            //angle = cumulativeAngle;
+            //position = location;
         }
         else if(symbolBuffer[i] == "F") {
-            float radians = (angle/180.0f) * pif();
-            int x = lround(cos(radians));
-            int y = lround(sin(radians));
+            float radians = (angles[isBracket]/180.0f) * pif();
+            int x = lround(cos(radians) * drawLength) + positions[isBracket].x;
+            int y = lround(sin(radians) * drawLength) + positions[isBracket].y;
 
             Point2int32 point(x, y);
-            Array<Point2int32> edge(location, point);
+            Array<Point2int32> edge(positions[isBracket], point);
             edgeBuffer.append(edge);
-            angle = cumulativeAngle;
+
+            positions[isBracket] = point;
         }
         else if(symbolBuffer[i] == "X") {
-            Array<String> applyBuffer("-", "F", "-", "X", "+");
-            applyBuffer.append("F");
-            applyBuffer.append("+");
-            applyBuffer.append("X");
 
-            angle = cumulativeAngle;
+            float count = G3D::Random::threadCommon().uniform(0.0f, 1.0);
+            Array<String> applyBuffer = Array<String>();
+
+            if(count > 0.5f) {
+                applyBuffer.append("-", "[", "F", "X", "]");
+                applyBuffer.append("F");
+                applyBuffer.append("+");
+                applyBuffer.append("[");
+                applyBuffer.append("F");
+                applyBuffer.append("X");
+                applyBuffer.append("]");
+            } else {
+                applyBuffer.append("-", "[", "F", "X", "]");
+                applyBuffer.append("+");
+                applyBuffer.append("[");
+                applyBuffer.append("F");
+                applyBuffer.append("X");
+                applyBuffer.append("]");
+            }
+
+            /*Array<String> applyBuffer("F", "-", "[", "[", "X");
+            applyBuffer.append("]");
+            applyBuffer.append("+");
+            applyBuffer.append("[");
+            applyBuffer.append("X");
+            applyBuffer.append("]");
+            applyBuffer.append("]");
+            applyBuffer.append("+");
+            applyBuffer.append("[");
+            applyBuffer.append("F");
+            applyBuffer.append("]");
+            applyBuffer.append("[");
+            applyBuffer.append("+");
+            applyBuffer.append("[");
+            applyBuffer.append("F");
+            applyBuffer.append("X");
+            applyBuffer.append("]");
+            applyBuffer.append("]");
+            applyBuffer.append("-");
+            applyBuffer.append("[");
+            applyBuffer.append("X");
+            applyBuffer.append("]");*/
+
+            generateShape(depth - 1, positions[isBracket], angles[isBracket], drawLength * 0.8, moveAngle, applyBuffer);
         }
     }
-}*/
+}
 
 
 String App::makeTube(Array<float>& radii, Array<float>& heights, int slices) {
@@ -141,6 +216,7 @@ void App::onInit() {
     // developerWindow->videoRecordDialog->setScreenShotFormat("PNG");
     // developerWindow->videoRecordDialog->setCaptureGui(false);
     developerWindow->cameraControlWindow->moveTo(Point2(developerWindow->cameraControlWindow->rect().x0(), 0));
+    writeCoral();
     loadScene(
         //"G3D Sponza"
         "G3D Cornell Box" // Load something simple
