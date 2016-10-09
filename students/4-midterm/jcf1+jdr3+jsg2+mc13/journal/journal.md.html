@@ -6,6 +6,14 @@
         **Julia Goldman (jdg2@williams.edu),**
         **and Matheus de Carvalho Souza (mc13@williams.edu)** 
 
+2016-10-09: Getting our Gradiants
+=============================================================
+Plans:
+void drawThickLine(const Point2int32& point1, const Point2int32& point2, const Color3& c, int halfGirth, shared_ptr<Image>& image, shared_ptr<Image>& map);
+
+In every for loop within thickline, we will call draw<whatever>line twice, once with each image. The first will get the color, the second will get a color between black and white based on where it is in the loop.
+Loop goes from -var to var. The gradiant should be black (0,0,0) at -var and var, and (1,1,1) at 0. So, increment = 1.0f/var. Or is it 1.0f/(var-1)? Update with increment each time, but beware the sign of i. 
+
 2016-10-09: Generating Using Randomness
 =============================================================
 
