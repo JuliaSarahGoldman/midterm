@@ -294,6 +294,12 @@ void App::makeGUI() {
         painter->drawThickLine(Point2int32(0, 0), Point2int32(100, 499), Color3(1, 0, 0),5, image); // Negative
         painter->drawThickLine(Point2int32(100, 499), Point2int32(200, 0), Color3(1, 0, 0),5, image); // Positive
 
+        //Really Flat diagonals 
+        painter->drawThickLine(Point2int32(0,250), Point2int32(599, 300), Color3(1,0,0), 5, image);
+
+        //Really Steep diagonals 
+        painter->drawThickLine(Point2int32(400,0), Point2int32(410, 499), Color3(1,0,0), 5, image);
+
        // drawMyGraph(image);
         //drawClock(image);
         //drawCantorDust(20, 350, 220, 5, image);

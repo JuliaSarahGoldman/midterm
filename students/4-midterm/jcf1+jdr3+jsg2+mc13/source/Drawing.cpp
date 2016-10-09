@@ -11,11 +11,11 @@ bool Drawing::inBounds(int x, int y, const shared_ptr<Image>& image) const {
     return x >= 0 && y >= 0 && x < width && y < height;
 };
 
-void Drawing::drawLine(const Point2int32& point1, const Point2int32& point2, const Color3& c, shared_ptr<Image>& image) const {
+void Drawing::drawLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, shared_ptr<Image>& image) const {
     drawLine(point1, point2, 0, c, image);
 };
 
-void Drawing::drawLine(const Point2int32& point1, const Point2int32& point2, int offset, const Color3& c, shared_ptr<Image>& image) const {
+void Drawing::drawLine(const Point2int32& point1, const Point2int32& point2, int offset, const Color4& c, shared_ptr<Image>& image) const {
     int x0(min<int>(point1.x, point2.x));
     int x1(max<int>(point1.x, point2.x));
     int y0(min<int>(point1.y, point2.y));
@@ -37,7 +37,7 @@ void Drawing::drawLine(const Point2int32& point1, const Point2int32& point2, int
     }
 }
 
-void Drawing::drawVLine(int x, int y0, int y1, const Color3&c, shared_ptr<Image>& image) const {
+void Drawing::drawVLine(int x, int y0, int y1, const Color4&c, shared_ptr<Image>& image) const {
     for (int y = y0; y <= y1; ++y) {
         if (inBounds(x, y, image)) {
             image->set(x, y, c);
@@ -46,7 +46,7 @@ void Drawing::drawVLine(int x, int y0, int y1, const Color3&c, shared_ptr<Image>
 
 }
 
-void Drawing::drawHLine(int x0, int x1, int y, const Color3& c, shared_ptr<Image>& image) const {
+void Drawing::drawHLine(int x0, int x1, int y, const Color4& c, shared_ptr<Image>& image) const {
     for (int x = x0; x <= x1; ++x) {
         if (inBounds(x, y, image)) {
             image->set(x, y, c);
@@ -54,7 +54,7 @@ void Drawing::drawHLine(int x0, int x1, int y, const Color3& c, shared_ptr<Image
     }
 }
 
-/*void Drawing::drawHLine(Point2int32 point1, Point2int32 point2, Color3 c, shared_ptr<Image>& image) {
+/*void Drawing::drawHLine(Point2int32 point1, Point2int32 point2, Color4 c, shared_ptr<Image>& image) {
     float x0;
     float x1;
     x0 = min<int>(point1.x, point2.x);
@@ -65,7 +65,7 @@ void Drawing::drawHLine(int x0, int x1, int y, const Color3& c, shared_ptr<Image
     }
 }*/
 
-void Drawing::drawFlatLine(int x0, int x1, int y, float m, const Color3& c, shared_ptr<Image>& image) const {
+void Drawing::drawFlatLine(int x0, int x1, int y, float m, const Color4& c, shared_ptr<Image>& image) const {
     for (int x = x0; x <= x1; ++x, y += m) {
         if (inBounds(x, int(y + .5f), image)) {
             image->set(x, int(y + .5f), c);
@@ -74,7 +74,7 @@ void Drawing::drawFlatLine(int x0, int x1, int y, float m, const Color3& c, shar
 };
 
 
-void Drawing::drawFlatLine(const Point2int32& point1, const Point2int32& point2, int offset, const Color3& c, shared_ptr<Image>& image) const {
+void Drawing::drawFlatLine(const Point2int32& point1, const Point2int32& point2, int offset, const Color4& c, shared_ptr<Image>& image) const {
     float x0;
     float x1;
     float y0;
@@ -102,7 +102,7 @@ void Drawing::drawFlatLine(const Point2int32& point1, const Point2int32& point2,
 }
 
 
-void Drawing::drawSteepLine(int x, int y0, int y1, float m, const Color3& c, shared_ptr<Image>& image) const {
+void Drawing::drawSteepLine(int x, int y0, int y1, float m, const Color4& c, shared_ptr<Image>& image) const {
     for (int y = y0; y <= y1; ++y, x += 1 / m) {
         if (inBounds(int(x + .5f), y, image)) {
             image->set(int(x + .5f), y, c);
@@ -110,7 +110,7 @@ void Drawing::drawSteepLine(int x, int y0, int y1, float m, const Color3& c, sha
     }
 };
 
-void Drawing::drawSteepLine(const Point2int32& point1, const Point2int32& point2, int offset, const Color3& c, shared_ptr<Image>& image) const {
+void Drawing::drawSteepLine(const Point2int32& point1, const Point2int32& point2, int offset, const Color4& c, shared_ptr<Image>& image) const {
     float x0;
     float x1;
     float y0;
@@ -130,21 +130,21 @@ void Drawing::drawSteepLine(const Point2int32& point1, const Point2int32& point2
 
     // Inverse slope
     float m_i = 1.0f * (point2.x - point1.x) / (point2.y - point1.y);;
-    float x = x0;
-    int offY = offset*sign(m_i);
+    float x = x0+offset;
+  
     //float offY = m > 0 ? sin(pi() / 4)*offset : -sin(pi() / 4)*offset;
     //float offX = m > 0 ? cos(pi() / 4)*offset : -cos(pi() / 4)*offset;
 
     //float offX = offset / sin(atan(1 / m_i));
 
     for (int y = (int)y0; y <= y1; ++y, x += m_i) {
-        if (inBounds(x, y+offY, image)) {
-            image->set(x, y+offY, c);
+        if (inBounds(x, y, image)) {
+            image->set(x, y, c);
         }
     }
 }
 
-void Drawing::drawThickLine(const Point2int32& point1, const Point2int32& point2, const Color3& c, int halfGirth, shared_ptr<Image>& image) const {
+void Drawing::drawThickLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, int halfGirth, shared_ptr<Image>& image) const {
     int x0(min<int>(point1.x, point2.x));
     int x1(max<int>(point1.x, point2.x));
     int y0(min<int>(point1.y, point2.y));
@@ -165,14 +165,15 @@ void Drawing::drawThickLine(const Point2int32& point1, const Point2int32& point2
         float m = (point2.y - point1.y) / (point2.x - point1.x);
         Vector2 d(point2-point1);
         if (fabs(m) <= 1) { 
-            int t_y = fabs(halfGirth/d.direction().y);
-            debugPrintf("%d\n",t_y );
+
+            int t_y = abs(halfGirth/(1 - abs(d.direction().y)));
+
             for(int i(-t_y); i < t_y; ++i) { 
                 drawFlatLine(point1, point2, i, c, image);
             }
         }
         else {
-            int t_x = abs(halfGirth/d.direction().x); 
+            int t_x = abs(halfGirth /(1-d.direction().x)); 
             for(int i(-t_x); i < t_x; ++i) { 
                 drawSteepLine(point1, point2, i, c, image);
             }
@@ -188,7 +189,7 @@ void Drawing::drawThickLine(const Point2int32& point1, const Point2int32& point2
 
 
 /*//added is how much the line is thickened by on each side
-void Drawing::drawThickLine(Point2int32 point1, Point2int32 point2, Color3 c, int added, shared_ptr<Image>& image) const {
+void Drawing::drawThickLine(Point2int32 point1, Point2int32 point2, Color4 c, int added, shared_ptr<Image>& image) const {
     float height(image->height());
     float width(image->width());
 
@@ -255,8 +256,8 @@ void Drawing::drawThickLine(Point2int32 point1, Point2int32 point2, Color3 c, in
 
 }
 */
-void Drawing::drawGradiantBackground(const Color3& c1, const Color3& c2, int height, int width, shared_ptr<Image>& image) const {
-    Color3 current = c1;
+void Drawing::drawGradiantBackground(const Color4& c1, const Color4& c2, int height, int width, shared_ptr<Image>& image) const {
+    Color4 current = c1;
     for (int y = 0; y < height; ++y) {
         current = current + (c2 - c1) / (height - 1);
         drawLine(Point2int32(0, y), Point2int32(width - 1, y), current, image);
@@ -264,13 +265,13 @@ void Drawing::drawGradiantBackground(const Color3& c1, const Color3& c2, int hei
 }
 
 void Drawing::drawAxes(int rad, int rng, int xOff, int yOff, shared_ptr<Image>& image) const {
-    drawThickLine(Point2int32(0 + xOff, 10 * rng + yOff), Point2int32(20 * rad + xOff, 10 * rng + yOff), Color3(1, 0, 0), 5, image);
-    drawThickLine(Point2int32(10 * rad + xOff, 0 + yOff), Point2int32(10 * rad + xOff, 20 * rng + yOff), Color3(1, 0, 0), 5, image);
+    drawThickLine(Point2int32(0 + xOff, 10 * rng + yOff), Point2int32(20 * rad + xOff, 10 * rng + yOff), Color4(1, 0, 0), 5, image);
+    drawThickLine(Point2int32(10 * rad + xOff, 0 + yOff), Point2int32(10 * rad + xOff, 20 * rng + yOff), Color4(1, 0, 0), 5, image);
     for (int x = 0; x <= 2 * rad; ++x) {
-        drawThickLine(Point2int32(xOff + x * 10, yOff + rng * 10 - 2), Point2int32(xOff + x * 10, yOff + rng * 10 + 2), Color3(1, 0, 0), 0, image);
+        drawThickLine(Point2int32(xOff + x * 10, yOff + rng * 10 - 2), Point2int32(xOff + x * 10, yOff + rng * 10 + 2), Color4(1, 0, 0), 0, image);
     }
     for (int y = 0; y <= 2 * rng; ++y) {
-        drawThickLine(Point2int32(xOff + rad * 10 - 2, yOff + y * 10), Point2int32(xOff + rad * 10 + 2, yOff + y * 10), Color3(1, 0, 0), 0, image);
+        drawThickLine(Point2int32(xOff + rad * 10 - 2, yOff + y * 10), Point2int32(xOff + rad * 10 + 2, yOff + y * 10), Color4(1, 0, 0), 0, image);
     }
 }
 
@@ -296,7 +297,7 @@ void Drawing::drawVarGraph(bool isClock, int width, int height, int xOff, int yO
         pixY += yOff;
         p2 = Point2int32(1.0f * x, pixY);
         if (p1.x != -1) {
-            drawThickLine(p1, p2, Color3(0, 0, 0), 5, image);
+            drawThickLine(p1, p2, Color4(0, 0, 0), 5, image);
         }
         p1 = p2;
         realX += .1;
@@ -315,14 +316,14 @@ void Drawing::drawClock(shared_ptr<Image>& image) const {
     float rotation = 0;
     int time = 0;
     Point2int32 outer = Point2int32((float)(1.0f*center.x + (50.0f * cos(rotation))), (float)(1.0f*center.y + (50.0f * sin(rotation))));
-    drawLine(center, outer, Color3(1, 0, 0), image);
+    drawLine(center, outer, Color4(1, 0, 0), image);
     if (time % 5 == 0) {
         rotation += (3.14159 / 12);
     }
 }
 
 void Drawing::drawCantorDust(float xSt, float xEn, float y, int level, shared_ptr<Image>& image) const {
-    drawLine(Point2int32(xSt, y), Point2int32(xEn, y), Color3(0, 0, 1), image);
+    drawLine(Point2int32(xSt, y), Point2int32(xEn, y), Color4(0, 0, 1), image);
     if (level > 1) {
         drawCantorDust(xSt, (xEn - xSt) / 3 + xSt, y + 10, level - 1, image);
         drawCantorDust(2.0 * (xEn - xSt) / 3 + xSt, xEn, y + 10, level - 1, image);
@@ -348,7 +349,7 @@ String Drawing::doRule(char toChange) {
 }
 
 //Method to be called to create an LSystem that goes through n iterations
-void Drawing::drawLSystem(const int nIterate, int x, int y, float angle, const Color3& c, shared_ptr<Image>& image) {
+void Drawing::drawLSystem(const int nIterate, int x, int y, float angle, const Color4& c, shared_ptr<Image>& image) {
     String lString = createLString("XF");
     std::stack<int> oldX;
     std::stack<int> oldY;

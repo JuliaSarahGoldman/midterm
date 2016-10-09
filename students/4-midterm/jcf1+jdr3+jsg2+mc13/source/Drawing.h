@@ -15,22 +15,22 @@ class Drawing {
 protected:
     bool inBounds(int x, int y, const shared_ptr<Image>& image) const;
 
-    void drawLine(const Point2int32& point1, const Point2int32& point2, int offset, const Color3& c, shared_ptr<Image>& image) const;
+    void drawLine(const Point2int32& point1, const Point2int32& point2, int offset, const Color4& c, shared_ptr<Image>& image) const;
 
-    void drawHLine(int x0, int x1, int y, const Color3& c, shared_ptr<Image>& image) const;
+    void drawHLine(int x0, int x1, int y, const Color4& c, shared_ptr<Image>& image) const;
 
-    void drawVLine(int x, int y0, int y1, const Color3& c, shared_ptr<Image>& image) const;
+    void drawVLine(int x, int y0, int y1, const Color4& c, shared_ptr<Image>& image) const;
 
-    void drawFlatLine(int x0, int x1, int y, float m, const Color3& c, shared_ptr<Image>& image) const;
+    void drawFlatLine(int x0, int x1, int y, float m, const Color4& c, shared_ptr<Image>& image) const;
 
-    void drawSteepLine(int x, int y0, int y1, float m, const Color3& c, shared_ptr<Image>& image) const;
+    void drawSteepLine(int x, int y0, int y1, float m, const Color4& c, shared_ptr<Image>& image) const;
 
-    void drawSteepLine(const Point2int32& point1, const Point2int32& point2, int offset, const Color3& c, shared_ptr<Image>& image) const;
+    void drawSteepLine(const Point2int32& point1, const Point2int32& point2, int offset, const Color4& c, shared_ptr<Image>& image) const;
 
-    void drawFlatLine(const Point2int32& point1, const Point2int32& point2, int offset, const Color3& c, shared_ptr<Image>& image) const;
+    void drawFlatLine(const Point2int32& point1, const Point2int32& point2, int offset, const Color4& c, shared_ptr<Image>& image) const;
 
 public:
-    void drawLine(const Point2int32& point1, const Point2int32& point2, const Color3& c, shared_ptr<Image>& image) const;
+    void drawLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, shared_ptr<Image>& image) const;
 
     void drawAxes(int rad, int rng, int xOff, int yOff, shared_ptr<Image>& image) const;
 
@@ -42,21 +42,21 @@ public:
 
     void drawCantorDust(float xSt, float xEn, float y, int level, shared_ptr<Image>& image) const;
 
-    void drawThickLine(const Point2int32& point1, const Point2int32& point2, const Color3& c, int thickness, shared_ptr<Image>& image) const;
+    void drawThickLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, int thickness, shared_ptr<Image>& image) const;
 
-    void drawGradiantBackground(const Color3& c1, const Color3& c2, int height, int width, shared_ptr<Image>& image) const;
+    void drawGradiantBackground(const Color4& c1, const Color4& c2, int height, int width, shared_ptr<Image>& image) const;
 
-    void drawLSystem(const int nIterate, int x, int y, float angle, const Color3& c, shared_ptr<Image>& image);
+    void drawLSystem(const int nIterate, int x, int y, float angle, const Color4& c, shared_ptr<Image>& image);
 
     String createLString(const String& system);
 
     String doRule(char toChange);
 
         /* HEADERS of OLD FUNCTIONS
-        void drawVLine(const Point2int32& point1, const Point2int32& point2, const Color3& c, shared_ptr<Image>& image);
-        void drawHLine(const Point2int32& point1, const Point2int32& point2, const Color3& c, shared_ptr<Image>& image);
-        void drawSteepLine(const Point2int32& point1, const Point2int32& point2, const Color3& c, shared_ptr<Image>& image);
-        void drawFlatLine(const Point2int32& point1, const Point2int32& point2, const Color3& c, shared_ptr<Image>& image);
+        void drawVLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, shared_ptr<Image>& image);
+        void drawHLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, shared_ptr<Image>& image);
+        void drawSteepLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, shared_ptr<Image>& image);
+        void drawFlatLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, shared_ptr<Image>& image);
 
         */
         Drawing();
