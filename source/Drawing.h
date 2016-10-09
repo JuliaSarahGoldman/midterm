@@ -46,21 +46,8 @@ public:
 
     void drawGradiantBackground(const Color4& c1, const Color4& c2, int height, int width, shared_ptr<Image>& image) const;
 
-    void drawLSystem(const int nIterate, int x, int y, float angle, const Color4& c, shared_ptr<Image>& image);
+    Drawing();
+    ~Drawing();
 
-    String createLString(const String& system);
-
-    String doRule(char toChange);
-
-        /* HEADERS of OLD FUNCTIONS
-        void drawVLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, shared_ptr<Image>& image);
-        void drawHLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, shared_ptr<Image>& image);
-        void drawSteepLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, shared_ptr<Image>& image);
-        void drawFlatLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, shared_ptr<Image>& image);
-
-        */
-        Drawing();
-        ~Drawing();
-
-    };
+};
 
