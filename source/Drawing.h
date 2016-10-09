@@ -14,6 +14,7 @@
 class Drawing {
 protected:
     bool inBounds(int x, int y, const shared_ptr<Image>& image) const;
+    void drawLine(const Point2int32& point1, const Point2int32& point2, int offset, const Color3& c, shared_ptr<Image>& image) const;
 public:
 
     void drawLine(const Point2int32& point1, const Point2int32& point2, const Color3& c, shared_ptr<Image>& image) const;
@@ -40,9 +41,9 @@ public:
 
     void drawGradiantBackground(const Color3& c1, const Color3& c2, int height, int width, shared_ptr<Image>& image) const;
 
-    void drawSteepLine(const Point2int32& point1, const Point2int32& point2, const Color3& c, shared_ptr<Image>& image) const;
+    void drawSteepLine(const Point2int32& point1, const Point2int32& point2, int offset, const Color3& c, shared_ptr<Image>& image) const;
 
-    void drawFlatLine(const Point2int32& point1, const Point2int32& point2, const Color3& c, shared_ptr<Image>& image) const;
+    void drawFlatLine(const Point2int32& point1, const Point2int32& point2, int offset, const Color3& c, shared_ptr<Image>& image) const;
 
     void drawLSystem(const int nIterate, int x, int y, float angle, const Color3& c, shared_ptr<Image>& image);
 

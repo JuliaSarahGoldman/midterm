@@ -6,6 +6,13 @@
         **Julia Goldman (jdg2@williams.edu),**
         **and Matheus de Carvalho Souza (mc13@williams.edu)** 
 
+
+2016-10-08: Bug partially solved
+==============================================================
+![](2016-10-09_000_4-midterm_r1504_g3d_r875_.png)
+
+Use offset instead of incrementing coordinates by thickness in drawThickLine. For diagonal lines it requires trigonometry. The x coordinate should be at x+cos(pi/4)*offset and y coordinate shoud ble at y+sin(pi/4)*offset. Negatively slopped lines are still problematic.....
+
 2016-10-08: Adapting Jose's code (help)
 ==============================================================
 ![Jose's code for V and H, Julia's for diagonals](2016-10-08_003_4-midterm_r1503_g3d_r875_.png)
