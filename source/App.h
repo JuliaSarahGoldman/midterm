@@ -15,11 +15,12 @@ protected:
     String makeTube(Array<float>& radii, Array<float>& heights, int slices);
     void createScene(String sceneName);
 
-    void generateShape(int depth, Point2int32 location, float cumulativeAngle, float drawLength, float moveAngle, Array<String>& symbolBuffer);
-    void applyRules(int depth, Point2int32 location, float cumulativeAngle, float drawLength, float moveAngle, Array<String>& symbolBuffer);
+    void generateShape(int depth, Point2int32 location, float cumulativeAngle, float drawLength, float moveAngle, float thick, Array<String>& symbolBuffer);
+    void applyRules(int depth, Point2int32 location, float cumulativeAngle, float drawLength, float moveAngle, float thick, Array<String>& symbolBuffer);
     void writeCoral();
 
     Array<Array<Point2int32>> edgeBuffer;
+    Array<float> thickBuffer;
 
 public:
     
