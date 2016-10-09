@@ -12,15 +12,19 @@ bool Drawing::inBounds(int x, int y, const shared_ptr<Image>& image) const {
 };
 
 void Drawing::drawLine(const Point2int32& point1, const Point2int32& point2, const Color3& c, shared_ptr<Image>& image) const {
+    drawLine(point1, point2, 0, c, image);
+};
+
+void Drawing::drawLine(const Point2int32& point1, const Point2int32& point2, int offset, const Color3& c, shared_ptr<Image>& image) const {
     int x0(min<int>(point1.x, point2.x));
     int x1(max<int>(point1.x, point2.x));
     int y0(min<int>(point1.y, point2.y));
     int y1(max<int>(point1.y, point2.y));
     if (x0 == x1) {
-        drawVLine(x0, y0, y1, c, image);
+        drawVLine(x0+offset, y0, y1, c, image);
     }
     else if (y0 == y1) {
-        drawHLine(x0, x1, y0, c, image);
+        drawHLine(x0, x1, y0+offset, c, image);
     }
     else {
         float m = (point2.y - point1.y) / (point2.x - point1.x);
@@ -33,7 +37,7 @@ void Drawing::drawLine(const Point2int32& point1, const Point2int32& point2, con
 //              else {
 //                  drawFlatLine(x0, x1, y0, m, c, image);
 //              }
-            drawFlatLine(point1, point2, c, image);
+            drawFlatLine(point1, point2, offset, c, image);
         }
         else {
             // Interpretation of Jose's code for flat lines
@@ -44,7 +48,7 @@ void Drawing::drawLine(const Point2int32& point1, const Point2int32& point2, con
 //                  drawSteepLine(x0, y0, y1, m, c, image);
 //             }
 
-            drawSteepLine(point1, point2, c, image);
+            drawSteepLine(point1, point2, offset, c, image);
         }
     }
 }
@@ -113,7 +117,7 @@ void Drawing::drawFlatLine(int x0, int x1, int y, float m, const Color3& c, shar
 };
 
 
-void Drawing::drawFlatLine(const Point2int32& point1, const Point2int32& point2, const Color3& c, shared_ptr<Image>& image) const {
+void Drawing::drawFlatLine(const Point2int32& point1, const Point2int32& point2, int offset, const Color3& c, shared_ptr<Image>& image) const {
     float x0;
     float x1;
     float y0;
@@ -132,9 +136,14 @@ void Drawing::drawFlatLine(const Point2int32& point1, const Point2int32& point2,
     }
     float m = 1.0f * (point2.y - point1.y) / (point2.x - point1.x);
     float y = y0;
+
+    
+    float offY = m > 0? sin(pi()/4)*offset : -sin(pi()/4)*offset; 
+    float offX = m > 0 ? cos(pi()/4)*offset : -cos(pi()/4)*offset;
+
     for (int x = (int)x0; x <= x1; ++x, y += m) {
-        if (inBounds(x, int(y+.5f), image)) {
-            image->set(x, (int)(y + .5f), c);
+        if (inBounds(int(x+offX), int(y+.5f + offY), image)) {
+            image->set(int(x + offX), (int)(y + .5f + offY), c);
         }
     }
 }
@@ -148,7 +157,7 @@ void Drawing::drawSteepLine(int x, int y0, int y1, float m, const Color3& c, sha
     }
 };
 
-void Drawing::drawSteepLine(const Point2int32& point1, const Point2int32& point2, const Color3& c, shared_ptr<Image>& image) const {
+void Drawing::drawSteepLine(const Point2int32& point1, const Point2int32& point2, int offset, const Color3& c, shared_ptr<Image>& image) const {
     float x0;
     float x1;
     float y0;
@@ -167,9 +176,13 @@ void Drawing::drawSteepLine(const Point2int32& point1, const Point2int32& point2
     }
     float m = 1.0f * (point2.x - point1.x) / (point2.y - point1.y);;
     float x = x0;
+
+    float offY = m > 0? sin(pi()/4)*offset : -sin(pi()/4)*offset; 
+    float offX = m > 0 ? cos(pi()/4)*offset : -cos(pi()/4)*offset; 
+
     for (int y = (int)y0; y <= y1; ++y, x += m) {
-        if (inBounds(int(x + .5f), y, image)) {
-            image->set((int)(x + .5f), y, c);
+        if (inBounds(int(x + .5f+offX), int(y+offY), image)) {
+            image->set((int)(x + .5f+offX), int(y+offY), c);
         }
     }
 }
@@ -179,9 +192,10 @@ void Drawing::drawThickLine(const Point2int32& point1, const Point2int32& point2
     int width(image->width());
 
     for (int i(-halfGirth); i <= halfGirth; ++i) {
-        Point2int32 p1(point1.x + i, point1.y + i);
-        Point2int32 p2(point2.x + i, point2.y + i);
-        drawLine(p1, p2, c, image);
+//        Point2int32 p1(point1.x + i, point1.y + i);
+//        Point2int32 p2(point2.x + i, point2.y + i);
+//        drawLine(p1, p2, c , image);
+        drawLine(point1, point2,i, c, image);
     }
 }
 
@@ -254,7 +268,6 @@ void Drawing::drawThickLine(Point2int32 point1, Point2int32 point2, Color3 c, in
 
 }
 */
-
 void Drawing::drawGradiantBackground(const Color3& c1, const Color3& c2, int height, int width, shared_ptr<Image>& image) const {
     Color3 current = c1;
     for (int y = 0; y < height; ++y) {
