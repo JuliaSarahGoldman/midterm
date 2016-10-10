@@ -80,7 +80,7 @@ void Rasterizer::drawFlatLine(const Point2int32& point1, const Point2int32& poin
     float x0(min<float>(point1.x, point2.x));
     float x1(max<float>(point1.x, point2.x));
 
-    if (point2.x >= point1.x) { // Center y at appropriate 
+    if (point2.x >= point1.x) { // Center y at appropriate coordinate 
         y+= point1.y;
     }
     else {
@@ -111,7 +111,7 @@ void Rasterizer::drawSteepLine(const Point2int32& point1, const Point2int32& poi
     float y0(min<float>(point1.y, point2.y));
     float y1(max<float>(point1.y, point2.y));
 
-    if (point2.y >= point1.y) { // Center x at appropriate 
+    if (point2.y >= point1.y) { // Center x at appropriate coordinate 
         x+= point1.x;
     }
     else {
@@ -173,10 +173,32 @@ void Rasterizer::drawThickLine(const Point2int32& point1, const Point2int32& poi
                 drawSteepLine(point1, point2, i, shade, map);
                 shade -= increment*sign(1.0*i);
             }
+
         }
+
     }
+    roundCorners(point1, halfGirth+1, c, image); // center adds 1 to total girth 
+    roundCorners(point2, halfGirth+1, c, image);
  }
 
+void Rasterizer::roundCorners(const Point2int32& C, float r, const Color4& c, shared_ptr<Image>& image) const{ 
+    int x0(C.x - r); 
+    int x1(C.x + r); 
+    int y0(C.y - r); 
+    int y1(C.y + r);
+
+    for(int x = x0; x <= x1; ++x) { 
+        for(int y = y0; y <= y1; ++y){ 
+            Point2int32 P(x,y);
+            Vector2 v(P-C);
+            if(inBounds(x,y,image)){
+                if(v.length()<= r){
+                   image->set(x,y,c);
+                }
+            }
+        }
+    }
+};
 
 
 void Rasterizer::drawGradiantBackground(const Color4& c1, const Color4& c2, int height, int width, shared_ptr<Image>& image) const {

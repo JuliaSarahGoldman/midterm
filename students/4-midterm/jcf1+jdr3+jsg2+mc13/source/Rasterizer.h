@@ -29,6 +29,8 @@ protected:
 
     void drawFlatLine(const Point2int32& point1, const Point2int32& point2, int offset, const Color4& c, shared_ptr<Image>& image) const;
 
+    void roundCorners(const Point2int32& C, float r, const Color4& c, shared_ptr<Image>& image) const; 
+
 public:
     void drawLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, shared_ptr<Image>& image) const;
 
