@@ -1,6 +1,6 @@
 /** \file App.cpp */
 #include "App.h"
-#include "Drawing.h"
+#include "Rasterizer.h"
 // Tells C++ to invoke command-line main() function even on OS X and Win32.
 G3D_START_AT_MAIN();
 
@@ -52,7 +52,7 @@ App::App(const GApp::Settings& settings) : GApp(settings) {
 }
 
 void App::writeCoral() {
-    shared_ptr<Drawing> painter(new Drawing());
+    shared_ptr<Rasterizer> painter(new Rasterizer());
     shared_ptr<Image> color;
     shared_ptr<Image> bump;
     generateShape(5, Point2int32(640, 360), -90, 100, 15, 12.0f, Array<String>("X"));
@@ -287,7 +287,7 @@ void App::makeGUI() {
         image->setAll(Color4(1, 1, 1, 0));
         map->setAll(Color4(1, 1, 1, 0));
 
-        shared_ptr<Drawing> painter(new Drawing());
+        shared_ptr<Rasterizer> painter(new Rasterizer());
         /*
 
                 //painter->drawGradiantBackground(Color3(0, 1, 0), Color3(0, 0, 1), height, width, image);
