@@ -8,19 +8,10 @@
 
 
 
-
 2016-10-10: Coral with Correct Thickness
 =============================================================
 
 ![](2016-10-10_006_4-midterm_r1526_g3d_r875__.jpg)
-
-
-
-2016-10-10: Lines now correct thickness
-=============================================================
-
-![](2016-10-10_005_4-midterm_r1526_g3d_r875__.jpg)
-
 
 
 2016-10-10: Fixed Slope
@@ -153,11 +144,11 @@ more coral generated with randomness.  Looks like a good start for fan coral.
 2016-10-09: Diagonals are still not perfect.
 =============================================================
 
-$$ t_y = \frac{t}{1 - (point2 - point1).direction().y)}$$ so the denominator approaches infinity as direction.y() approaches 1. 
+$$ t_y = \frac{t}{(1 - (point2 - point1).direction().y)}$$ so the denominator approaches infinity as direction.y() approaches 1. 
 
-Thus results in diagonal lines having the proper thickness at direction.y or direction.x = 0, but increasing to 2*t at 30 degrees and 60 degrees repectively, going above twice the thickness as they approach 45 degrees. We need to think of away to solve this.
+Thus results in diagonal lines having the proper thickness at direction.y or direction.x = 0, but increasing to 2*t at 30 degrees and 60 degrees repectively, going above twice the thickness as they approach 45 degrees. We need to think of a way to solve this. Note that the thickness doesn't go to infinity because the code switches from drawing based of t_y to drawing based on t_x as the slope increases, and vice-versa as it decreases. 
 
-2016-10-09: Thick lines work!
+2016-10-09: Thick lines!
 =============================================================
 ![Thick Lines](2016-10-09_002_4-midterm_r1508_g3d_r875_.png)
 

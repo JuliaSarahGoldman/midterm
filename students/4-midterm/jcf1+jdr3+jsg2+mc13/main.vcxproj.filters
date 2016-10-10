@@ -4,7 +4,7 @@
     <ClCompile Include="source\App.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\Drawing.cpp">
+    <ClCompile Include="source\Rasterizer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -12,7 +12,7 @@
     <ClInclude Include="source\App.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="source\Drawing.h">
+    <ClInclude Include="source\Rasterizer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
