@@ -416,7 +416,7 @@ void App::makeGUI() {
                 //drawCantorDust(20, 350, 220, 5, image);
 
                 */
-
+/*
         painter->drawThickLine(Point2int32(300, 0), Point2int32(300, 499), Color3(1, 0, 0), 5, image, map);
         painter->drawThickLine(Point2int32(0, 250), Point2int32(599, 250), Color3(1, 0, 0), 5, image, map);
 
@@ -432,6 +432,24 @@ void App::makeGUI() {
 
         painter->drawThickLine(Point2int32(225, 0), Point2int32(375, 499), Color3(1, 0, 0), 5, image, map);
         painter->drawThickLine(Point2int32(375, 0), Point2int32(225, 499), Color3(1, 0, 0), 5, image, map);
+
+*/
+        painter->drawThickLine(Point2int32(300, 50), Point2int32(300, 449), Color3(1, 0, 0), 5, image, map);
+        painter->drawThickLine(Point2int32(50, 250), Point2int32(549, 250), Color3(1, 0, 0), 5, image, map);
+
+        painter->drawThickLine(Point2int32(150, 50), Point2int32(450, 449), Color3(1, 0, 0), 5, image, map);
+        painter->drawThickLine(Point2int32(450, 50), Point2int32(150, 449), Color3(1, 0, 0), 5, image, map);
+
+        painter->drawThickLine(Point2int32(50, 125), Point2int32(549, 375), Color3(1, 0, 0), 5, image, map);
+        painter->drawThickLine(Point2int32(50, 375), Point2int32(549, 125), Color3(1, 0, 0), 5, image, map);
+
+
+        painter->drawThickLine(Point2int32(50, 50), Point2int32(549, 449), Color3(1, 0, 0), 5, image, map);
+        painter->drawThickLine(Point2int32(50, 449), Point2int32(549, 50), Color3(1, 0, 0), 5, image, map);
+
+        painter->drawThickLine(Point2int32(225, 50), Point2int32(375, 449), Color3(1, 0, 0), 5, image, map);
+        painter->drawThickLine(Point2int32(375, 50), Point2int32(225, 449), Color3(1, 0, 0), 5, image, map);
+
 
         show(image);
         show(map);
