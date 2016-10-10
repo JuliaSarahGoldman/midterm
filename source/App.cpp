@@ -378,7 +378,7 @@ void App::applyCrazyRules(int depth, Point2int32 location, float cumulativeAngle
 }
 
 
-String App::makeTube(Array<float>& radii, Array<float>& heights, int slices) {
+String App::makeTubes(Array<float>& radii, Array<float>& heights, int slices) {
     String tube = String("OFF\n");
     tube += format("%d %d 1\n", heights.size()*slices, (heights.size() - 1)*slices);
     for (int i = 0; i < heights.size(); ++i) {
@@ -394,11 +394,48 @@ String App::makeTube(Array<float>& radii, Array<float>& heights, int slices) {
     return tube;
 }
 
+String App::makeTube(int depth, float& radius, float height, int slices, const CoordinateFrame& coordFrame) {
+    String tube = String("");
+    tube += format("%d %d 1\n", slices, slices);
+        for (int j = 0; j < slices; ++j) {
+            Point3 x(radius * (-sin(((2 * pif()*j) / slices))), height, radius * (cos((2 * pif()*j) / slices)));
+            coordFrame.pointToWorldSpace(x);
+            tube += format(STR(%f %f %f\n), x.x, x.y, x.z);
+        }
+
+        for (int j = 0; j < slices; ++j) {
+            tube += format(STR(4 % d %d %d %d\n), depth*slices+slices + j, depth*slices+slices + (j + 1) % slices, depth*slices+ (j + 1) % slices, depth*slices + j);
+        }
+
+    return tube;
+}
+
+void App::make3DCoral(String& coral, int depth, float radius, int height, const Matrix3& oldLeftRotation, const Matrix3& oldRightRotation){
+    CoordinateFrame leftChild(Matrix3(1, 0, 0, 0, cosf(pif()/2)/2, -sinf(pif()/2)/2, 0, sinf(pif()/2)/2, cosf(pif()/2)/2), Point3(0, height-radius, 0));
+    CoordinateFrame rightChild(Matrix3(1, 0, 0, 0, -cosf(pif()/2)/2, sinf(pif()/2)/2, 0, -sinf(pif()/2)/2, -cosf(pif()/2)/2), Point3(0, height-radius, 0));
+    leftChild.rotation = oldLeftRotation * leftChild.rotation;
+    rightChild.rotation *= oldRightRotation * rightChild.rotation;
+    coral += makeTube(depth, radius, height, 8, leftChild);
+    coral += makeTube(depth, radius, height, 8, rightChild);
+    if (depth == 2) { return; }
+    
+    make3DCoral(coral, ++depth, depth/100, 4*height/7, leftChild.rotation, rightChild.rotation);
+}
+
+String App::write3DCoral(int depth, float startRadius, float startHeight){
+    String coral("OFF\n");
+    coral += format("%d %d 1\n", 8, 8);
+    CoordinateFrame original(Matrix3(1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f), Point3(0, 0, 0));
+    coral += makeTube(depth, startRadius, startHeight, 8, original);
+    make3DCoral(coral, depth, startRadius, startHeight, original.rotation, original.rotation);
+    return coral;
+}
+
 void App::createScene(String sceneName) {
     TextOutput output = TextOutput("scene\\" + sceneName + ".off");
 
     //Create the models for the scene
-    String modelString(makeTube(Array<float>(1), Array<float>(1), 1));
+    String modelString(write3DCoral(0,.3,1));
     output.writeSymbols(modelString);
 
     // End the File
@@ -423,6 +460,7 @@ void App::onInit() {
     // developerWindow->videoRecordDialog->setCaptureGui(false);
     developerWindow->cameraControlWindow->moveTo(Point2(developerWindow->cameraControlWindow->rect().x0(), 0));
     writeCoral("test-bump","test-lambertian", Color3(1,.412,.706));
+    createScene("corall");
     loadScene(
         //"G3D Sponza"
         "G3D Cornell Box" // Load something simple

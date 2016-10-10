@@ -12,7 +12,10 @@ class App : public GApp {
 protected:
     /** Called from onInit */
     void makeGUI();
-    String makeTube(Array<float>& radii, Array<float>& heights, int slices);
+    String makeTubes(Array<float>& radii, Array<float>& heights, int slices);
+    String makeTube(int depth, float& radius, float height, int slices, const CoordinateFrame& coordFrame);
+    String write3DCoral(int depth, float startRadius, float startHeight);
+    void make3DCoral(String& coral, int depth, float radius, int height, const Matrix3& oldLeftRotation, const Matrix3& oldRightRotation);
     void createScene(String sceneName);
 
     void generateCrazyCoral(int depth, Point2int32 location, float cumulativeAngle, float drawLength, float moveAngle, float thick, Array<String>& symbolBuffer);
