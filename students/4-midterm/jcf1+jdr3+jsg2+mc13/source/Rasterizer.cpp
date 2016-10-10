@@ -192,7 +192,7 @@ void Rasterizer::roundCorners(const Point2int32& C, float r, const Color4& c, sh
             Point2int32 P(x,y);
             Vector2 v(P-C);
             if(inBounds(x,y,image)){
-                if(v.length()<= r){
+                if(v.length() <= r){
                    image->set(x,y,c);
                 }
             }

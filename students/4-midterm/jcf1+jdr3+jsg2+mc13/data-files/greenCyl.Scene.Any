@@ -18,6 +18,7 @@
                         lambertian = "test-lambertian.png";
                         bump = "test-bump.png"
                     });
+                transformGeometry(all(), Matrix4::scale(2,1,0));
             };
         };
         starModel = ArticulatedModel::Specification {
@@ -40,7 +41,7 @@
         
         sun = Light { 
             attenuation = (0, 0, 1); 
-            bulbPower = Power3(4e+006); 
+            bulbPower = Power3(50); 
             frame = CFrame::fromXYZYPRDegrees(-15, 207, -41, -164, -77, 77);
             shadowMapSize = Vector2int16(2048, 2048); 
             spotHalfAngleDegrees = 5; 
@@ -50,7 +51,7 @@
 
         cube1 = VisibleEntity {
             model = "boardModel";
-            frame = CFrame::fromXYZYPRDegrees(0, 0, -2, 180, 180, 0);
+            frame = CFrame::fromXYZYPRDegrees(0, 0, 0, 180, 180, 0);
 
         };
 
