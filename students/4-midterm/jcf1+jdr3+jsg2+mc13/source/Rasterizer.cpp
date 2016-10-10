@@ -11,77 +11,63 @@ bool Rasterizer::inBounds(int x, int y, const shared_ptr<Image>& image) const {
     return x >= 0 && y >= 0 && x < width && y < height;
 };
 
+void Rasterizer::setPixel(int x, int y, const Color4& c, shared_ptr<Image>& image) const {
+    if (inBounds(x, y, image)) {
+        image->set(x, y, c);
+    }
+}
+
 
 void Rasterizer::drawLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, shared_ptr<Image>& image) const {
-    drawLine(point1, point2, 0, c, image);
+    drawLine(point1, point2, 0, c, image, Color4(1, 1, 1), shared_ptr<Image>(Image::create(2,2, ImageFormat::RGB32F())));
 };
 
-void Rasterizer::drawLine(const Point2int32& point1, const Point2int32& point2, int offset, const Color4& c, shared_ptr<Image>& image) const {
+void Rasterizer::drawLine(const Point2int32& point1, const Point2int32& point2, int offset, const Color4& c, shared_ptr<Image>& image, const Color4& shade, shared_ptr<Image>& map) const {
     int x0(min<int>(point1.x, point2.x));
     int x1(max<int>(point1.x, point2.x));
     int y0(min<int>(point1.y, point2.y));
     int y1(max<int>(point1.y, point2.y));
+
     if (x0 == x1) {
-        drawVLine(x0 + offset, y0, y1, c, image);
+        drawVLine(x0 + offset, y0, y1, c, image, shade, map);
     }
     else if (y0 == y1) {
-        drawHLine(x0, x1, y0 + offset, c, image);
+        drawHLine(x0, x1, y0 + offset, c, image, shade, map); 
     }
     else {
         float m = (point2.y - point1.y) / (point2.x - point1.x);
         if (fabs(m) <= 1) {
-            drawFlatLine(point1, point2, offset, c, image);
+
+            drawFlatLine(point1, point2, offset, c, image, shade, map);
         }
         else {
-            drawSteepLine(point1, point2, offset, c, image);
+            drawSteepLine(point1, point2, offset, c, image, shade, map);
         }
     }
 }
 
-void Rasterizer::drawVLine(int x, int y0, int y1, const Color4&c, shared_ptr<Image>& image) const {
+void Rasterizer::drawVLine(int x, int y0, int y1, const Color4& c, shared_ptr<Image>& image, const Color4& shade, shared_ptr<Image>& map) const {
     for (int y = y0; y <= y1; ++y) {
-        if (inBounds(x, y, image)) {
-            image->set(x, y, c);
-        }
+        setPixel(x, y, c, image);
+        setPixel(x, y, shade, map);
     }
 
 }
 
-void Rasterizer::drawHLine(int x0, int x1, int y, const Color4& c, shared_ptr<Image>& image) const {
+void Rasterizer::drawHLine(int x0, int x1, int y, const Color4& c, shared_ptr<Image>& image, const Color4& shade, shared_ptr<Image>& map) const {
     for (int x = x0; x <= x1; ++x) {
-        if (inBounds(x, y, image)) {
-            image->set(x, y, c);
-        }
+        setPixel(x, y, c, image);
+        setPixel(x, y, shade, map);
     }
 }
 
-/*void Rasterizer::drawHLine(Point2int32 point1, Point2int32 point2, Color4 c, shared_ptr<Image>& image) {
-    float x0;
-    float x1;
-    x0 = min<int>(point1.x, point2.x);
-    x1 = max<int>(point1.x, point2.x);
-
-    for (int x = x0; x <= x1; ++x) {
-        image->set(x, point1.y, c);
-    }
-}*/
-
-void Rasterizer::drawFlatLine(int x0, int x1, int y, float m, const Color4& c, shared_ptr<Image>& image) const {
-    for (int x = x0; x <= x1; ++x, y += m) {
-        if (inBounds(x, int(y + .5f), image)) {
-            image->set(x, int(y + .5f), c);
-        }
-    }
-};
-
-
-void Rasterizer::drawFlatLine(const Point2int32& point1, const Point2int32& point2, int offset, const Color4& c, shared_ptr<Image>& image) const {
+void Rasterizer::drawFlatLine(const Point2int32& point1, const Point2int32& point2, int offset, const Color4& c, shared_ptr<Image>& image, const Color4& shade, shared_ptr<Image>& map) const {
     float y(offset); // Offset y by thick coordinate
     float x0(min<float>(point1.x, point2.x));
     float x1(max<float>(point1.x, point2.x));
 
     if (point2.x >= point1.x) { // Center y at appropriate coordinate 
-        y+= point1.y;
+        y += point1.y;
     }
     else {
         y += point2.y;
@@ -91,28 +77,25 @@ void Rasterizer::drawFlatLine(const Point2int32& point1, const Point2int32& poin
 
 
     for (int x = (int)x0; x <= x1; ++x, y += m) {
-        if (inBounds(x, y, image)) {
-            image->set(x, y, c);
-        }
+        setPixel(x, y, c, image);
+        setPixel(x, y, shade, map);
     }
 }
 
-
-void Rasterizer::drawSteepLine(int x, int y0, int y1, float m, const Color4& c, shared_ptr<Image>& image) const {
-    for (int y = y0; y <= y1; ++y, x += 1 / m) {
-        if (inBounds(int(x + .5f), y, image)) {
-            image->set(int(x + .5f), y, c);
-        }
+void Rasterizer::drawFlatLine(float y, float x0, float x1, float m, const Color4& c, shared_ptr<Image>& image, const Color4& shade, shared_ptr<Image>& map) const {
+    for (int x = (int)x0; x <= x1; ++x, y += m) {
+        setPixel(x, y, c, image);
+        setPixel(x, y, shade, map);
     }
-};
+}
 
-void Rasterizer::drawSteepLine(const Point2int32& point1, const Point2int32& point2, int offset, const Color4& c, shared_ptr<Image>& image) const {
+void Rasterizer::drawSteepLine(const Point2int32& point1, const Point2int32& point2, int offset, const Color4& c, shared_ptr<Image>& image, const Color4& shade, shared_ptr<Image>& map) const {
     float x(offset); // Offset x by thick coordinate
     float y0(min<float>(point1.y, point2.y));
     float y1(max<float>(point1.y, point2.y));
 
     if (point2.y >= point1.y) { // Center x at appropriate coordinate 
-        x+= point1.x;
+        x += point1.x;
     }
     else {
         x += point2.x;
@@ -122,9 +105,15 @@ void Rasterizer::drawSteepLine(const Point2int32& point1, const Point2int32& poi
     float m_i = 1.0f * (point2.x - point1.x) / (point2.y - point1.y);
 
     for (int y = (int)y0; y <= y1; ++y, x += m_i) {
-        if (inBounds(x, y, image)) {
-            image->set(x, y, c);
-        }
+        setPixel(x, y, c, image);
+        setPixel(x, y, shade, map);
+    }
+}
+
+void Rasterizer::drawSteepLine(float x, float y0, float y1, float m_i, const Color4& c, shared_ptr<Image>& image, const Color4& shade, shared_ptr<Image>& map) const {
+    for (int y = (int)y0; y <= y1; ++y, x += m_i) {
+        setPixel(x, y, c, image);
+        setPixel(x, y, shade, map);
     }
 }
 
@@ -134,8 +123,51 @@ void Rasterizer::drawThickLine(const Point2int32& point1, const Point2int32& poi
     int y0(min<int>(point1.y, point2.y));
     int y1(max<int>(point1.y, point2.y));
 
-    Color4 shade(0, 0, 0);
+    float m;
 
+    int t;
+    if ((x0 == x1) || (y0 == y1)) {
+        t = halfGirth;
+    }
+    else {
+        Vector2 d(point2 - point1);
+        float d_x(fabs(d.direction().x));
+        float d_y(fabs(d.direction().y));
+
+        m = float(point2.y - point1.y) / float(point2.x - point1.x);
+        t = fabs(m) < 1.1f ? abs(halfGirth / d_x) : abs(halfGirth / d_y);
+    }
+
+    Color4 shade(0, 0, 0);
+    Color4 increment(1.0f / float(t), 1.0f / float(t), 1.0f / float(t), 1.0);
+
+    for (int i(-t); i <= t; ++i) {
+        if (x0 == x1) {
+            drawVLine(x0 + i, y0, y1, c, image, shade, map);
+
+        }
+        else if (y0 == y1) {
+            drawHLine(x0, x1, y0 + i, c, image, shade, map);
+
+        }
+        else {
+            if (fabs(m) < 1.1f) {
+                // drawFlatLine(point1, point2, i, c, image, shade, map);
+
+                float y(x1 == point2.x ? point1.y : point2.y); // center x at appropriate coordinate
+                drawFlatLine(y + i, x0, x1, m, c, image, shade, map); // offset x by i
+            }
+            else {
+                //drawSteepLine(point1, point2, i, c, image, shade, map);
+
+                float x(y1 == point2.y ? point1.x : point2.x); // center x at appropriate coordinate
+                drawSteepLine(x + i, y0, y1, float(1.0f / m), c, image, shade, map); // offset x by i
+            }
+
+        }
+        shade -= increment*sign(1.0f*i);
+    }
+    /*
     if (x0 == x1) {
         Color4 increment(1.0f/halfGirth, 1.0f/halfGirth, 1.0f/halfGirth, 1.0);
         for (int i(-halfGirth); i <= halfGirth; ++i) {
@@ -155,11 +187,11 @@ void Rasterizer::drawThickLine(const Point2int32& point1, const Point2int32& poi
     else {
         float m = float(point2.y - point1.y) / float(point2.x - point1.x);
         Vector2 d(point2-point1);
-        if (fabs(m) <= 1) { 
+        if (fabs(m) <= 1) {
 
             int t_y = abs(halfGirth/(abs(d.direction().x)));
             Color4 increment(1.0f/t_y, 1.0f/t_y, 1.0f/t_y, 1.0);
-            for(int i(-t_y); i < t_y; ++i) { 
+            for(int i(-t_y); i < t_y; ++i) {
                 drawFlatLine(point1, point2, i, c, image);
                 drawFlatLine(point1, point2, i, shade, map);
                 shade -= increment*sign(1.0*i);
@@ -168,7 +200,7 @@ void Rasterizer::drawThickLine(const Point2int32& point1, const Point2int32& poi
         else {
             int t_x = abs(halfGirth /abs(d.direction().y));
             Color4 increment(1.0f/t_x, 1.0f/t_x, 1.0f/t_x, 1.0);
-            for(int i(-t_x); i < t_x; ++i) { 
+            for(int i(-t_x); i < t_x; ++i) {
                 drawSteepLine(point1, point2, i, c, image);
                 drawSteepLine(point1, point2, i, shade, map);
                 shade -= increment*sign(1.0*i);
@@ -176,25 +208,24 @@ void Rasterizer::drawThickLine(const Point2int32& point1, const Point2int32& poi
 
         }
 
-    }
-    roundCorners(point1, halfGirth+1, c, image); // center adds 1 to total girth 
-    roundCorners(point2, halfGirth+1, c, image);
- }
+    }*/
+    roundCorners(point1, halfGirth + 1, c, image, shade, map); // center adds 1 to total girth 
+    roundCorners(point2, halfGirth + 1, c, image, shade, map);
+}
 
-void Rasterizer::roundCorners(const Point2int32& C, float r, const Color4& c, shared_ptr<Image>& image) const{ 
-    int x0(C.x - r); 
-    int x1(C.x + r); 
-    int y0(C.y - r); 
+void Rasterizer::roundCorners(const Point2int32& C, float r, const Color4& c, shared_ptr<Image>& image, const Color4& shade, shared_ptr<Image>& map) const {
+    int x0(C.x - r);
+    int x1(C.x + r);
+    int y0(C.y - r);
     int y1(C.y + r);
 
-    for(int x = x0; x <= x1; ++x) { 
-        for(int y = y0; y <= y1; ++y){ 
-            Point2int32 P(x,y);
-            Vector2 v(P-C);
-            if(inBounds(x,y,image)){
-                if(v.length() <= r){
-                   image->set(x,y,c);
-                }
+    for (int x = x0; x <= x1; ++x) {
+        for (int y = y0; y <= y1; ++y) {
+            Point2int32 P(x, y);
+            Vector2 v(P - C);
+            if (v.length() <= r) {
+                setPixel(x, y, c, image);
+                setPixel(x, y, shade, map);
             }
         }
     }
