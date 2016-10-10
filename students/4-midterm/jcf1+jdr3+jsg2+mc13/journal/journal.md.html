@@ -7,6 +7,63 @@
         **and Matheus de Carvalho Souza (mc13@williams.edu)** 
 
 
+
+
+2016-10-10: Coral with Correct Thickness
+=============================================================
+
+![](2016-10-10_006_4-midterm_r1526_g3d_r875__.jpg)
+
+
+
+2016-10-10: Lines now correct thickness
+=============================================================
+
+![](2016-10-10_005_4-midterm_r1526_g3d_r875__.jpg)
+
+
+
+2016-10-10: Fixed Slope
+=============================================================
+
+![](2016-10-10_004_4-midterm_r1526_g3d_r875__.jpg)
+
+We were calculating slope with integer division before.
+
+
+
+2016-10-10: Still not quite right
+=============================================================
+
+![Before](2016-10-10_003_4-midterm_r1526_g3d_r875__Before.jpg)
+
+![After](2016-10-10_002_4-midterm_r1526_g3d_r875__.jpg)
+
+We had: int t_y = abs(halfGirth/(1 - abs(d.direction().y)));
+Now have: int t_y = abs(halfGirth/(abs(d.direction().x)));
+
+
+
+2016-10-10: Coral
+=============================================================
+
+![](2016-10-10_001_4-midterm_r1526_g3d_r875__.jpg)
+
+Now using "ifs/square.ifs" for the model instead of "model/cube/cube.obj" to avoid having to transform a cube.
+
+
+
+2016-10-10: Coral
+=============================================================
+
+![](2016-10-10_000_4-midterm_r1526_g3d_r875__.jpg)
+
+Now one sided. Changed drawThickLine slightly, but still not quite right.
+
+
+
+
+
 2016-10-09: Thickness at different angles
 =============================================================
 
