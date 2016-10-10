@@ -32,7 +32,7 @@ protected:
 public:
     void drawLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, shared_ptr<Image>& image) const;
 
-    void drawAxes(int rad, int rng, int xOff, int yOff, shared_ptr<Image>& image) const;
+    void drawAxes(int rad, int rng, int xOff, int yOff, shared_ptr<Image>& image, shared_ptr<Image>& map) const;
 
     void drawVarGraph(bool isClock, int width, int height, int xOff, int yOff, int sign, shared_ptr<Image>& image) const;
 
@@ -42,7 +42,7 @@ public:
 
     void drawCantorDust(float xSt, float xEn, float y, int level, shared_ptr<Image>& image) const;
 
-    void drawThickLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, int thickness, shared_ptr<Image>& image) const;
+    void drawThickLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, int thickness, shared_ptr<Image>& image, shared_ptr<Image>& map) const;
 
     void drawGradiantBackground(const Color4& c1, const Color4& c2, int height, int width, shared_ptr<Image>& image) const;
 

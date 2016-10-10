@@ -54,21 +54,29 @@ App::App(const GApp::Settings& settings) : GApp(settings) {
 void App::writeCoral() {
     shared_ptr<Drawing> painter(new Drawing());
     shared_ptr<G3D::Image> image;
-    generateShape(6, Point2int32(640,360), -90, 100, 15, 12.0f, Array<String>("X"));
+    shared_ptr<G3D::Image> map;
+    generateShape(5, Point2int32(640,360), -90, 100, 15, 12.0f, Array<String>("X"));
 
     try {
         int width = 1280;
         int height = 720;
         image = Image::create(width, height, ImageFormat::RGB32F());
+        map = Image::create(width, height, ImageFormat::RGB32F());
         image->setAll(Color4(1,1,1,0));
+        map->setAll(Color4(0,1,1,0));
 
         for(int i(0); i < edgeBuffer.size(); ++i) {
             Point2int32 s = edgeBuffer[i][0];
             Point2int32 f = edgeBuffer[i][1];
-            painter->drawLine(s, f, Color3(1,0,0), image);   
+            painter->drawThickLine(s, f, Color3(1,0,0), 3, image, map);   
         }
 
         show(image);
+        show(map);
+        image->convert(ImageFormat::RGB8());
+        map->convert(ImageFormat::RGB8());
+        image->save("../data-files/random.png");
+        map->save("../data-files/randomMap.png");
     } catch (...) {
         msgBox("Unable to load the image.");
     }
@@ -266,15 +274,19 @@ void App::makeGUI() {
     debugWindow->setRect(Rect2D::xywh(0, 0, (float)window()->width(), debugWindow->rect().height()));
 
     shared_ptr<G3D::Image> image;
+    shared_ptr<G3D::Image> map;
     try {
         int width = 600;
         int height = 500;
         image = Image::create(width, height, ImageFormat::RGB32F());
+        map = Image::create(width, height, ImageFormat::RGB32F());
+        image->setAll(Color4(1,1,1,0));
+        map->setAll(Color4(1,1,1,0));
 
         shared_ptr<Drawing> painter(new Drawing());
 
 
-        painter->drawGradiantBackground(Color3(0, 1, 0), Color3(0, 0, 1), height, width, image);
+        //painter->drawGradiantBackground(Color3(0, 1, 0), Color3(0, 0, 1), height, width, image);
         // painter->drawThickLine(Point2int32(0, 0), Point2int32(599, 499), Color3(1, 0, 0), 5, image);
         painter->drawLine(Point2int32(300, 0), Point2int32(300, 499), Color3(1, 0, 0), image);
         painter->drawLine(Point2int32(0, 250), Point2int32(599, 250), Color3(1, 0, 0), image);
@@ -285,20 +297,20 @@ void App::makeGUI() {
         painter->drawLine(Point2int32(0, 0), Point2int32(100, 499), Color3(1, 0, 0), image); // Negative
         painter->drawLine(Point2int32(100, 499), Point2int32(200, 0), Color3(1, 0, 0), image); // Positive
 
-        painter->drawThickLine(Point2int32(300, 0), Point2int32(300, 499), Color3(1, 0, 0),5, image);
-        painter->drawThickLine(Point2int32(0, 250), Point2int32(599, 250), Color3(1, 0, 0),5, image);
+        painter->drawThickLine(Point2int32(300, 0), Point2int32(300, 499), Color3(1, 0, 0),5, image, map);
+        painter->drawThickLine(Point2int32(0, 250), Point2int32(599, 250), Color3(1, 0, 0),5, image, map);
         // Flat diagonals
-        painter->drawThickLine(Point2int32(0, 0), Point2int32(599, 499), Color3(1, 0, 0),5, image); // Negative
-        painter->drawThickLine(Point2int32(0, 499), Point2int32(599, 0), Color3(1, 0, 0),5, image); //Positive
+        painter->drawThickLine(Point2int32(0, 0), Point2int32(599, 499), Color3(1, 0, 0),5, image, map); // Negative
+        painter->drawThickLine(Point2int32(0, 499), Point2int32(599, 0), Color3(1, 0, 0),5, image, map); //Positive
         //Steep diagonals
-        painter->drawThickLine(Point2int32(0, 0), Point2int32(100, 499), Color3(1, 0, 0),5, image); // Negative
-        painter->drawThickLine(Point2int32(100, 499), Point2int32(200, 0), Color3(1, 0, 0),5, image); // Positive
+        painter->drawThickLine(Point2int32(0, 0), Point2int32(100, 499), Color3(1, 0, 0),5, image, map); // Negative
+        painter->drawThickLine(Point2int32(100, 499), Point2int32(200, 0), Color3(1, 0, 0),5, image, map); // Positive
 
         //Really Flat diagonals 
-        painter->drawThickLine(Point2int32(0,250), Point2int32(599, 300), Color3(1,0,0), 5, image);
+        painter->drawThickLine(Point2int32(0,250), Point2int32(599, 300), Color3(1,0,0), 5, image, map);
 
         //Really Steep diagonals 
-        painter->drawThickLine(Point2int32(400,0), Point2int32(410, 499), Color3(1,0,0), 5, image);
+        painter->drawThickLine(Point2int32(400,0), Point2int32(410, 499), Color3(1,0,0), 5, image, map);
 
        // drawMyGraph(image);
         //drawClock(image);
@@ -306,6 +318,11 @@ void App::makeGUI() {
 
 
         show(image);
+        show(map);
+        image->convert(ImageFormat::RGB8());
+        map->convert(ImageFormat::RGB8());
+        image->save("../data-files/tubes.png");
+        map->save("../data-files/tubesMap.png");
     }
     catch (...) {
         msgBox("Unable to load the image.");
