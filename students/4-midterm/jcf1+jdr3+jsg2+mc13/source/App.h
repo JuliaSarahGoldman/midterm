@@ -15,9 +15,12 @@ protected:
     String makeTube(Array<float>& radii, Array<float>& heights, int slices);
     void createScene(String sceneName);
 
-    void generateShape(int depth, Point2int32 location, float cumulativeAngle, float drawLength, float moveAngle, float thick, Array<String>& symbolBuffer);
-    void applyRules(int depth, Point2int32 location, float cumulativeAngle, float drawLength, float moveAngle, float thick, Array<String>& symbolBuffer);
-    void writeCoral();
+    void generateCrazyCoral(int depth, Point2int32 location, float cumulativeAngle, float drawLength, float moveAngle, float thick, Array<String>& symbolBuffer);
+    void applyCrazyRules(int depth, Point2int32 location, float cumulativeAngle, float drawLength, float moveAngle, float thick, Array<String>& symbolBuffer);
+    void writeCoral(String bumpName, String colorName);
+
+    void generateFingerCoral(int depth, Point2int32 location, float cumulativeAngle, float drawLength, float moveAngle, float thick, Array<String>& symbolBuffer);
+    void applyFingerRules(int depth, Point2int32 location, float cumulativeAngle, float drawLength, float moveAngle, float thick, Array<String>& symbolBuffer);
 
     Array<Array<Point2int32>> edgeBuffer;
     Array<float> thickBuffer;
