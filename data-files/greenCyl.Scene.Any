@@ -10,14 +10,14 @@
             };
         };
         boardModel = ArticulatedModel::Specification {
-            filename = "model/cube/cube.obj";
+            filename = "ifs/square.ifs";
+            scale = 2;
             preprocess = {
                 setMaterial(all(), 
                     UniversalMaterial::Specification {
-                        lambertian = "random2.png";
-                        bump = "randomMap2.png"
+                        lambertian = "test-lambertian.png";
+                        bump = "test-bump.png"
                     });
-                transformGeometry(all(), Matrix4::scale(2.1, 1.5, 0));
             };
         };
     };
@@ -40,7 +40,7 @@
 
         cube0 = VisibleEntity {
             model = "boardModel";
-            frame = CFrame::fromXYZYPRDegrees(0, 0, -2, 0, 0, 0);
+            frame = CFrame::fromXYZYPRDegrees(0, 0, -2, 0, 180, 0);
 
         };
 

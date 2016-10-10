@@ -53,30 +53,31 @@ App::App(const GApp::Settings& settings) : GApp(settings) {
 
 void App::writeCoral() {
     shared_ptr<Drawing> painter(new Drawing());
-    shared_ptr<G3D::Image> image;
-    shared_ptr<G3D::Image> map;
+    shared_ptr<Image> color;
+    shared_ptr<Image> bump;
     generateShape(5, Point2int32(640, 360), -90, 100, 15, 12.0f, Array<String>("X"));
 
     try {
         int width = 1280;
         int height = 720;
-        image = Image::create(width, height, ImageFormat::RGB32F());
-        map = Image::create(width, height, ImageFormat::RGB32F());
-        image->setAll(Color4(1, 1, 1, 0));
-        map->setAll(Color4(0, 1, 1, 0));
+
+        color = Image::create(width, height, ImageFormat::RGBA8());
+        bump = Image::create(width, height, ImageFormat::RGB8());
+        color->setAll(Color4(1,1,1,0));
+        bump->setAll(Color3::black());
 
         for (int i(0); i < edgeBuffer.size(); ++i) {
             Point2int32 s = edgeBuffer[i][0];
             Point2int32 f = edgeBuffer[i][1];
-            painter->drawThickLine(s, f, Color3(1, 0, 0), 3, image, map);
+
+            painter->drawThickLine(s, f, Color3(1,0,0), 3, color, bump);   
+
         }
 
-        show(image);
-        show(map);
-        image->convert(ImageFormat::RGB8());
-        map->convert(ImageFormat::RGB8());
-        image->save("../data-files/random.png");
-        map->save("../data-files/randomMap.png");
+        show(color);
+        show(bump);
+        color->save("../data-files/test-lambertian.png");
+        bump->save("../data-files/test-bump.png");
     }
     catch (...) {
         msgBox("Unable to load the image.");
