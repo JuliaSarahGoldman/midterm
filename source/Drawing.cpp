@@ -11,6 +11,7 @@ bool Drawing::inBounds(int x, int y, const shared_ptr<Image>& image) const {
     return x >= 0 && y >= 0 && x < width && y < height;
 };
 
+
 void Drawing::drawLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, shared_ptr<Image>& image) const {
     drawLine(point1, point2, 0, c, image);
 };
@@ -127,21 +128,28 @@ void Drawing::drawSteepLine(const Point2int32& point1, const Point2int32& point2
     }
 }
 
-void Drawing::drawThickLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, int halfGirth, shared_ptr<Image>& image) const {
+void Drawing::drawThickLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, int halfGirth, shared_ptr<Image>& image, shared_ptr<Image>& map) const {
     int x0(min<int>(point1.x, point2.x));
     int x1(max<int>(point1.x, point2.x));
     int y0(min<int>(point1.y, point2.y));
     int y1(max<int>(point1.y, point2.y));
 
+    Color4 shade(0, 0, 0);
 
     if (x0 == x1) {
+        Color4 increment(1.0f/halfGirth, 1.0f/halfGirth, 1.0f/halfGirth, 1.0);
         for (int i(-halfGirth); i <= halfGirth; ++i) {
             drawVLine(x0 + i, y0, y1, c, image);
+            drawVLine(x0 + i, y0, y1, shade, map);
+            shade -= increment*sign(1.0*i);
         }
     }
     else if (y0 == y1) {
+        Color4 increment(1.0f/halfGirth, 1.0f/halfGirth, 1.0f/halfGirth, 1.0);
         for (int i(-halfGirth); i <= halfGirth; ++i) {
             drawHLine(x0, x1, y0 + i, c, image);
+            drawHLine(x0, x1, y0 + i, shade, map);
+            shade -= increment*sign(1.0*i);
         }
     }
     else {
@@ -150,15 +158,20 @@ void Drawing::drawThickLine(const Point2int32& point1, const Point2int32& point2
         if (fabs(m) <= 1) { 
 
             int t_y = abs(halfGirth/(1 - abs(d.direction().y)));
-
+            Color4 increment(1.0f/t_y, 1.0f/t_y, 1.0f/t_y, 1.0);
             for(int i(-t_y); i < t_y; ++i) { 
                 drawFlatLine(point1, point2, i, c, image);
+                drawFlatLine(point1, point2, i, shade, map);
+                shade -= increment*sign(1.0*i);
             }
         }
         else {
-            int t_x = abs(halfGirth /(1-d.direction().x)); 
+            int t_x = abs(halfGirth /(1-d.direction().x));
+            Color4 increment(1.0f/t_x, 1.0f/t_x, 1.0f/t_x, 1.0);
             for(int i(-t_x); i < t_x; ++i) { 
                 drawSteepLine(point1, point2, i, c, image);
+                drawSteepLine(point1, point2, i, shade, map);
+                shade -= increment*sign(1.0*i);
             }
         }
     }
@@ -174,14 +187,14 @@ void Drawing::drawGradiantBackground(const Color4& c1, const Color4& c2, int hei
     }
 }
 
-void Drawing::drawAxes(int rad, int rng, int xOff, int yOff, shared_ptr<Image>& image) const {
-    drawThickLine(Point2int32(0 + xOff, 10 * rng + yOff), Point2int32(20 * rad + xOff, 10 * rng + yOff), Color4(1, 0, 0), 5, image);
-    drawThickLine(Point2int32(10 * rad + xOff, 0 + yOff), Point2int32(10 * rad + xOff, 20 * rng + yOff), Color4(1, 0, 0), 5, image);
+void Drawing::drawAxes(int rad, int rng, int xOff, int yOff, shared_ptr<Image>& image, shared_ptr<Image>& map) const {
+    drawThickLine(Point2int32(0 + xOff, 10 * rng + yOff), Point2int32(20 * rad + xOff, 10 * rng + yOff), Color4(1, 0, 0), 5, image, map);
+    drawThickLine(Point2int32(10 * rad + xOff, 0 + yOff), Point2int32(10 * rad + xOff, 20 * rng + yOff), Color4(1, 0, 0), 5, image, map);
     for (int x = 0; x <= 2 * rad; ++x) {
-        drawThickLine(Point2int32(xOff + x * 10, yOff + rng * 10 - 2), Point2int32(xOff + x * 10, yOff + rng * 10 + 2), Color4(1, 0, 0), 0, image);
+        drawThickLine(Point2int32(xOff + x * 10, yOff + rng * 10 - 2), Point2int32(xOff + x * 10, yOff + rng * 10 + 2), Color4(1, 0, 0), 0, image, map);
     }
     for (int y = 0; y <= 2 * rng; ++y) {
-        drawThickLine(Point2int32(xOff + rad * 10 - 2, yOff + y * 10), Point2int32(xOff + rad * 10 + 2, yOff + y * 10), Color4(1, 0, 0), 0, image);
+        drawThickLine(Point2int32(xOff + rad * 10 - 2, yOff + y * 10), Point2int32(xOff + rad * 10 + 2, yOff + y * 10), Color4(1, 0, 0), 0, image, map);
     }
 }
 
@@ -207,7 +220,7 @@ void Drawing::drawVarGraph(bool isClock, int width, int height, int xOff, int yO
         pixY += yOff;
         p2 = Point2int32(1.0f * x, pixY);
         if (p1.x != -1) {
-            drawThickLine(p1, p2, Color4(0, 0, 0), 5, image);
+            drawLine(p1, p2, Color4(0, 0, 0), image);
         }
         p1 = p2;
         realX += .1;
@@ -215,7 +228,7 @@ void Drawing::drawVarGraph(bool isClock, int width, int height, int xOff, int yO
 }
 
 void Drawing::drawMyGraph(shared_ptr<Image>& image) const {
-    drawAxes(4, 10, 5, 5, image);
+    //drawAxes(4, 10, 5, 5, image);
     drawVarGraph(false, 4, 10, 5, 5, 1, image);
 }
 

@@ -14,8 +14,8 @@
             preprocess = {
                 setMaterial(all(), 
                     UniversalMaterial::Specification {
-                        lambertian = "Coral.png";
-                        bump = "CoralMap.png"
+                        lambertian = "random2.png";
+                        bump = "randomMap2.png"
                     });
                 transformGeometry(all(), Matrix4::scale(2.1, 1.5, 0));
             };
@@ -44,11 +44,6 @@
 
         };
 
-        cube1 = VisibleEntity {
-            model = "boardModel";
-            frame = CFrame::fromXYZYPRDegrees(0, 0, -2, 90, 0, 0);
-
-        };
 
 
 
