@@ -55,20 +55,20 @@ void App::writeCoral() {
     shared_ptr<Drawing> painter(new Drawing());
     shared_ptr<G3D::Image> image;
     shared_ptr<G3D::Image> map;
-    generateShape(5, Point2int32(640,360), -90, 100, 15, 12.0f, Array<String>("X"));
+    generateShape(5, Point2int32(640, 360), -90, 100, 15, 12.0f, Array<String>("X"));
 
     try {
         int width = 1280;
         int height = 720;
         image = Image::create(width, height, ImageFormat::RGB32F());
         map = Image::create(width, height, ImageFormat::RGB32F());
-        image->setAll(Color4(1,1,1,0));
-        map->setAll(Color4(0,1,1,0));
+        image->setAll(Color4(1, 1, 1, 0));
+        map->setAll(Color4(0, 1, 1, 0));
 
-        for(int i(0); i < edgeBuffer.size(); ++i) {
+        for (int i(0); i < edgeBuffer.size(); ++i) {
             Point2int32 s = edgeBuffer[i][0];
             Point2int32 f = edgeBuffer[i][1];
-            painter->drawThickLine(s, f, Color3(1,0,0), 3, image, map);   
+            painter->drawThickLine(s, f, Color3(1, 0, 0), 3, image, map);
         }
 
         show(image);
@@ -77,15 +77,16 @@ void App::writeCoral() {
         map->convert(ImageFormat::RGB8());
         image->save("../data-files/random.png");
         map->save("../data-files/randomMap.png");
-    } catch (...) {
+    }
+    catch (...) {
         msgBox("Unable to load the image.");
     }
 }
 
 void App::generateShape(int depth, Point2int32 location, float cumulativeAngle, float drawLength, float moveAngle, float thick, Array<String>& symbolBuffer) {
-    if(depth == 0) return;
+    if (depth == 0) return;
 
-//void App::drawLine(Point2 point1, Point2 point2, Color3 c, shared_ptr<Image>& image) {
+    //void App::drawLine(Point2 point1, Point2 point2, Color3 c, shared_ptr<Image>& image) {
 
     applyRules(depth, location, cumulativeAngle, drawLength, moveAngle, thick, symbolBuffer);
 }
@@ -100,30 +101,30 @@ void App::applyRules(int depth, Point2int32 location, float cumulativeAngle, flo
     angles.resize(20);
     positions.resize(20);
 
-    for(int i(0); i < symbolBuffer.size(); ++i) {
-        if(symbolBuffer[i] == "-") {
+    for (int i(0); i < symbolBuffer.size(); ++i) {
+        if (symbolBuffer[i] == "-") {
             //angle -= moveAngle;
             angles[isBracket + 1] = angles[isBracket] - moveAngle;
         }
-        else if(symbolBuffer[i] == "+") {
+        else if (symbolBuffer[i] == "+") {
             //angle += moveAngle;
             angles[isBracket + 1] = angles[isBracket] + moveAngle;
         }
-        else if(symbolBuffer[i] == "[") {
+        else if (symbolBuffer[i] == "[") {
             ++isBracket;
-            positions[isBracket] = positions[isBracket-1];
+            positions[isBracket] = positions[isBracket - 1];
         }
-        else if(symbolBuffer[i] == "]") {
+        else if (symbolBuffer[i] == "]") {
             --isBracket;
 
             //angle = cumulativeAngle;
             //position = location;
         }
-        else if(symbolBuffer[i] == "F") {
+        else if (symbolBuffer[i] == "F") {
             float randLen = drawLength * G3D::Random::threadCommon().uniform(0.5f, 1.0);
 
 
-            float radians = (angles[isBracket]/180.0f) * pif();
+            float radians = (angles[isBracket] / 180.0f) * pif();
             int x = lround(cos(radians) * randLen) + positions[isBracket].x;
             int y = lround(sin(radians) * randLen) + positions[isBracket].y;
 
@@ -134,12 +135,12 @@ void App::applyRules(int depth, Point2int32 location, float cumulativeAngle, flo
 
             positions[isBracket] = point;
         }
-        else if(symbolBuffer[i] == "X") {
+        else if (symbolBuffer[i] == "X") {
 
             float count = G3D::Random::threadCommon().uniform(0.0f, 1.0);
             Array<String> applyBuffer = Array<String>();
 
-            if(count > 0.6f) {
+            if (count > 0.6f) {
                 applyBuffer.append("-", "[");
                 applyBuffer.append("F", "X", "]", "-", "[", "-");
                 applyBuffer.append("[", "F", "X", "]", "]", "+");
@@ -149,14 +150,16 @@ void App::applyRules(int depth, Point2int32 location, float cumulativeAngle, flo
                 applyBuffer.append("X", "F", "]", "]", "]", "+");
                 applyBuffer.append("[", "+", "[", "+", "[", "X");
                 applyBuffer.append("F", "]", "]", "]");
-            } else if (count > 0.2) {
+            }
+            else if (count > 0.2) {
                 applyBuffer.append("-", "[");
                 applyBuffer.append("F", "X", "]", "-", "[", "-");
                 applyBuffer.append("[", "F", "X", "]", "]", "+");
                 applyBuffer.append("[", "F", "X", "]", "+", "[");
                 applyBuffer.append("+", "[", "F", "X", "]", "]");
-                applyBuffer.append("[","F","X","]");
-            } else {
+                applyBuffer.append("[", "F", "X", "]");
+            }
+            else {
                 applyBuffer.append("-", "[", "F", "X", "]");
                 applyBuffer.append("+");
                 applyBuffer.append("[");
@@ -280,42 +283,59 @@ void App::makeGUI() {
         int height = 500;
         image = Image::create(width, height, ImageFormat::RGB32F());
         map = Image::create(width, height, ImageFormat::RGB32F());
-        image->setAll(Color4(1,1,1,0));
-        map->setAll(Color4(1,1,1,0));
+        image->setAll(Color4(1, 1, 1, 0));
+        map->setAll(Color4(1, 1, 1, 0));
 
         shared_ptr<Drawing> painter(new Drawing());
+        /*
+
+                //painter->drawGradiantBackground(Color3(0, 1, 0), Color3(0, 0, 1), height, width, image);
+                // painter->drawThickLine(Point2int32(0, 0), Point2int32(599, 499), Color3(1, 0, 0), 5, image);
+                painter->drawLine(Point2int32(300, 0), Point2int32(300, 499), Color3(1, 0, 0), image);
+                painter->drawLine(Point2int32(0, 250), Point2int32(599, 250), Color3(1, 0, 0), image);
+                // Flat diagonals
+                painter->drawLine(Point2int32(0, 0), Point2int32(599, 499), Color3(1, 0, 0), image); // Negative
+                painter->drawLine(Point2int32(0, 499), Point2int32(599, 0), Color3(1, 0, 0), image); //Positive
+                //Steep diagonals
+                painter->drawLine(Point2int32(0, 0), Point2int32(100, 499), Color3(1, 0, 0), image); // Negative
+                painter->drawLine(Point2int32(100, 499), Point2int32(200, 0), Color3(1, 0, 0), image); // Positive
+
+                painter->drawThickLine(Point2int32(300, 0), Point2int32(300, 499), Color3(1, 0, 0),5, image, map);
+                painter->drawThickLine(Point2int32(0, 250), Point2int32(599, 250), Color3(1, 0, 0),5, image, map);
+                // Flat diagonals
+                painter->drawThickLine(Point2int32(0, 0), Point2int32(599, 499), Color3(1, 0, 0),5, image, map); // Negative
+                painter->drawThickLine(Point2int32(0, 499), Point2int32(599, 0), Color3(1, 0, 0),5, image, map); //Positive
+                //Steep diagonals
+                painter->drawThickLine(Point2int32(0, 0), Point2int32(100, 499), Color3(1, 0, 0),5, image, map); // Negative
+                painter->drawThickLine(Point2int32(100, 499), Point2int32(200, 0), Color3(1, 0, 0),5, image, map); // Positive
+
+                //Really Flat diagonals
+                painter->drawThickLine(Point2int32(0,250), Point2int32(599, 300), Color3(1,0,0), 5, image, map);
+
+                //Really Steep diagonals
+                painter->drawThickLine(Point2int32(400,0), Point2int32(410, 499), Color3(1,0,0), 5, image, map);
+
+               // drawMyGraph(image);
+                //drawClock(image);
+                //drawCantorDust(20, 350, 220, 5, image);
+
+                */
+
+        painter->drawThickLine(Point2int32(300, 0), Point2int32(300, 499), Color3(1, 0, 0), 5, image, map);
+        painter->drawThickLine(Point2int32(0, 250), Point2int32(599, 250), Color3(1, 0, 0), 5, image, map);
+
+        painter->drawThickLine(Point2int32(150, 0), Point2int32(450, 499), Color3(1, 0, 0), 5, image, map);
+        painter->drawThickLine(Point2int32(450, 0), Point2int32(150, 499), Color3(1, 0, 0), 5, image, map);
+
+        painter->drawThickLine(Point2int32(0, 125), Point2int32(599, 375), Color3(1, 0, 0), 5, image, map);
+        painter->drawThickLine(Point2int32(0, 375), Point2int32(599, 125), Color3(1, 0, 0), 5, image, map);
 
 
-        //painter->drawGradiantBackground(Color3(0, 1, 0), Color3(0, 0, 1), height, width, image);
-        // painter->drawThickLine(Point2int32(0, 0), Point2int32(599, 499), Color3(1, 0, 0), 5, image);
-        painter->drawLine(Point2int32(300, 0), Point2int32(300, 499), Color3(1, 0, 0), image);
-        painter->drawLine(Point2int32(0, 250), Point2int32(599, 250), Color3(1, 0, 0), image);
-        // Flat diagonals
-        painter->drawLine(Point2int32(0, 0), Point2int32(599, 499), Color3(1, 0, 0), image); // Negative
-        painter->drawLine(Point2int32(0, 499), Point2int32(599, 0), Color3(1, 0, 0), image); //Positive
-        //Steep diagonals
-        painter->drawLine(Point2int32(0, 0), Point2int32(100, 499), Color3(1, 0, 0), image); // Negative
-        painter->drawLine(Point2int32(100, 499), Point2int32(200, 0), Color3(1, 0, 0), image); // Positive
+        painter->drawThickLine(Point2int32(0, 0), Point2int32(599, 499), Color3(1, 0, 0), 5, image, map);
+        painter->drawThickLine(Point2int32(0, 499), Point2int32(599, 0), Color3(1, 0, 0), 5, image, map);
 
-        painter->drawThickLine(Point2int32(300, 0), Point2int32(300, 499), Color3(1, 0, 0),5, image, map);
-        painter->drawThickLine(Point2int32(0, 250), Point2int32(599, 250), Color3(1, 0, 0),5, image, map);
-        // Flat diagonals
-        painter->drawThickLine(Point2int32(0, 0), Point2int32(599, 499), Color3(1, 0, 0),5, image, map); // Negative
-        painter->drawThickLine(Point2int32(0, 499), Point2int32(599, 0), Color3(1, 0, 0),5, image, map); //Positive
-        //Steep diagonals
-        painter->drawThickLine(Point2int32(0, 0), Point2int32(100, 499), Color3(1, 0, 0),5, image, map); // Negative
-        painter->drawThickLine(Point2int32(100, 499), Point2int32(200, 0), Color3(1, 0, 0),5, image, map); // Positive
-
-        //Really Flat diagonals 
-        painter->drawThickLine(Point2int32(0,250), Point2int32(599, 300), Color3(1,0,0), 5, image, map);
-
-        //Really Steep diagonals 
-        painter->drawThickLine(Point2int32(400,0), Point2int32(410, 499), Color3(1,0,0), 5, image, map);
-
-       // drawMyGraph(image);
-        //drawClock(image);
-        //drawCantorDust(20, 350, 220, 5, image);
-
+        painter->drawThickLine(Point2int32(225, 0), Point2int32(375, 499), Color3(1, 0, 0), 5, image, map);
+        painter->drawThickLine(Point2int32(375, 0), Point2int32(225, 499), Color3(1, 0, 0), 5, image, map);
 
         show(image);
         show(map);
