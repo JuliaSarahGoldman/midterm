@@ -1,6 +1,6 @@
 /* -*- c++ -*- */
 { 
-    name = "Green Cylinder"; 
+    name = "Coral"; 
 
     models = {
         cubeModel = ArticulatedModel::Specification {
@@ -17,6 +17,16 @@
                     UniversalMaterial::Specification {
                         lambertian = "test-lambertian.png";
                         bump = "test-bump.png"
+                    });
+            };
+        };
+        starModel = ArticulatedModel::Specification {
+            filename = "board.off";
+            scale = 2;
+            preprocess = {
+                setMaterial(all(), 
+                    UniversalMaterial::Specification {
+                        lambertian = "tubes.png";
                     });
             };
         };
@@ -38,15 +48,17 @@
             type = "SPOT"; 
         }; 
 
-        cube0 = VisibleEntity {
+        cube1 = VisibleEntity {
             model = "boardModel";
             frame = CFrame::fromXYZYPRDegrees(0, 0, -2, 180, 180, 0);
 
         };
 
+        cube0 = VisibleEntity {
+            model = "starModel";
+            frame = CFrame::fromXYZYPRDegrees(-3, 0, -2, 180, 180, 0);
 
-
-
+        };
 
         camera = Camera {
             frame = CFrame::fromXYZYPRDegrees(0, 0, 5);
