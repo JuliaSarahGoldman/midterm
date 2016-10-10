@@ -9,6 +9,7 @@
                 setMaterial(all(), Color3(1,1,1));
             };
         };
+
         boardModel = ArticulatedModel::Specification {
             filename = "ifs/square.ifs";
             scale = 2;
@@ -27,7 +28,7 @@
             preprocess = {
                 setMaterial(all(), 
                     UniversalMaterial::Specification {
-                        lambertian = "tubes.png";
+                        lambertian = "sideTest.png";
                     });
             };
         };
@@ -57,7 +58,7 @@
 
         cube0 = VisibleEntity {
             model = "starModel";
-            frame = CFrame::fromXYZYPRDegrees(-3, 0, -2, 180, 180, 0);
+            frame = CFrame::fromXYZYPRDegrees(-3, 0, -2, 0, 0, 0);
 
         };
 
