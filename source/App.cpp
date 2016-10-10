@@ -51,11 +51,11 @@ App::App(const GApp::Settings& settings) : GApp(settings) {
     thickBuffer = Array<float>();
 }
 
-void App::writeCoral() {
+void App::writeCoral(String bumpName, String colorName) {
     shared_ptr<Rasterizer> painter(new Rasterizer());
     shared_ptr<Image> color;
     shared_ptr<Image> bump;
-    generateShape(5, Point2int32(640, 360), -90, 100, 15, 12.0f, Array<String>("X"));
+    generateCrazyCoral(4, Point2int32(640, 360), -90, 200, 15, 16.0f, Array<String>("S"));
 
     try {
         int width = 1280;
@@ -70,29 +70,124 @@ void App::writeCoral() {
             Point2int32 s = edgeBuffer[i][0];
             Point2int32 f = edgeBuffer[i][1];
 
-            painter->drawThickLine(s, f, Color3(1,0,0), 3, color, bump);   
+            painter->drawThickLine(s, f, Color3(1,0,0), thickBuffer[i], color, bump);   
 
         }
 
         show(color);
         show(bump);
-        color->save("../data-files/test-lambertian.png");
-        bump->save("../data-files/test-bump.png");
+        color->save("../data-files/"+colorName+".png");
+        bump->save("../data-files/"+bumpName+".png");
     }
     catch (...) {
         msgBox("Unable to load the image.");
     }
 }
 
-void App::generateShape(int depth, Point2int32 location, float cumulativeAngle, float drawLength, float moveAngle, float thick, Array<String>& symbolBuffer) {
+void App::generateFingerCoral(int depth, Point2int32 location, float cumulativeAngle, float drawLength, float moveAngle, float thick, Array<String>& symbolBuffer) {
     if (depth == 0) return;
 
     //void App::drawLine(Point2 point1, Point2 point2, Color3 c, shared_ptr<Image>& image) {
 
-    applyRules(depth, location, cumulativeAngle, drawLength, moveAngle, thick, symbolBuffer);
+    applyFingerRules(depth, location, cumulativeAngle, drawLength, moveAngle, thick, symbolBuffer);
 }
 
-void App::applyRules(int depth, Point2int32 location, float cumulativeAngle, float drawLength, float moveAngle, float thick, Array<String>& symbolBuffer) {
+void App::applyFingerRules(int depth, Point2int32 location, float cumulativeAngle, float drawLength, float moveAngle, float thick, Array<String>& symbolBuffer) {
+    //float angle = cumulativeAngle;
+    //Point2int32 position = location;
+    int isBracket = 0;
+    Array<float> angles(cumulativeAngle);
+    Array<Point2int32> positions(location);
+
+    angles.resize(20);
+    positions.resize(20);
+
+    for (int i(0); i < symbolBuffer.size(); ++i) {
+        if (symbolBuffer[i] == "-") {
+            //angle -= moveAngle;
+            angles[isBracket + 1] = angles[isBracket] - moveAngle;
+        }
+        else if (symbolBuffer[i] == "+") {
+            //angle += moveAngle;
+            angles[isBracket + 1] = angles[isBracket] + moveAngle;
+        }
+        else if (symbolBuffer[i] == "[") {
+            ++isBracket;
+            positions[isBracket] = positions[isBracket - 1];
+        }
+        else if (symbolBuffer[i] == "]") {
+            --isBracket;
+
+            //angle = cumulativeAngle;
+            //position = location;
+        }
+        else if (symbolBuffer[i] == "F") {
+            float randLen = drawLength * G3D::Random::threadCommon().uniform(0.5f, 1.0);
+            float randAng = angles[isBracket] * G3D::Random::threadCommon().uniform(0.5f, 1.0);
+
+            float radians = (randAng / 180.0f) * pif();
+            int x = lround(cos(radians) * randLen) + positions[isBracket].x;
+            int y = lround(sin(radians) * randLen) + positions[isBracket].y;
+
+            Point2int32 point(x, y);
+            Array<Point2int32> edge(positions[isBracket], point);
+            edgeBuffer.append(edge);
+            thickBuffer.append(thick);
+
+            positions[isBracket] = point;
+        }
+        else if(symbolBuffer[i] == "S") {
+
+            Array<String> applyBuffer = Array<String>();
+
+            applyBuffer.append("-", "[");
+            applyBuffer.append("F", "X", "]", "-", "[", "-");
+            applyBuffer.append("[", "F", "X", "]", "]", "+");
+            applyBuffer.append("[", "F", "X", "]", "+", "[");
+            applyBuffer.append("+", "[", "F", "X", "]", "]");
+            applyBuffer.append("-", "[", "-", "[", "-", "[");
+            applyBuffer.append("X", "F", "]", "]", "]", "+");
+            applyBuffer.append("[", "+", "[", "+", "[", "X");
+            applyBuffer.append("F", "]", "]", "]");
+
+            generateFingerCoral(depth - 1, positions[isBracket], angles[isBracket], drawLength * 0.8f, moveAngle, thick * 0.7f, applyBuffer);
+        }
+        else if (symbolBuffer[i] == "X") {
+
+            float count = G3D::Random::threadCommon().uniform(0.0f, 1.0);
+            Array<String> applyBuffer = Array<String>();
+
+            if (count > 0.2) {
+                applyBuffer.append("-", "[");
+                applyBuffer.append("F", "X", "]", "-", "[", "-");
+                applyBuffer.append("[", "F", "X", "]", "]", "+");
+                applyBuffer.append("[", "F", "X", "]", "+", "[");
+                applyBuffer.append("+", "[", "F", "X", "]", "]");
+                applyBuffer.append("[", "F", "X", "]");
+            }
+            else {
+                applyBuffer.append("-", "[", "F", "X", "]");
+                applyBuffer.append("+");
+                applyBuffer.append("[");
+                applyBuffer.append("F");
+                applyBuffer.append("X");
+                applyBuffer.append("]");
+            }
+
+            generateFingerCoral(depth - 1, positions[isBracket], angles[isBracket], drawLength * 0.8f, moveAngle, thick * 0.7f, applyBuffer);
+        }
+    }
+}
+
+void App::generateCrazyCoral(int depth, Point2int32 location, float cumulativeAngle, float drawLength, float moveAngle, float thick, Array<String>& symbolBuffer) {
+    if (depth == 0) return;
+
+    //void App::drawLine(Point2 point1, Point2 point2, Color3 c, shared_ptr<Image>& image) {
+
+    applyCrazyRules(depth, location, cumulativeAngle, drawLength, moveAngle, thick, symbolBuffer);
+}
+
+void App::applyCrazyRules(int depth, Point2int32 location, float cumulativeAngle, float drawLength, float moveAngle, float thick, Array<String>& symbolBuffer) {
     //float angle = cumulativeAngle;
     //Point2int32 position = location;
     int isBracket = 0;
@@ -136,7 +231,7 @@ void App::applyRules(int depth, Point2int32 location, float cumulativeAngle, flo
 
             positions[isBracket] = point;
         }
-        else if (symbolBuffer[i] == "X") {
+        else if (symbolBuffer[i] == "X" || symbolBuffer[i] == "S") {
 
             float count = G3D::Random::threadCommon().uniform(0.0f, 1.0);
             Array<String> applyBuffer = Array<String>();
@@ -192,7 +287,7 @@ void App::applyRules(int depth, Point2int32 location, float cumulativeAngle, flo
             applyBuffer.append("X");
             applyBuffer.append("]");*/
 
-            generateShape(depth - 1, positions[isBracket], angles[isBracket], drawLength * 0.8f, moveAngle, thick * 0.7f, applyBuffer);
+            generateCrazyCoral(depth - 1, positions[isBracket], angles[isBracket], drawLength * 0.8f, moveAngle, thick * 0.7f, applyBuffer);
         }
     }
 }
@@ -242,7 +337,7 @@ void App::onInit() {
     // developerWindow->videoRecordDialog->setScreenShotFormat("PNG");
     // developerWindow->videoRecordDialog->setCaptureGui(false);
     developerWindow->cameraControlWindow->moveTo(Point2(developerWindow->cameraControlWindow->rect().x0(), 0));
-    writeCoral();
+    writeCoral("test-bump","test-lambertian");
     loadScene(
         //"G3D Sponza"
         "G3D Cornell Box" // Load something simple
