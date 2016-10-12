@@ -136,9 +136,10 @@ void CoralGenerator::applyRules(int depth, const Point2int32& location, float cu
             int count = G3D::Random::threadCommon().uniform(0, apply.size());
 
             applyRules(depth - 1, positions[isBracket], angles[isBracket], drawLength * 0.8f, moveAngle, thick * 0.85f, apply[count], rules, edgeBuffer, thickBuffer);
-        } else {
+        } else if(symbolBuffer.substr(i, 1) != "\n"){
 
-            Array<String> apply = rules[symbolBuffer.substr(i, 1)];
+            String str = symbolBuffer.substr(i, 1);
+            Array<String> apply = rules[str];
             int count = G3D::Random::threadCommon().uniform(0, apply.size());
 
             applyRules(depth - 1, positions[isBracket], angles[isBracket], drawLength * 0.8f, moveAngle, thick * 0.85f, apply[count], rules, edgeBuffer, thickBuffer);
