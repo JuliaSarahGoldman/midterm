@@ -12,11 +12,11 @@ void CoralGenerator::writeCoral(String coralType, Color3 coralColor, shared_ptr<
     Array<float> thickBuffer = Array<float>();
 
     if(coralType == "thin") {
-        generateThinCoral(4, Point2int32(640, 600), -90, 100, 20, 16.0f, edgeBuffer, thickBuffer);
+        generateThinCoral(7, Point2int32(640, 600), -90, 100, 20, 16.0f, edgeBuffer, thickBuffer);
     } else if(coralType == "finger") {
-        generateFingerCoral(4, Point2int32(640, 600), -90, 100, 20, 16.0f, edgeBuffer, thickBuffer);
+        generateFingerCoral(7, Point2int32(640, 600), -90, 100, 20, 16.0f, edgeBuffer, thickBuffer);
     } else {
-        generateCrazyCoral(4, Point2int32(640, 600), -90, 100, 20, 16.0f, edgeBuffer, thickBuffer);
+        generateCrazyCoral(7, Point2int32(640, 550), -90, 100, 20, 16.0f, edgeBuffer, thickBuffer);
     }
 
     try {
