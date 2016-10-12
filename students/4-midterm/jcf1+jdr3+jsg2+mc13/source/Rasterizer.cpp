@@ -209,8 +209,8 @@ void Rasterizer::drawThickLine(const Point2int32& point1, const Point2int32& poi
         }
 
     }*/
-    roundCorners(point1, halfGirth + 1, c, image, shade, map); // center adds 1 to total girth 
-    roundCorners(point2, halfGirth + 1, c, image, shade, map);
+    //roundCorners(point1, halfGirth + 1, c, image, shade, map); // center adds 1 to total girth 
+    //roundCorners(point2, halfGirth + 1, c, image, shade, map);
 }
 
 void Rasterizer::roundCorners(const Point2int32& C, float r, const Color4& c, shared_ptr<Image>& image, const Color4& shade, shared_ptr<Image>& map) const {
