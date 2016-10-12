@@ -7,12 +7,18 @@
     <ClCompile Include="source\Rasterizer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\CoralGenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\App.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\Rasterizer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\CoralGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

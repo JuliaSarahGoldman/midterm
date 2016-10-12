@@ -18,15 +18,6 @@ protected:
     void make3DCoral(String& coral, int depth, float radius, int height, const Matrix3& oldLeftRotation, const Matrix3& oldRightRotation);
     void createScene(String sceneName);
 
-    void generateCrazyCoral(int depth, Point2int32 location, float cumulativeAngle, float drawLength, float moveAngle, float thick, Array<String>& symbolBuffer);
-    void applyCrazyRules(int depth, Point2int32 location, float cumulativeAngle, float drawLength, float moveAngle, float thick, Array<String>& symbolBuffer);
-    void writeCoral(String bumpName, String colorName, Color3 coralColor);
-
-    void generateFingerCoral(int depth, Point2int32 location, float cumulativeAngle, float drawLength, float moveAngle, float thick, Array<String>& symbolBuffer);
-    void applyFingerRules(int depth, Point2int32 location, float cumulativeAngle, float drawLength, float moveAngle, float thick, Array<String>& symbolBuffer);
-
-    void generateThinCoral(int depth, Point2int32 location, float cumulativeAngle, float drawLength, float moveAngle, float thick, Array<String>& symbolBuffer);
-
     Array<Array<Point2int32>> edgeBuffer;
     Array<float> thickBuffer;
 
