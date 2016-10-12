@@ -11,7 +11,7 @@ Introduction
 
 ![Basic generation example](http://teampisces.weebly.com/uploads/3/0/7/3/30733957/1899336_orig.gif)
 
-This program will procedurally generate five distinct species of corral using a Lindernmeyer System (L-system). By specifying the species and specifying a height, we can generate unique corral and anenomes that will look amazing in any underwater environment. Corral and anenomes, like trees, can be represented as a recursive structure made of cylinders that shrink as they go farther from the base. Thus, an L-System can be used to model Corral and anenomes.
+This program will procedurally generate distinct species of corral using a Lindernmeyer System (L-system). By specifying the species and specifying a color, we can generate unique corral and anenomes that will look amazing in any underwater environment. Corral and anenomes, like trees, can be represented as a recursive structure made of cylinders that shrink as they go farther from the base. Thus, an L-System can be used to model Corral and anenomes. In order to avoid having an exponential number of polygons as we recurse, we model the L-systems in 2D, generating a bump map for each coral as we do so. Then, we create a billboard for each piece of coral, with a material that has the colored image of the coral as its lambertian and the bump map as the bump.
 
 Specification
 ============================================================================================
@@ -53,6 +53,25 @@ Procedurally generate realistic coral using "Billboard" Texture and Normal Maps.
   1. Create a beautiful, unique scene that demonstrates the beauty of our creations. Put the coral in the ocean with shadows and fish going around to make it look like a real ocean scene.
   2. Render the image using a path tracer in 1024x720 resolution using 1024 paths and 6 scattering events.
 
+Topic Overview
+=====================================================================================
+
+Design
+=====================================================================================
+
+Rasterizer:
+-----------------------------------------------------------------
+DrawThickLine | Draws a line of a given width from one given point to another, in a given color on the color image, and in a gradient for the bump map.
+inBounds | Checks if a pixel we want to draw is in within the image
+setpixel | Sets a pixel at a given x-y coordinate to a given color
+drawHLine | Draws a line between two points with the same 
+drawVLine |
+drawSteepLine |
+drawFlatLine |
+roundCorners |
+
+Coral Generator:
+
 Results
 =====================================================================================
 The following are the results of our procedural generation. We first demonstrate that the coral we create is visually accurate. Each coral should look as realistic as possible using the "billboard" method. We then show our coral in various different scenes, including with modeled fish floating around them.
@@ -77,6 +96,12 @@ Demonstration Images
 
 ![Turtle image](http://2ap93t1x1l6e2f6gfo3ag4vw.wpengine.netdna-cdn.com/wp-content/uploads/2016/09/Sea-turtle-great-barrier-reef.jpg)
 
+
+Schedule
+===================================================================
+
+Change Log
+===================================================================
 
 <!-- Markdeep: -->
 <style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace;}</style><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
