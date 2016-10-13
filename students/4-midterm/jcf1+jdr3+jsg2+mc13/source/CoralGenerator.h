@@ -5,10 +5,11 @@
 class CoralGenerator {
 protected:
     
-    void applyRules(int depth, const Point2int32& location, float cumulativeAngle, float drawLength, float moveAngle, float thick, const String& symbolBuffer, const Table<String,Array<String>>& rules, Array<Array<Point2int32>>& edgeBuffer, Array<float>& thickBuffer);
+    void applyRules(int depth, const Point2int32& location, float cumulativeAngle, float drawLength, float moveAngle, float thick, float thickMult, float drawMult, const String& symbolBuffer, const Table<String,Array<String>>& rules, Array<Array<Point2int32>>& edgeBuffer, Array<float>& thickBuffer);
     void generateFingerCoral(int depth, Point2int32& location, float cumulativeAngle, float drawLength, float moveAngle, float thick, Array<Array<Point2int32>>& edgeBuffer, Array<float>& thickBuffer);
     void generateThinCoral(int depth, Point2int32& location, float cumulativeAngle, float drawLength, float moveAngle, float thick, Array<Array<Point2int32>>& edgeBuffer, Array<float>& thickBuffer);
     void generateCrazyCoral(int depth, Point2int32& location, float cumulativeAngle, float drawLength, float moveAngle, float thick, Array<Array<Point2int32>>& edgeBuffer, Array<float>& thickBuffer);
+    void generateFlatCoral(int depth, Point2int32& location, float cumulativeAngle, float drawLength, float moveAngle, float thick, Array<Array<Point2int32>>& edgeBuffer, Array<float>& thickBuffer);
 
 public:
     
