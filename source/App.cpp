@@ -89,18 +89,27 @@ void App::onInit() {
     color = Image::create(1280, 1280, ImageFormat::RGBA8());
     bump = Image::create(1280, 1280, ImageFormat::RGBA8());
     shared_ptr<CoralGenerator> coralG(new CoralGenerator());
-    coralG->writeCoral("branch", Color3(1,.412,.706), color, bump);
+    coralG->writeCoral("crazy", Color3(1,.412,.706), color, bump);
     show(color);
     show(bump);
     color->save("../data-files/test-lambertian.png");
     bump->save("../data-files/test-bump.png");
 
-    /*coralG->writeCoral("finger", Color3(1,.412,.706), color, bump);
+
+    coralG->writeCoral("finger", Color3(.1,.5,1.0), color, bump);
+
+    coralG->writeCoral("thin", Color3(.1,.9,.3), color, bump);
     show(color);
     show(bump);
-    color->save("../data-files/finger-lambertian.png");
-    bump->save("../data-files/finger-bump.png");*/
+    color->save("../data-files/thin-lambertian.png");
+    bump->save("../data-files/thin-bump.png");
     
+    coralG->writeCoral("branch", Color3(1,.2,0), color, bump);
+    show(color);
+    show(bump);
+    color->save("../data-files/branch-lambertian.png");
+    bump->save("../data-files/branch-bump.png");
+
     createScene("corall");
     */
     loadScene(
