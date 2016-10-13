@@ -140,7 +140,7 @@ void App::onInit() {
     color = Image::create(1280, 720, ImageFormat::RGBA8());
     bump = Image::create(1280, 720, ImageFormat::RGBA8());
     shared_ptr<CoralGenerator> coralG(new CoralGenerator());
-    coralG->writeCoral("djkkja", Color3(1,.412,.706), color, bump);
+    coralG->writeCoral("crazy", Color3(1,.412,.706), color, bump);
     show(color);
     show(bump);
     color->save("../data-files/test-lambertian.png");
