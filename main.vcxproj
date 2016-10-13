@@ -99,6 +99,7 @@
     <ResourceCompile Include="resources.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="data-files\Coral.Scene.Any" />
     <None Include="data-files\greenCyl.Scene.Any" />
     <None Include="data-files\test.Scene.Any" />
     <None Include="doc-files\report.md.html" />
