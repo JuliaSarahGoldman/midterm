@@ -195,7 +195,7 @@ void App::makeGUI() {
         image = Image::create(width, height, ImageFormat::RGB32F());
         map = Image::create(width, height, ImageFormat::RGB32F());
         image->setAll(Color4(1, 1, 1, 0));
-        map->setAll(Color4(1, 1, 1, 0));
+        map->setAll(Color4(0, 0, 0, 0));
 
         shared_ptr<Rasterizer> painter(new Rasterizer());
         /*

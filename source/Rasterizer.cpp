@@ -168,20 +168,30 @@ void Rasterizer::drawThickLine(const Point2int32& point1, const Point2int32& poi
         shade -= increment*sign(1.0f*i);
     }
 
-    roundCorners(point1, t + 0.5f, m, c, image, shade, increment, map); // center adds 1 to total girth 
-    roundCorners(point2, t + 0.5f, m, c, image, shade, increment, map);
+    roundCorners(Point2(point1.x, point1.y), Point2(point2.x, point2.y), t + 0.5f, m, c, image, map); // center adds 1 to total girth 
+    //roundCorners(point2, t + 0.5f, m, c, image, shade, increment, map);
 }
 
-void Rasterizer::roundCorners(const Point2int32& C, float r, float m, const Color4& c, shared_ptr<Image>& image, Color4& shade, const Color4& shadeInc, shared_ptr<Image>& map) const {
-    int x0(C.x - r);
-    int x1(C.x + r);
-    int y0(C.y - r);
-    int y1(C.y + r);
+void Rasterizer::roundCorners(const Point2& c0, const Point2& c1, float r, float m, const Color4& c, shared_ptr<Image>& image, shared_ptr<Image>& map) const {
+    // Box around p0
+    int x0_i(c0.x - r); // Initial x
+    int x0_f(c0.x + r); // Final x
+    int y0_i(c0.y - r);
+    int y0_f(c0.y + r);
 
-    int offY(0);
-    int offX(0);
-    float incX(0);
-    float incY(0);
+    // Box around p1 
+    int x1_i(c1.x - r);
+    int x1_f(c1.x + r);
+    int y1_i(c1.y - r);
+    int y1_f(c1.y + r);
+
+
+    LineSegment2D centerLine(LineSegment2D::fromTwoPoints(c0, c1));
+
+    int offX(0); // potential x offset along steep slope
+
+    float incX(0); // To update x offset according to slope within loop 
+    float incY(0); // To update y offset according to slope within loop
 
     if (m != 0.0f) {
         if (fabs(m) < 1.1f) {
@@ -191,23 +201,73 @@ void Rasterizer::roundCorners(const Point2int32& C, float r, float m, const Colo
             incX = (1.0f / m);
         }
     }
+    
+    int w0(x0_i);
+    int w1(x1_i);
+    while (w0 <= x0_f && w1 <= x1_f) {
+        int offY(0); // potential y offset along flat slope
 
-    for (int x = x0; x <= x1; ++x) {
-        int curX(x +offX);
-        for (int y = y0; y <= y1; ++y) {
-            int curY(y +offY);
+        int curX0(w0 + offX);
+        int curX1(w1 + offX);
 
-            Point2int32 P(curX, curY);
-            Vector2 v(P - C);
-            if (v.length() <= r) {
-                setPixel(curX, curY, c, image);
-                setPixel(curX, curY, shade, map);
+        int h0(y0_i);
+        int h1(y1_i);
+        while (h0 <= y0_f && h1 <= y1_f) {
+            int curY0(h0 + offY);
+            int curY1(h1 + offY);
+
+            Point2 P0(curX0, curY0);
+            Point2 P1(curX1, curY1);
+
+            if ((P0 - c0).length() <= r) {
+                setPixel(curX0, curY0, c, image);
+
+                Color4 curCol(0, 0, 0, 1);
+                map->get(Point2int32(curX0, curY0), curCol);
+
+
+                float cValue(1.0f - fabs(centerLine.distance(P0) / r));
+                Color4 shade(cValue, cValue, cValue, 1.0);
+                setPixel(curX0, curY0, shade.max(curCol), map);
+            }
+
+            if ((P1 - c1).length() <= r) {
+                setPixel(curX1, curY1, c, image);
+                
+                Color4 curCol(0, 0, 0, 1);
+                map->get(Point2int32(curX1, curY1), curCol);
+
+                float cValue(1.0f - fabs(centerLine.distance(P1) / r));
+                Color4 shade(cValue, cValue, cValue, 1.0);
+                setPixel(curX1, curY1, shade.max(curCol), map);
+
             }
             offY += incY;
+            ++h0; ++h1;
         }
-        shade += curX < C.x ? shadeInc : -shadeInc;
         offX += incX;
+        ++w0; ++w1;
     }
+
+
+    /*   for (int x = x0_0; x <= x0_1; ++x) {
+           int curX0(x + offX);
+
+           int offY(0); // potential y offset along flat slope
+           for (int y = y0; y <= y1; ++y) {
+               int curY(y + offY);
+
+               Point2int32 P(curX, curY);
+               Vector2 v(P - C);
+               if (v.length() <= r) {
+                   setPixel(curX, curY, c, image);
+                   setPixel(curX, curY, shade, map);
+               }
+               shade += curY < C.y ? shadeInc : -shadeInc;
+               offY += incY;
+           }
+           offX += incX;
+       }*/
 };
 
 
