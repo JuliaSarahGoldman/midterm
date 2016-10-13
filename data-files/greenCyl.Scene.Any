@@ -19,7 +19,7 @@
                         lambertian = "test-lambertian.png";
                         bump = "test-bump.png"
                     });
-                transformGeometry(all(), Matrix4::scale(2,1,0));
+                transformGeometry(all(), Matrix4::scale(2,2,0));
             };
         };
         starModel = ArticulatedModel::Specification {
