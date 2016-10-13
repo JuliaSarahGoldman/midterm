@@ -23,7 +23,7 @@
             };
         };
         starModel = ArticulatedModel::Specification {
-            filename = "board.off";
+            filename = "star.off";
             scale = 2;
             preprocess = {
                 setMaterial(all(), 
@@ -44,7 +44,7 @@
         
         sun = Light { 
             attenuation = (0, 0, 1); 
-            bulbPower = Power3(50); 
+            bulbPower = Power3(40); 
             frame = CFrame::fromXYZYPRDegrees(-15, 207, -41, -164, -77, 77);
             shadowMapSize = Vector2int16(2048, 2048); 
             spotHalfAngleDegrees = 5; 
