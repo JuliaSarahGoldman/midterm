@@ -23,15 +23,15 @@ protected:
 
     void drawVLine(int x, int y0, int y1, const Color4& c, shared_ptr<Image>& image, const Color4& shade, shared_ptr<Image>& map) const;
 
-    void drawSteepLine(const Point2int32& point1, const Point2int32& point2, int offset, const Color4& c, shared_ptr<Image>& image, const Color4& shade, shared_ptr<Image>& map) const;
+    //void drawSteepLine(const Point2int32& point1, const Point2int32& point2, int offset, const Color4& c, shared_ptr<Image>& image, const Color4& shade, shared_ptr<Image>& map) const;
 
     void drawSteepLine(float x, float y0, float y1, float m_i, const Color4& c, shared_ptr<Image>& image, const Color4& shade, shared_ptr<Image>& map) const; 
 
-    void drawFlatLine(const Point2int32& point1, const Point2int32& point2, int offset, const Color4& c, shared_ptr<Image>& image, const Color4& shade, shared_ptr<Image>& map) const;
+    //void drawFlatLine(const Point2int32& point1, const Point2int32& point2, int offset, const Color4& c, shared_ptr<Image>& image, const Color4& shade, shared_ptr<Image>& map) const;
 
     void drawFlatLine(float y, float x0, float x1, float m, const Color4& c, shared_ptr<Image>& image, const Color4& shade, shared_ptr<Image>& map) const;
 
-    void roundCorners(const Point2int32& C, float r, const Color4& c, shared_ptr<Image>& image, const Color4& shade, shared_ptr<Image>& map) const; 
+    void roundCorners(const Point2int32& C, float r, float m, const Color4& c, shared_ptr<Image>& image, Color4& shade, const Color4& shadeInc, shared_ptr<Image>& map) const; 
 
 public:
     void drawLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, shared_ptr<Image>& image) const;
