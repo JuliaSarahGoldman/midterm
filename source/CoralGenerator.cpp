@@ -12,7 +12,7 @@ void CoralGenerator::writeCoral(String coralType, Color3 coralColor, shared_ptr<
     Array<float> thickBuffer = Array<float>();
 
     if(coralType == "thin") {
-        generateThinCoral(7, Point2int32(640, 600), -90, 100, 20, 16.0f, edgeBuffer, thickBuffer);
+        generateThinCoral(5, Point2int32(640, 600), -90, 100, 20, 16.0f, edgeBuffer, thickBuffer);
     } else if(coralType == "finger") {
         generateFingerCoral(7, Point2int32(640, 600), -90, 100, 20, 16.0f, edgeBuffer, thickBuffer);
     } else {
@@ -36,10 +36,25 @@ void CoralGenerator::writeCoral(String coralType, Color3 coralColor, shared_ptr<
     }
 }
 
+/*void CoralGenerator::generateThinCoral(int depth, Point2int32& location, float cumulativeAngle, float drawLength, float moveAngle, float thick, Array<Array<Point2int32>>& edgeBuffer, Array<float>& thickBuffer) {
+    
+    Table<String,Array<String>> rules = Table<String,Array<String>>();
+
+    Array<String> SBuffer("");
+    rules.set("S", SBuffer);
+
+    Array<String> XBuffer("");
+    rules.set("X", XBuffer);
+
+    rules.set("F", Array<String>("FF"));
+
+    applyRules(depth, location, cumulativeAngle, drawLength, moveAngle, thick, "S", rules, edgeBuffer, thickBuffer);
+}*/
+
 
 void CoralGenerator::generateThinCoral(int depth, Point2int32& location, float cumulativeAngle, float drawLength, float moveAngle, float thick, Array<Array<Point2int32>>& edgeBuffer, Array<float>& thickBuffer) {
     
-    Table<String,Array<String>> rules = Table<String,Array<String>>();
+    Table<String,Array<String>> rules;
 
     Array<String> SBuffer("-[FXFXFXF]+[FXFXFXF]");
     rules.set("S", SBuffer);
@@ -47,18 +62,18 @@ void CoralGenerator::generateThinCoral(int depth, Point2int32& location, float c
     Array<String> XBuffer("-[FX]-[-[FX]]+[FX]+[+[FX]][FX]F");
     rules.set("X", XBuffer);
 
-    rules.set("F", Array<String>(""));
+    rules.set("F", Array<String>("FF"));
 
     applyRules(depth, location, cumulativeAngle, drawLength, moveAngle, thick, "S", rules, edgeBuffer, thickBuffer);
 }
 
 void CoralGenerator::generateFingerCoral(int depth, Point2int32& location, float cumulativeAngle, float drawLength, float moveAngle, float thick, Array<Array<Point2int32>>& edgeBuffer, Array<float>& thickBuffer) {
-        Table<String,Array<String>> rules = Table<String,Array<String>>();
+        Table<String,Array<String>> rules;
 
         Array<String> SBuffer("-[FX]-[-[FX]]+[FX]+[+[FX]]+[+[+[FX]]]-[-[-[FX]]]");
         rules.set("S", SBuffer);
 
-        Array<String> XBuffer(10);
+        Array<String> XBuffer;
         for(int i = 0; i < 8; ++i) {
            XBuffer.append("-[FX]-[-[FX]]+[FX]+[+[FX]]");
         }
@@ -72,9 +87,9 @@ void CoralGenerator::generateFingerCoral(int depth, Point2int32& location, float
 }
 
 void CoralGenerator::generateCrazyCoral(int depth, Point2int32& location, float cumulativeAngle, float drawLength, float moveAngle, float thick, Array<Array<Point2int32>>& edgeBuffer, Array<float>& thickBuffer) {
-    Table<String,Array<String>> rules = Table<String,Array<String>>();
+    Table<String,Array<String>> rules;
 
-        Array<String> XBuffer(10);
+        Array<String> XBuffer;
 
         for(int i = 0; i < 6; ++i) {
            XBuffer.append("-[FX]-[-[FX]]+[FX]+[+[FX]]+[+[+[FX]]]-[-[-[FX]]]");
@@ -133,14 +148,14 @@ void CoralGenerator::applyRules(int depth, const Point2int32& location, float cu
             positions[isBracket] = point;
 
             Array<String> apply = rules["F"];
-            int count = G3D::Random::threadCommon().uniform(0, apply.size());
+            int count = G3D::Random::threadCommon().uniform(0, apply.size()-1);
 
-            applyRules(depth - 1, positions[isBracket], angles[isBracket], drawLength * 0.8f, moveAngle, thick * 0.85f, apply[count], rules, edgeBuffer, thickBuffer);
+            applyRules(depth - 1, positions[isBracket], angles[isBracket], drawLength * 0.8f, moveAngle, thick, apply[count], rules, edgeBuffer, thickBuffer);
         } else if(symbolBuffer.substr(i, 1) != "\n"){
 
             String str = symbolBuffer.substr(i, 1);
             Array<String> apply = rules[str];
-            int count = G3D::Random::threadCommon().uniform(0, apply.size());
+            int count = G3D::Random::threadCommon().uniform(0, apply.size()-1);
 
             applyRules(depth - 1, positions[isBracket], angles[isBracket], drawLength * 0.8f, moveAngle, thick * 0.85f, apply[count], rules, edgeBuffer, thickBuffer);
         }
