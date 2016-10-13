@@ -167,50 +167,9 @@ void Rasterizer::drawThickLine(const Point2int32& point1, const Point2int32& poi
         }
         shade -= increment*sign(1.0f*i);
     }
-    /*
-    if (x0 == x1) {
-        Color4 increment(1.0f/halfGirth, 1.0f/halfGirth, 1.0f/halfGirth, 1.0);
-        for (int i(-halfGirth); i <= halfGirth; ++i) {
-            drawVLine(x0 + i, y0, y1, c, image);
-            drawVLine(x0 + i, y0, y1, shade, map);
-            shade -= increment*sign(1.0*i);
-        }
-    }
-    else if (y0 == y1) {
-        Color4 increment(1.0f/halfGirth, 1.0f/halfGirth, 1.0f/halfGirth, 1.0);
-        for (int i(-halfGirth); i <= halfGirth; ++i) {
-            drawHLine(x0, x1, y0 + i, c, image);
-            drawHLine(x0, x1, y0 + i, shade, map);
-            shade -= increment*sign(1.0*i);
-        }
-    }
-    else {
-        float m = float(point2.y - point1.y) / float(point2.x - point1.x);
-        Vector2 d(point2-point1);
-        if (fabs(m) <= 1) {
 
-            int t_y = abs(halfGirth/(abs(d.direction().x)));
-            Color4 increment(1.0f/t_y, 1.0f/t_y, 1.0f/t_y, 1.0);
-            for(int i(-t_y); i < t_y; ++i) {
-                drawFlatLine(point1, point2, i, c, image);
-                drawFlatLine(point1, point2, i, shade, map);
-                shade -= increment*sign(1.0*i);
-            }
-        }
-        else {
-            int t_x = abs(halfGirth /abs(d.direction().y));
-            Color4 increment(1.0f/t_x, 1.0f/t_x, 1.0f/t_x, 1.0);
-            for(int i(-t_x); i < t_x; ++i) {
-                drawSteepLine(point1, point2, i, c, image);
-                drawSteepLine(point1, point2, i, shade, map);
-                shade -= increment*sign(1.0*i);
-            }
-
-        }
-
-    }*/
-    //roundCorners(point1, halfGirth + 1, c, image, shade, map); // center adds 1 to total girth 
-    //roundCorners(point2, halfGirth + 1, c, image, shade, map);
+    roundCorners(point1, halfGirth + 1, c, image, shade, map); // center adds 1 to total girth 
+    roundCorners(point2, halfGirth + 1, c, image, shade, map);
 }
 
 void Rasterizer::roundCorners(const Point2int32& C, float r, const Color4& c, shared_ptr<Image>& image, const Color4& shade, shared_ptr<Image>& map) const {
@@ -225,7 +184,7 @@ void Rasterizer::roundCorners(const Point2int32& C, float r, const Color4& c, sh
             Vector2 v(P - C);
             if (v.length() <= r) {
                 setPixel(x, y, c, image);
-                setPixel(x, y, shade, map);
+             //   setPixel(x, y, shade, map);
             }
         }
     }
