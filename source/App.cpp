@@ -2,6 +2,8 @@
 #include "App.h"
 #include "Rasterizer.h"
 #include "CoralGenerator.h"
+#include "CoralGenerator3D.h"
+
 // Tells C++ to invoke command-line main() function even on OS X and Win32.
 G3D_START_AT_MAIN();
 
@@ -52,65 +54,12 @@ App::App(const GApp::Settings& settings) : GApp(settings) {
     thickBuffer = Array<float>();
 }
 
-
-String App::makeTubes(Array<float>& radii, Array<float>& heights, int slices) {
-    String tube = String("OFF\n");
-    tube += format("%d %d 1\n", heights.size()*slices, (heights.size() - 1)*slices);
-    for (int i = 0; i < heights.size(); ++i) {
-        for (int j = 0; j < slices; ++j) {
-            tube += format(STR(%f %f %f\n), radii[i] * (-sin(((2 * pif()*j) / slices))), heights[i], radii[i] * (cos((2 * pif()*j) / slices)));
-        }
-    }
-    for (int i = 0; i < heights.size() - 1; ++i) {
-        for (int j = 0; j < slices; ++j) {
-            tube += format(STR(4 % d %d %d %d\n), i*slices + slices + j, i*slices + slices + (j + 1) % slices, i*slices + (j + 1) % slices, i*slices + j);
-        }
-    }
-    return tube;
-}
-
-String App::makeTube(int depth, float& radius, float height, int slices, const CoordinateFrame& coordFrame) {
-    String tube = String("");
-    tube += format("%d %d 1\n", slices, slices);
-        for (int j = 0; j < slices; ++j) {
-            Point3 x(radius * (-sin(((2 * pif()*j) / slices))), height, radius * (cos((2 * pif()*j) / slices)));
-            coordFrame.pointToWorldSpace(x);
-            tube += format(STR(%f %f %f\n), x.x, x.y, x.z);
-        }
-
-        for (int j = 0; j < slices; ++j) {
-            tube += format(STR(4 % d %d %d %d\n), depth*slices+slices + j, depth*slices+slices + (j + 1) % slices, depth*slices+ (j + 1) % slices, depth*slices + j);
-        }
-
-    return tube;
-}
-
-void App::make3DCoral(String& coral, int depth, float radius, int height, const Matrix3& oldLeftRotation, const Matrix3& oldRightRotation){
-    CoordinateFrame leftChild(Matrix3(1, 0, 0, 0, cosf(pif()/2)/2, -sinf(pif()/2)/2, 0, sinf(pif()/2)/2, cosf(pif()/2)/2), Point3(0, height-radius, 0));
-    CoordinateFrame rightChild(Matrix3(1, 0, 0, 0, -cosf(pif()/2)/2, sinf(pif()/2)/2, 0, -sinf(pif()/2)/2, -cosf(pif()/2)/2), Point3(0, height-radius, 0));
-    leftChild.rotation = oldLeftRotation * leftChild.rotation;
-    rightChild.rotation *= oldRightRotation * rightChild.rotation;
-    coral += makeTube(depth, radius, height, 8, leftChild);
-    coral += makeTube(depth, radius, height, 8, rightChild);
-    if (depth == 2) { return; }
-    
-    make3DCoral(coral, ++depth, depth/100, 4*height/7, leftChild.rotation, rightChild.rotation);
-}
-
-String App::write3DCoral(int depth, float startRadius, float startHeight){
-    String coral("OFF\n");
-    coral += format("%d %d 1\n", 8, 8);
-    CoordinateFrame original(Matrix3(1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f), Point3(0, 0, 0));
-    coral += makeTube(depth, startRadius, startHeight, 8, original);
-    make3DCoral(coral, depth, startRadius, startHeight, original.rotation, original.rotation);
-    return coral;
-}
-
 void App::createScene(String sceneName) {
     TextOutput output = TextOutput("scene\\" + sceneName + ".off");
 
     //Create the models for the scene
-    String modelString(write3DCoral(0,.3,1));
+    CoralGenerator3D gen;
+    String modelString(gen.write3DCoral(0,.3f,1.0f));
     output.writeSymbols(modelString);
 
     // End the File
@@ -134,7 +83,7 @@ void App::onInit() {
     // developerWindow->videoRecordDialog->setScreenShotFormat("PNG");
     // developerWindow->videoRecordDialog->setCaptureGui(false);
     developerWindow->cameraControlWindow->moveTo(Point2(developerWindow->cameraControlWindow->rect().x0(), 0));
-    
+    /*
     shared_ptr<Image> color;
     shared_ptr<Image> bump;
     color = Image::create(1280, 1280, ImageFormat::RGBA8());
@@ -151,11 +100,12 @@ void App::onInit() {
     show(bump);
     color->save("../data-files/finger-lambertian.png");
     bump->save("../data-files/finger-bump.png");*/
-
+    
     createScene("corall");
+    */
     loadScene(
         //"G3D Sponza"
-        "G3D Cornell Box" // Load something simple
+        "Coral 3D" // Load something simple
         //developerWindow->sceneEditorWindow->selectedSceneName()  // Load the first scene encountered 
     );
 }
