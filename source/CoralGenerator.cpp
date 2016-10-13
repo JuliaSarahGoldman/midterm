@@ -12,17 +12,19 @@ void CoralGenerator::writeCoral(String coralType, Color3 coralColor, shared_ptr<
     Array<float> thickBuffer = Array<float>();
 
     if(coralType == "thin") {
-        generateThinCoral(5, Point2int32(640, 600), -90, 100, 20, 16.0f, edgeBuffer, thickBuffer);
+        generateThinCoral(5, Point2int32(600, 900), -90, 100, 20, 16.0f, edgeBuffer, thickBuffer);
     } else if(coralType == "finger") {
-        generateFingerCoral(7, Point2int32(640, 600), -90, 100, 20, 16.0f, edgeBuffer, thickBuffer);
+        generateFingerCoral(5, Point2int32(600, 640), -90, 100, 20, 16.0f, edgeBuffer, thickBuffer);
     } else if (coralType == "flat") {
-        generateFlatCoral(6, Point2int32(640, 600), -90, 100, 20, 16.0f, edgeBuffer, thickBuffer);
+        generateFlatCoral(6, Point2int32(600, 640), -90, 100, 30, 16.0f, edgeBuffer, thickBuffer);
+    } else if (coralType == "branch"){
+         generateBranchCoral(3, Point2int32(600, 640), -90, 100, 40, 16.0f, edgeBuffer, thickBuffer);
     } else {
-        generateCrazyCoral(6, Point2int32(640, 550), -90, 100, 30, 16.0f, edgeBuffer, thickBuffer);
+        generateCrazyCoral(6, Point2int32(600, 640), -90, 100, 30, 16.0f, edgeBuffer, thickBuffer);
     }
 
     try {
-        color->setAll(Color4(1,1,1,0));
+        color->setAll(Color4(coralColor, 0));
         bump->setAll(Color3::black());
 
         for (int i(0); i < edgeBuffer.size(); ++i) {
@@ -60,28 +62,51 @@ void CoralGenerator::generateFlatCoral(int depth, Point2int32& location, float c
     
     Table<String,Array<String>> rules;
 
-    Array<String> SBuffer("-[FFFX]+[FFFX]++[FFFX]--[FFXFF]+++[FFXFF]---[FFFX]");
+    //Array<String> SBuffer("-[FY]+[FY]++[FY]--[FFYF]+++[FFYF]---[FY]");
+    Array<String> SBuffer("-[FY]+[FY]++[FY]");
     rules.set("S", SBuffer);
+
+    //Array<String> YBuffer("-[FFFX]+[FFFX]++[FFFX]--[FFXFF]+++[FFXFF]---[FFFX]");
+    Array<String> YBuffer("++[FX]", "--[FX]");
+    rules.set("Y", YBuffer);
     
     Array<String> XBuffer("FF", "", "+[FXF]");
     rules.set("X", XBuffer);
 
     rules.set("F", Array<String>(""));
 
-    applyRules(depth, location, cumulativeAngle, drawLength, moveAngle, thick, 0.65f, 0.8f, "S", rules, edgeBuffer, thickBuffer);
+    applyRules(depth, location, cumulativeAngle, drawLength, moveAngle, thick, 0.9f, 0.9f, "S", rules, edgeBuffer, thickBuffer);
+}
+
+void CoralGenerator::generateBranchCoral(int depth, Point2int32& location, float cumulativeAngle, float drawLength, float moveAngle, float thick, Array<Array<Point2int32>>& edgeBuffer, Array<float>& thickBuffer) {
+    
+    Table<String,Array<String>> rules;
+
+    Array<String> SBuffer("FXYFXYFXYFXYFF");
+    rules.set("S", SBuffer);
+    
+    Array<String> XBuffer("+[FF]", "++[FF]");
+    rules.set("X", XBuffer);
+
+    Array<String> YBuffer("-[FF]", "--[FF]");
+    rules.set("Y", YBuffer);
+
+    rules.set("F", Array<String>(""));
+
+    applyRules(depth, location, cumulativeAngle, drawLength, moveAngle, thick, 0.5f, 0.5f, "S", rules, edgeBuffer, thickBuffer);
 }
 
 void CoralGenerator::generateFingerCoral(int depth, Point2int32& location, float cumulativeAngle, float drawLength, float moveAngle, float thick, Array<Array<Point2int32>>& edgeBuffer, Array<float>& thickBuffer) {
         Table<String,Array<String>> rules;
 
-        Array<String> SBuffer("-[FX]-[-[FX]]+[FX]+[+[FX]]+[+[+[FX]]]-[-[-[FX]]]");
+        Array<String> SBuffer("-[FX]--[FX]+[FX]++[FX]+++[FX]---[FX]");
         rules.set("S", SBuffer);
 
         Array<String> XBuffer;
         for(int i = 0; i < 8; ++i) {
-           XBuffer.append("-[FX]-[-[FX]]+[FX]+[+[FX]]");
+           XBuffer.append("-[FX]--[FX]+[FX]++[FX]");
         }
-        XBuffer.append("-[FX]-[-[FX]]+[FX]+[+[FX]]");
+        //XBuffer.append("-[FX]--[FX]+[FX]++[FX]");
         XBuffer.append("-[FX]+[FX]");
         rules.set("X", XBuffer);
 
@@ -115,8 +140,6 @@ void CoralGenerator::applyRules(int depth, const Point2int32& location, float cu
 
     if(depth == 0){ return; }
 
-    debugPrintf("%d\n", depth);
-
     int isBracket = 0;
     Array<float> angles;
     Array<Point2int32> positions;
@@ -144,8 +167,8 @@ void CoralGenerator::applyRules(int depth, const Point2int32& location, float cu
             --isBracket;
         }
         else if (symbolBuffer.substr(i, 1) == "F") {
-            float randLen = drawLength * G3D::Random::threadCommon().uniform(0.8f, 1.0);
-            float randAng = angles[isBracket] * G3D::Random::threadCommon().uniform(0.85f, 1.0);
+            float randLen = drawLength * G3D::Random::threadCommon().uniform(0.65f, 1.0);
+            float randAng = angles[isBracket] * G3D::Random::threadCommon().uniform(0.75f, 1.0);
 
             float radians = (randAng / 180.0f) * pif();
             int x = lround(cos(radians) * randLen) + positions[isBracket].x;
