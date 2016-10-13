@@ -41,7 +41,7 @@ void Rasterizer::drawLine(const Point2int32& point1, const Point2int32& point2, 
             //drawFlatLine(point1, point2, offset, c, image, shade, map);
         }
         else {
-           // drawSteepLine(point1, point2, offset, c, image, shade, map);
+            // drawSteepLine(point1, point2, offset, c, image, shade, map);
         }
     }
 }
@@ -66,7 +66,7 @@ void Rasterizer::drawHLine(int x0, int x1, int y, const Color4& c, shared_ptr<Im
     float x0(min<float>(point1.x, point2.x));
     float x1(max<float>(point1.x, point2.x));
 
-    if (point2.x >= point1.x) { // Center y at appropriate coordinate 
+    if (point2.x >= point1.x) { // Center y at appropriate coordinate
         y += point1.y;
     }
     else {
@@ -94,7 +94,7 @@ void Rasterizer::drawFlatLine(float y, float x0, float x1, float m, const Color4
     float y0(min<float>(point1.y, point2.y));
     float y1(max<float>(point1.y, point2.y));
 
-    if (point2.y >= point1.y) { // Center x at appropriate coordinate 
+    if (point2.y >= point1.y) { // Center x at appropriate coordinate
         x += point1.x;
     }
     else {
@@ -182,7 +182,7 @@ void Rasterizer::roundCorners(const Point2int32& C, float r, float m, const Colo
     int offX(0);
     float incX(0);
     float incY(0);
- 
+
     if (m != 0.0f) {
         if (fabs(m) < 1.1f) {
             incY = m;
@@ -193,20 +193,20 @@ void Rasterizer::roundCorners(const Point2int32& C, float r, float m, const Colo
     }
 
     for (int x = x0; x <= x1; ++x) {
+        int curX(x +offX);
         for (int y = y0; y <= y1; ++y) {
-            x += offX;
-            y += offY;
+            int curY(y +offY);
 
-            Point2int32 P(x, y);
+            Point2int32 P(curX, curY);
             Vector2 v(P - C);
             if (v.length() <= r) {
-                setPixel(x, y, c, image);
-                setPixel(x, y, shade, map);
+                setPixel(curX, curY, c, image);
+                setPixel(curX, curY, shade, map);
             }
-            offX += incX;
             offY += incY;
         }
-        shade += x < C.x ? shadeInc : -shadeInc;
+        shade += curX < C.x ? shadeInc : -shadeInc;
+        offX += incX;
     }
 };
 
