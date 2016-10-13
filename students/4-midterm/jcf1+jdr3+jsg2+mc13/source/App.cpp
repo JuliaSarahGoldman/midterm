@@ -146,11 +146,11 @@ void App::onInit() {
     color->save("../data-files/test-lambertian.png");
     bump->save("../data-files/test-bump.png");
 
-    coralG->writeCoral("finger", Color3(1,.412,.706), color, bump);
+    /*coralG->writeCoral("finger", Color3(1,.412,.706), color, bump);
     show(color);
     show(bump);
     color->save("../data-files/finger-lambertian.png");
-    bump->save("../data-files/finger-bump.png");
+    bump->save("../data-files/finger-bump.png");*/
 
     createScene("corall");
     loadScene(
