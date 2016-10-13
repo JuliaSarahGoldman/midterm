@@ -79,7 +79,9 @@ Design
 |generateThinCoral | generates coral based on a set of rules |
 |generateCrazyCoral | generates coral based on a set of rules |
 
+We have a seperate class called Rasterizer that is responsible for drawing lines onto an image and create a bump map.  This allows us to create billboards for coral that are drawn on a 2D plane but appear to look 3D from afar.  We seperated this class into it's own files in order to keep it seperate from the actual procedual generation giving the code better structure and allowing people to work on both the generation and the presentation of coral at the same time without the worry of conflicts.
 
+We have another class called CoralGenerator which is responsible for computing the algorithms we are using to do the procedural generation of coral through L-Systems.  It has a public writeCoral method called from App which generates different types of coral and writes them two images for color and the bump map.  It uses a series of generate functions that specify different L-Systems that are passed to the applyRules method and allow us to create many different types of coral without much code.  The apply rules method was written such that it is able to create many different types of coral given different sets of rules, which makes the code for generating coral easy to read and add allows us to easily add new types of coral to be generated without changing any of our old code.
 
 Results
 =====================================================================================
