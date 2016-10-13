@@ -28,8 +28,10 @@
             preprocess = {
                 setMaterial(all(), 
                     UniversalMaterial::Specification {
-                        lambertian = "sideTest.png";
+                        lambertian = "test-lambertian.png";
+                        bump = "test-bump.png"
                     });
+                setTwoSided(all(), true);
             };
         };
     };
