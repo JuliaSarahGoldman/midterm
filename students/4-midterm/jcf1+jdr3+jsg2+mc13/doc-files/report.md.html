@@ -55,6 +55,50 @@ Procedurally generate realistic coral using "Billboard" Texture and Normal Maps.
 
 Topic Overview
 =====================================================================================
+To generate practical coral models, we use: 
+- L-system: specifies coral structure; 
+- Billboards: to generate "light weight" models; 
+- Image generation through adapted **rasterization** techniques.
+
+L-System
+------------------------------------------------------------------------------------
+The Lindenmayer (L) systems are mainly used for generating fractals and realistic modeling of plants. 
+
+An L-system consists of: 
+- A set of variables: nonterminals that can be replaced by production rules.
+- A set of constants: terminals. Constants are any of the following symbols:!, [, ], +, -.
+- A single axiom which is a string composed of some number of variables and constants. The axiom is the initial state of the system. 
+- A set of production rules defining the way variables can be replaced with combinations of constants and other variables. A production consists of two strings - the predecessor and the successor. The most interesting L-systems are defined by recursive production rules (i.e. rules that include the replaced variable along with other variable and constant combinations). 
+
+[source](http://www.cs.unm.edu/~joel/PaperFoldingFractal/L-system-rules.html): Castellanos, Joel. "Lindenmayer Systems: Details." L-System Rules. The University of New Mexico, Computer Science, n.d. Web. 12 Oct. 2016.
+
+This project used L-systems as the base for creating different coral models. 
+
+![L-System generated plant](L-system2.png width=200px) ![L-System generated plant](L-system1.png width=200px) ![Generated L-system](2016-10-09_004_4-midterm_r1512_g3d_r875___.png width=200px) ![Generated L-system](2016-10-12_000_4-midterm_r1571_g3d_r875_.png width=200px)
+
+L-systems are used to generate relistic tree models by describing the branching of the tree.
+
+Billboards
+------------------------------------------------------------------------------------
+Billboards are shaded 2D images used in 3D graphics. These 2D images are often used to simulate 3D objects at lower rendering costs. 
+
+Since our coral models are entirely created by following an L-system, with different recursion depths and recursive rules it would be impractical to create them entirely out of actual 3D polygons, which would create extensive triangle meshes and be heavy to render. Instead we used Billboards to achive the same effect with low tessalation. 
+
+We generate many 3D-looking 2D images of a given coral, then paste them onto flat cubes (the billboards), and intersect them in their centers at different angles. This generates the illusion of a 3D coral that looks slightly different from different angles, within the wireframe of a few cubes instead of many cylinders. 
+
+![Perpendicular billboards wireframe](2016-10-10_008_4-midterm_r1536_g3d_r875__.jpg width=200px) ![Billboard Coral 1](1.jpg width=200px) ![Billboard coral 2](coral_example.jpg width=200px)
+
+3D-looking 2D images were created out of 2 images: one specifying the color, and the other specifying a bump map. The two images were then respectively assigned to the lambertian and bump parameters of the billboard model within the scene file.
+
+Rasterization (partial)
+-----------------------------------------------------------------------------------
+Used to create Billboard lambertian and bump images. 
+
+Rasterization describes a technique to fill out the pixels of a 2D image accorsing to what is visible in a 3D space. 
+
+We use rasterization's pixel filling techniques to create arbitrary color and bump map images for our corals according to the L-system. As described in the Design section, our algorithm consists mainly of helper methods that draw different types of thicklines around the L-system. 
+
+![Thin lines](2016-10-07_000_4-midterm_r1473_g3d_r875___.png width = 200px) ![Thick color lines](2016-10-12_002_4-midterm_r1571_g3d_r875_.png width=200px) ![Thick bump map lines](2016-10-12_001_4-midterm_r1571_g3d_r875_.png width=200px) ![Color L-system](2016-10-12_004_4-midterm_r1571_g3d_r875_.png width=200px) ![Bump Map L-System](2016-10-12_003_4-midterm_r1571_g3d_r875_.png width=200px)
 
 Design
 =====================================================================================
