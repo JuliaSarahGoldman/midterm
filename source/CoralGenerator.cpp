@@ -18,7 +18,7 @@ void CoralGenerator::writeCoral(String coralType, Color3 coralColor, shared_ptr<
     } else if (coralType == "flat") {
         generateFlatCoral(6, Point2int32(600, 640), -90, 100, 30, 16.0f, edgeBuffer, thickBuffer);
     } else if (coralType == "branch"){
-         generateBranchCoral(3, Point2int32(600, 640), -90, 100, 40, 16.0f, edgeBuffer, thickBuffer);
+         generateBranchCoral(6, Point2int32(600, 1200), -90, 20, 15, 6.0f, edgeBuffer, thickBuffer);
     } else {
         generateCrazyCoral(6, Point2int32(600, 640), -90, 100, 30, 16.0f, edgeBuffer, thickBuffer);
     }
@@ -81,19 +81,22 @@ void CoralGenerator::generateFlatCoral(int depth, Point2int32& location, float c
 void CoralGenerator::generateBranchCoral(int depth, Point2int32& location, float cumulativeAngle, float drawLength, float moveAngle, float thick, Array<Array<Point2int32>>& edgeBuffer, Array<float>& thickBuffer) {
     
     Table<String,Array<String>> rules;
-
-    Array<String> SBuffer("FXYFXYFXYFXYFF");
-    rules.set("S", SBuffer);
     
-    Array<String> XBuffer("+[FF]", "++[FF]");
+    /*Array<String> XBuffer("+[FX]F", "-[FX]F", "+[FX]-[FX]", "F");
+    rules.set("X", XBuffer);*/
+
+    Array<String> XBuffer("+[FFFFFX]-[FFFFFX]");
     rules.set("X", XBuffer);
 
-    Array<String> YBuffer("-[FF]", "--[FF]");
+    Array<String> YBuffer("+[FFFFFX]");
     rules.set("Y", YBuffer);
 
-    rules.set("F", Array<String>("FF"));
+    Array<String> ZBuffer("-[FFFFFX]");
+    rules.set("Z", ZBuffer);
 
-    applyRules(depth, location, cumulativeAngle, drawLength, moveAngle, thick, 0.5f, 0.5f, "S", rules, edgeBuffer, thickBuffer);
+    rules.set("F", Array<String>(""));
+
+    applyRules(depth, location, cumulativeAngle, drawLength, moveAngle, thick, 1.0f, 1.0f, "FX+[YF]-[ZF]", rules, edgeBuffer, thickBuffer);
 }
 
 void CoralGenerator::generateFingerCoral(int depth, Point2int32& location, float cumulativeAngle, float drawLength, float moveAngle, float thick, Array<Array<Point2int32>>& edgeBuffer, Array<float>& thickBuffer) {
@@ -152,6 +155,8 @@ void CoralGenerator::applyRules(int depth, const Point2int32& location, float cu
 
     for (int i(0); i < symbolBuffer.length(); ++i) {
 
+        debugPrintf("%s, %f, %f\n", symbolBuffer.substr(i, 1), angles[isBracket], angles[isBracket + 1]);
+
         if (symbolBuffer.substr(i, 1) == "-") {
             angles[isBracket + 1] = angles[isBracket + 1] - moveAngle;
         }
@@ -167,8 +172,10 @@ void CoralGenerator::applyRules(int depth, const Point2int32& location, float cu
             --isBracket;
         }
         else if (symbolBuffer.substr(i, 1) == "F") {
-            float randLen = drawLength * G3D::Random::threadCommon().uniform(0.65f, 1.0);
-            float randAng = angles[isBracket] * G3D::Random::threadCommon().uniform(0.4f, 1.0);
+            float randLen = drawLength * G3D::Random::threadCommon().uniform(0.7f, 1.0);
+            float randAng = angles[isBracket] * G3D::Random::threadCommon().uniform(0.9f, 1.0);
+
+            debugPrintf("%f %f\n", angles[isBracket], randAng);
 
             float radians = (randAng / 180.0f) * pif();
             int x = lround(cos(radians) * randLen) + positions[isBracket].x;
