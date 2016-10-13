@@ -137,14 +137,21 @@ void App::onInit() {
     
     shared_ptr<Image> color;
     shared_ptr<Image> bump;
-    color = Image::create(1280, 720, ImageFormat::RGBA8());
-    bump = Image::create(1280, 720, ImageFormat::RGBA8());
+    color = Image::create(1280, 1280, ImageFormat::RGBA8());
+    bump = Image::create(1280, 1280, ImageFormat::RGBA8());
     shared_ptr<CoralGenerator> coralG(new CoralGenerator());
-    coralG->writeCoral("finger", Color3(1,.412,.706), color, bump);
+    coralG->writeCoral("thin", Color3(1,.412,.706), color, bump);
     show(color);
     show(bump);
     color->save("../data-files/test-lambertian.png");
     bump->save("../data-files/test-bump.png");
+
+    coralG->writeCoral("finger", Color3(1,.412,.706), color, bump);
+    show(color);
+    show(bump);
+    color->save("../data-files/finger-lambertian.png");
+    bump->save("../data-files/finger-bump.png");
+
     createScene("corall");
     loadScene(
         //"G3D Sponza"
