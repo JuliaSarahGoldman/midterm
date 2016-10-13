@@ -6,9 +6,40 @@
         **Julia Goldman (jdg2@williams.edu),**
         **and Matheus de Carvalho Souza (mc13@williams.edu)** 
 
+016-10-13: Thick Lines - Quadratic approach
+=============================================================
+The approach: 
+1. offset origin and end center line point coordinates by the thickness L(C0.x - r, C0.y - r) and H(C1.x + r, C1.y + r);
+2. Iterate through all pixels in the box defined by the diagonal LH;
+3. Set the pixels that are within thickness from the center line. 
+
+![Color lines](2016-10-13_010_4-midterm_r1633_g3d_r927_.png width=200px) ![Bump map](2016-10-13_011_4-midterm_r1633_g3d_r927_.png width=200px) ![overlapping corners](2016-10-13_009_4-midterm_r1633_g3d_r927___overlapping_corners.png width=200px)
+
+Bumpmap outlines all line segments. Goal: make it continuous from base to branch
+end -> use max color values.
+
+![Blended corners](2016-10-13_012_4-midterm_r1633_g3d_r927_.png width=200px) ![Blended corners](2016-10-13_013_4-midterm_r1633_g3d_r927_.png width=200px) 
+
+Problem: using mmax values blends overlapping branches! We need to think of ways of solving this -> maybe not shading corners apart from the last one?
+
+2016-10-13: Smooth corners
+=============================================================
+Round corners didn't line up with diagonal lines. 
+
+Our first approach to round corners was to define a box around the end points (C0 and C1) of the line along the diagonal LH with L(C.x - r, C.y - r) and H(C.x + r, C.y + r), and then set the pixels of the box that lied within the r centered at C. This worked well with vertical and horizontal lines, but the spheres were skewed with respect to diagonal lines. 
+
+To solve this we tried drawing the bouding box along the slope of the lines. That made the round corners closer to perfect, but not quite. 
+
+We then proceeded to define the bumping gradient within the round corners, and for that we set each pixel in the corner to bump = Color4(1-i,1-i,1-i, 1), where  i = abs(cLine.distance(Px)/r), cLine is the center line and Px is the pixel. This worked well, and we then proceedted to set the corner pixel to the max(bump, previousColor) to avoid outlining every intersection with black. 
+
+![Gradient with round corners](2016-10-13_008_4-midterm_r1633_g3d_r927___.png)
+
+
+All of this required increasingly confusing code that still did not generate perfect diagonal round corners. We then decided to switch to the Quadradic approach for thick line drawing, paying the run time cost for a more straight forward code.  
+
 
 2016-10-13: Weird Coral
-
+============================================================
 ![](2016-10-13_016_4-midterm_r1646_g3d_r927___.png)
 
 =============================================================
