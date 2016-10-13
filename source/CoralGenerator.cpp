@@ -88,15 +88,15 @@ void CoralGenerator::generateBranchCoral(int depth, Point2int32& location, float
     Array<String> XBuffer("+[FFFFFX]-[FFFFFX]");
     rules.set("X", XBuffer);
 
-    Array<String> YBuffer("+[FFFFFX]");
+    Array<String> YBuffer("+[FFXFFFX]");
     rules.set("Y", YBuffer);
 
-    Array<String> ZBuffer("-[FFFFFX]");
+    Array<String> ZBuffer("-[FFFXFFX]");
     rules.set("Z", ZBuffer);
 
     rules.set("F", Array<String>(""));
 
-    applyRules(depth, location, cumulativeAngle, drawLength, moveAngle, thick, 1.0f, 1.0f, "FX+[YF]-[ZF]", rules, edgeBuffer, thickBuffer);
+    applyRules(depth, location, cumulativeAngle, drawLength, moveAngle, thick, 0.8f, 0.8f, "FX+++[YF]---[ZF]", rules, edgeBuffer, thickBuffer);
 }
 
 void CoralGenerator::generateFingerCoral(int depth, Point2int32& location, float cumulativeAngle, float drawLength, float moveAngle, float thick, Array<Array<Point2int32>>& edgeBuffer, Array<float>& thickBuffer) {
@@ -173,7 +173,7 @@ void CoralGenerator::applyRules(int depth, const Point2int32& location, float cu
         }
         else if (symbolBuffer.substr(i, 1) == "F") {
             float randLen = drawLength * G3D::Random::threadCommon().uniform(0.7f, 1.0);
-            float randAng = angles[isBracket] * G3D::Random::threadCommon().uniform(0.9f, 1.0);
+            float randAng = angles[isBracket] * G3D::Random::threadCommon().uniform(0.5f, 1.0f);
 
             debugPrintf("%f %f\n", angles[isBracket], randAng);
 

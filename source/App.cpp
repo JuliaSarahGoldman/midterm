@@ -83,19 +83,19 @@ void App::onInit() {
     // developerWindow->videoRecordDialog->setScreenShotFormat("PNG");
     // developerWindow->videoRecordDialog->setCaptureGui(false);
     developerWindow->cameraControlWindow->moveTo(Point2(developerWindow->cameraControlWindow->rect().x0(), 0));
-    /*
+    
     shared_ptr<Image> color;
     shared_ptr<Image> bump;
     color = Image::create(1280, 1280, ImageFormat::RGBA8());
     bump = Image::create(1280, 1280, ImageFormat::RGBA8());
     shared_ptr<CoralGenerator> coralG(new CoralGenerator());
-    coralG->writeCoral("crazy", Color3(1,.412,.706), color, bump);
+    coralG->writeCoral("branch", Color3(1,.412,.706), color, bump);
     show(color);
     show(bump);
     color->save("../data-files/test-lambertian.png");
     bump->save("../data-files/test-bump.png");
 
-
+    /*
     coralG->writeCoral("finger", Color3(.1,.5,1.0), color, bump);
 
     coralG->writeCoral("thin", Color3(.1,.9,.3), color, bump);
