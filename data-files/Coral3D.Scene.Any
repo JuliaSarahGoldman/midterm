@@ -15,7 +15,7 @@ name = "Coral 3D";
         };
 
         shark = ArticulatedModel::Specification {
-            filename = "Models/Shark/Shark.obj";
+            filename = "Models/Shark.zip/Shark.obj";
             scale = 1;
         };
     };
