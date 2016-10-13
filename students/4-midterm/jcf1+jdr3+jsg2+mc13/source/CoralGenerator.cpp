@@ -91,7 +91,7 @@ void CoralGenerator::generateBranchCoral(int depth, Point2int32& location, float
     Array<String> YBuffer("-[FF]", "--[FF]");
     rules.set("Y", YBuffer);
 
-    rules.set("F", Array<String>(""));
+    rules.set("F", Array<String>("FF"));
 
     applyRules(depth, location, cumulativeAngle, drawLength, moveAngle, thick, 0.5f, 0.5f, "S", rules, edgeBuffer, thickBuffer);
 }
@@ -168,7 +168,7 @@ void CoralGenerator::applyRules(int depth, const Point2int32& location, float cu
         }
         else if (symbolBuffer.substr(i, 1) == "F") {
             float randLen = drawLength * G3D::Random::threadCommon().uniform(0.65f, 1.0);
-            float randAng = angles[isBracket] * G3D::Random::threadCommon().uniform(0.75f, 1.0);
+            float randAng = angles[isBracket] * G3D::Random::threadCommon().uniform(0.4f, 1.0);
 
             float radians = (randAng / 180.0f) * pif();
             int x = lround(cos(radians) * randLen) + positions[isBracket].x;
