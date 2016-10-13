@@ -59,6 +59,7 @@ Topic Overview
 Design
 =====================================================================================
 
+App makesd an instance of CoralGenerator which it uses to call writeCoral with 2 given images.  CoralGenerator then generates the coral using one of the generate methods specifying an L-System and writes the results of that generation to the images using an instance of the Rasterizor class' drawThickLine method.  Finally, App saves these two images and displays them as a billboard in our coral custom scene.
 
 |Rasterizer: | |
 |------------|---|
