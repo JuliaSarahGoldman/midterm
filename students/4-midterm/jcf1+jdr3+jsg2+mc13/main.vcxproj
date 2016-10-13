@@ -89,17 +89,20 @@
     <ClInclude Include="source\App.h" />
     <ClInclude Include="source\CoralGenerator.h" />
     <ClInclude Include="source\Rasterizer.h" />
+    <ClInclude Include="source\CoralGenerator3D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\App.cpp" />
     <ClCompile Include="source\CoralGenerator.cpp" />
     <ClCompile Include="source\Rasterizer.cpp" />
+    <ClCompile Include="source\CoralGenerator3D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resources.rc" />
   </ItemGroup>
   <ItemGroup>
     <None Include="data-files\Coral.Scene.Any" />
+    <None Include="data-files\Coral3D.Scene.Any" />
     <None Include="data-files\greenCyl.Scene.Any" />
     <None Include="data-files\test.Scene.Any" />
     <None Include="doc-files\report.md.html" />
