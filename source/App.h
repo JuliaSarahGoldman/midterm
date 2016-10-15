@@ -6,6 +6,7 @@
  */
 #pragma once
 #include <G3D/G3DAll.h>
+#include "CoralGenerator.h"
 
 /** \brief Application framework. */
 class App : public GApp {
@@ -16,6 +17,9 @@ protected:
 
     Array<Array<Point2int32>> edgeBuffer;
     Array<float> thickBuffer;
+
+    void generateCoralScene();
+    String makeCoralString(shared_ptr<Image>& color, shared_ptr<Image>& bump, shared_ptr<CoralGenerator>& coralG, float x, float z, String id);
 
 public:
     
