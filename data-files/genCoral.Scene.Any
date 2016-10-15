@@ -14,7 +14,7 @@
 
         boxModel = ArticulatedModel::Specification { 
             //filename = "model/CornellBox/CornellBox.zip/CornellBox-Water.obj";
-            filename = "water.obj";
+            filename = "Models/water.obj";
             preprocess = {
                 transformGeometry(all(), Matrix4::scale(4,4,4));
             };

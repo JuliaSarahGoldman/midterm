@@ -15,12 +15,12 @@ name = "Coral 3D";
         };
 
         shark = ArticulatedModel::Specification {
-            filename = "Models/Shark.zip/Shark.obj";
+            filename = "Models/Shark.zip/Shark/Shark.obj";
             scale = 1;
         };
 
         castle = ArticulatedModel::Specification {
-            filename = "Models/Castle/Castle.obj";
+            filename = "Models/Castle.zip/Castle/Castle.obj";
             scale = 0.01f;
         };
     };
