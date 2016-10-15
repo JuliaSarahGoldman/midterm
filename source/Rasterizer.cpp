@@ -135,12 +135,12 @@ void Rasterizer::drawThickLine(const Point2int32& point1, const Point2int32& poi
     Color4 decrement(c.r/div, c.g/div,c.b/div, 0.0);
 
     int top (y0+r);
-    debugPrintf("top: %d\n",top);
+   // debugPrintf("top: %d\n",top);
     for (int x = x0; x <= x1; ++x) {
         float f = top < gradientHeight ? top : top- gradientHeight;
         Color4 orig(c - f*decrement);
 
-        debugPrintf("Orig: %s\n", orig.toString());
+        //debugPrintf("Orig: %s\n", orig.toString());
         for (int y = y0; y <= y1; ++y) {
             Point2 P(x, y);
             orig -= decrement;
