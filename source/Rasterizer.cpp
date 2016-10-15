@@ -117,8 +117,8 @@ void Rasterizer::drawSteepLine(float x, float y0, float y1, float m_i, const Col
     }
 }
 
-void Rasterizer::drawThickLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, int halfGirth, shared_ptr<Image>& image, shared_ptr<Image>& map) const {
-    Point2 c0(point1.x, point1.y); 
+void Rasterizer::drawThickLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, int halfGirth, shared_ptr<Image>& image, shared_ptr<Image>& map/*, bool isEnd*/) const {
+    Point2 c0(point1.x, point1.y);
     Point2 c1(point2.x, point2.y);
     float r = halfGirth;
 
@@ -129,22 +129,29 @@ void Rasterizer::drawThickLine(const Point2int32& point1, const Point2int32& poi
 
     LineSegment2D centerLine(LineSegment2D::fromTwoPoints(c0, c1));
 
+    int height(image->height());
     for (int x = x0; x <= x1; ++x) {
+        Color4 orig(c);
         for (int y = y0; y <= y1; ++y) {
             Point2 P(x, y);
+            orig -= c / (1.5f*float(height));
+
             if (fabs(centerLine.distance(P)) < r + 0.1f) {
-                setPixel(x, y, c, image);
+
+                setPixel(x, y, orig, image);
+
 
                 Color4 curCol(0, 0, 0, 1);
-                map->get(Point2int32(x, y), curCol);
-
+                if (inBounds(x, y, image)) {
+                    map->get(Point2int32(x, y), curCol);
+                }
                 float cValue(1.0f - fabs(centerLine.distance(P) / r));
                 Color4 shade(cValue, cValue, cValue, 1.0);
-                setPixel(x, y, shade.max(curCol), map);
+                setPixel(x, y, shade, map);
+
             }
         }
     }
-
 
     /* int x0(min<int>(point1.x, point2.x));
     int x1(max<int>(point1.x, point2.x));
