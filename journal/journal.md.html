@@ -6,6 +6,27 @@
         **Julia Goldman (jdg2@williams.edu),**
         **and Matheus de Carvalho Souza (mc13@williams.edu)** 
 
+2016-10-15: Gradient relative to quadrants
+
+!["Single quadrant" gradient](2016-10-15_015_4-midterm_r1681_g3d_r927____Single_quadrant__gradient.png)
+
+=============================================================
+[Matheus] 
+
+![Green](2016-10-15_012_4-midterm_r1681_g3d_r927___Green.png width=200px) ![Orange](2016-10-15_011_4-midterm_r1681_g3d_r927___Orange.png width=200px) ![Pink](2016-10-15_014_4-midterm_r1681_g3d_r927___.png width=200px) ![Blue](2016-10-15_013_4-midterm_r1681_g3d_r927___Blue.png width=200px)
+
+2016-10-15: Changes to CoralGenerator
+=============================================================
+[Matheus] 
+
+Generates four coral color and bumb maps in each quadrant of the image, one for each face of the model. 
+
+
+![Color](2016-10-15_010_4-midterm_r1681_g3d_r927___Color.png width=200px) ![Bump maps](2016-10-15_009_4-midterm_r1681_g3d_r927___Bump_maps.png width=200px)
+
+It cuts off the images if the L-system expands outside the image bounds. There doesn't seem to be a way to guaratee this won't happen, but it will happen less often as the dimension of the image increases. 
+
+The color gradient is still relative to the whole image and not to the quadrant. This should be easy to fix by passing the initial quadrant height down to drawThickLine. 
 
 2016-10-15: Random Coral Generation
 =============================================================
@@ -90,6 +111,8 @@ Y coordinates of vertices were slightly off. Now line up properly.
 
 2016-10-14: Overlapping branches
 =============================================================
+[Matheus] 
+
 Approach: smooth edge endings out in bump map, unless it is the beginning of the coral root or the ends of the coral branches.
 
 ![Lines - Before](2016-10-14_008_4-midterm_r1671_g3d_r927___Lines_-_Before.png width=200px) ![Lines - After](2016-10-14_006_4-midterm_r1671_g3d_r927___Select_smoothing_of_corners.png width=200px) ![Coral - Before](2016-10-14_007_4-midterm_r1671_g3d_r927___Coral_-_Before.png width=200px) ![Coral - After](2016-10-14_005_4-midterm_r1671_g3d_r927___First_stab_at_solving_the_problem.png width=200px)
@@ -124,7 +147,7 @@ Still doesn't quite work for coral. Figure out line edges.
 
 ![Objects for scene creation](2016-10-13_010_4-midterm_r1648_g3d_r927__Objects_for_scene_creation.jpg)
 
-Objects to be used for our scenes.
+Objects to be used for our scenes
 
 016-10-13: Thick Lines - Quadratic approach
 =============================================================
