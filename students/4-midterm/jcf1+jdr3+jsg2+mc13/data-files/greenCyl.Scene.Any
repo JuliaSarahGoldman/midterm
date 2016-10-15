@@ -13,7 +13,7 @@
 
         boardModel = ArticulatedModel::Specification {
             //filename = "ifs/square.ifs";
-            filename = "star.off";
+            filename = "star2.off";
             scale = 2;
             preprocess = {
                 setMaterial(all(), 
@@ -27,7 +27,7 @@
         };
 
         board2Model = ArticulatedModel::Specification {
-            filename = "star.off";
+            filename = "star2.off";
             scale = 2;
             preprocess = {
                 setMaterial(all(), 
@@ -41,7 +41,7 @@
         };
 
         branchModel = ArticulatedModel::Specification {
-            filename = "star.off";
+            filename = "star2.off";
             scale = 2;
             preprocess = {
                 setMaterial(all(), 
@@ -55,7 +55,7 @@
         };
 
         thinModel = ArticulatedModel::Specification {
-            filename = "star.off";
+            filename = "star2.off";
             scale = 2;
             preprocess = {
                 setMaterial(all(), 
@@ -69,7 +69,7 @@
         };
 
         starModel = ArticulatedModel::Specification {
-            filename = "star.off";
+            filename = "star2.off";
             scale = 2;
             preprocess = {
                 setMaterial(all(), 

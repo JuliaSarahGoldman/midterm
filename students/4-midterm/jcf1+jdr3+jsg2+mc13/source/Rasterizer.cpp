@@ -116,8 +116,11 @@ void Rasterizer::drawSteepLine(float x, float y0, float y1, float m_i, const Col
         setPixel(x, y, shade, map);
     }
 }
+void Rasterizer::drawThickLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, int halfGirth, shared_ptr<Image>& image, shared_ptr<Image>& map) const {
+    drawThickLine(point1, point2, c, halfGirth, image, map, image->height());
+}
 
-void Rasterizer::drawThickLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, int halfGirth, shared_ptr<Image>& image, shared_ptr<Image>& map/*, bool isEnd*/) const {
+void Rasterizer::drawThickLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, int halfGirth, shared_ptr<Image>& image, shared_ptr<Image>& map, int gradientHeight) const {
     Point2 c0(point1.x, point1.y);
     Point2 c1(point2.x, point2.y);
     float r = halfGirth;
@@ -126,29 +129,45 @@ void Rasterizer::drawThickLine(const Point2int32& point1, const Point2int32& poi
     int x1(max<float>(c0.x, c1.x) + r);
     int y0(min<float>(c0.y, c1.y) - r);
     int y1(max<float>(c0.y, c1.y) + r);
-
+ 
     LineSegment2D centerLine(LineSegment2D::fromTwoPoints(c0, c1));
+    float div(1.5f*float(gradientHeight));
+    Color4 decrement(c.r/div, c.g/div,c.b/div, 0.0);
 
-    int height(image->height());
+    int top (y0+r);
+    debugPrintf("top: %d\n",top);
     for (int x = x0; x <= x1; ++x) {
-        Color4 orig(c);
+        float f = top < gradientHeight ? top : top- gradientHeight;
+        Color4 orig(c - f*decrement);
+
+        debugPrintf("Orig: %s\n", orig.toString());
         for (int y = y0; y <= y1; ++y) {
             Point2 P(x, y);
-            orig -= c / (1.5f*float(height));
+            orig -= decrement;
 
             if (fabs(centerLine.distance(P)) < r + 0.1f) {
 
                 setPixel(x, y, orig, image);
 
-
-                Color4 curCol(0, 0, 0, 1);
-                if (inBounds(x, y, image)) {
-                    map->get(Point2int32(x, y), curCol);
-                }
                 float cValue(1.0f - fabs(centerLine.distance(P) / r));
                 Color4 shade(cValue, cValue, cValue, 1.0);
+
                 setPixel(x, y, shade, map);
 
+                // If we're at the end of a line segment, but not the end or start of coral
+         /*       if (((x < x0 + r || x > x1 - r || y < y0 + r || y > y1 - r)) && !isEnd) {
+                    // Smooth out the shading
+
+                    Color4 curCol(0, 0, 0, 1);
+                    if (inBounds(x, y, image)) {
+                        map->get(Point2int32(x, y), curCol);
+                    }
+                    setPixel(x, y, shade.max(curCol), map);
+                }
+                else {
+                    // Otherwise just draw the bump gradient normally
+                    setPixel(x, y, shade, map);
+                }*/
             }
         }
     }
@@ -158,6 +177,10 @@ void Rasterizer::drawThickLine(const Point2int32& point1, const Point2int32& poi
     int y0(min<int>(point1.y, point2.y));
     int y1(max<int>(point1.y, point2.y));
 
+                if (!((x < c0.x || x > c1.x || y < c0.y || y > c1.y)) || isEnd) {
+                    setPixel(x, y, shade, map);
+
+                }
     float m(0.0f);
 
     int t;
@@ -220,13 +243,13 @@ void Rasterizer::drawGradiantBackground(const Color4& c1, const Color4& c2, int 
 }
 
 void Rasterizer::drawAxes(int rad, int rng, int xOff, int yOff, shared_ptr<Image>& image, shared_ptr<Image>& map) const {
-    drawThickLine(Point2int32(0 + xOff, 10 * rng + yOff), Point2int32(20 * rad + xOff, 10 * rng + yOff), Color4(1, 0, 0), 5, image, map);
-    drawThickLine(Point2int32(10 * rad + xOff, 0 + yOff), Point2int32(10 * rad + xOff, 20 * rng + yOff), Color4(1, 0, 0), 5, image, map);
+    //  drawThickLine(Point2int32(0 + xOff, 10 * rng + yOff), Point2int32(20 * rad + xOff, 10 * rng + yOff), Color4(1, 0, 0), 5, image, map);
+    //  drawThickLine(Point2int32(10 * rad + xOff, 0 + yOff), Point2int32(10 * rad + xOff, 20 * rng + yOff), Color4(1, 0, 0), 5, image, map);
     for (int x = 0; x <= 2 * rad; ++x) {
-        drawThickLine(Point2int32(xOff + x * 10, yOff + rng * 10 - 2), Point2int32(xOff + x * 10, yOff + rng * 10 + 2), Color4(1, 0, 0), 0, image, map);
+        //    drawThickLine(Point2int32(xOff + x * 10, yOff + rng * 10 - 2), Point2int32(xOff + x * 10, yOff + rng * 10 + 2), Color4(1, 0, 0), 0, image, map);
     }
     for (int y = 0; y <= 2 * rng; ++y) {
-        drawThickLine(Point2int32(xOff + rad * 10 - 2, yOff + y * 10), Point2int32(xOff + rad * 10 + 2, yOff + y * 10), Color4(1, 0, 0), 0, image, map);
+        //     drawThickLine(Point2int32(xOff + rad * 10 - 2, yOff + y * 10), Point2int32(xOff + rad * 10 + 2, yOff + y * 10), Color4(1, 0, 0), 0, image, map);
     }
 }
 
