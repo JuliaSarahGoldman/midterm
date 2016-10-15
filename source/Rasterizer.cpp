@@ -129,24 +129,31 @@ void Rasterizer::drawThickLine(const Point2int32& point1, const Point2int32& poi
     int x1(max<float>(c0.x, c1.x) + r);
     int y0(min<float>(c0.y, c1.y) - r);
     int y1(max<float>(c0.y, c1.y) + r);
- 
+
     LineSegment2D centerLine(LineSegment2D::fromTwoPoints(c0, c1));
+   
+    // What the color value is decremented by at each vertical level
     float div(1.5f*float(gradientHeight));
-    Color4 decrement(c.r/div, c.g/div,c.b/div, 0.0);
+    Color4 decrement(c.r / div, c.g / div, c.b / div, 0.0);
+   
+    // The top pixel within the image bounds
+    int top(y0 + r);
 
-    int top (y0+r);
-   // debugPrintf("top: %d\n",top);
     for (int x = x0; x <= x1; ++x) {
-        float f = top < gradientHeight ? top : top- gradientHeight;
-        Color4 orig(c - f*decrement);
+        // Factor to compensate the original color by, depending on where the firs pixel is being drawn
+        float f = top < gradientHeight ? top : top - gradientHeight;
+        Color4 orig(c - f*decrement); // Compensate original color by factor
 
-        //debugPrintf("Orig: %s\n", orig.toString());
         for (int y = y0; y <= y1; ++y) {
             Point2 P(x, y);
-            orig -= decrement;
+           
+            // Reset color past height to repeat gradient
+            if (y == gradientHeight) orig = c;
+
+            // Only decrement color if y is within image bounds
+            if (y > 0) orig -= decrement; 
 
             if (fabs(centerLine.distance(P)) < r + 0.1f) {
-
                 setPixel(x, y, orig, image);
 
                 float cValue(1.0f - fabs(centerLine.distance(P) / r));
