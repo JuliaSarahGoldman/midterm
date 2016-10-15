@@ -13,6 +13,9 @@
     <ClCompile Include="source\CoralGenerator3D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\CoralSceneGenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\App.h">
@@ -25,6 +28,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\CoralGenerator3D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\CoralSceneGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
