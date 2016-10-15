@@ -73,7 +73,7 @@ void CoralGenerator::writeCoral(String coralType, Color3 coralColor, shared_ptr<
             Point2int32 s = edgeBuffer[i][0];
             Point2int32 f = edgeBuffer[i][1];
 
-            painter->drawThickLine(s, f, coralColor, thickBuffer[i], color, bump,height/2);
+            painter->drawThickLine(s, f, coralColor, thickBuffer[i], color, bump,height/2+16);
         }
 
     }
