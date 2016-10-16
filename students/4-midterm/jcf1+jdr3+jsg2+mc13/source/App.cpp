@@ -3,6 +3,7 @@
 #include "Rasterizer.h"
 #include "CoralGenerator.h"
 #include "CoralGenerator3D.h"
+#include "CoralSceneGenerator.h"
 
 // Tells C++ to invoke command-line main() function even on OS X and Win32.
 G3D_START_AT_MAIN();
@@ -73,7 +74,7 @@ String App::makeCoralString(shared_ptr<Image>& color, shared_ptr<Image>& bump, s
 }
 
 void App::generateCoralScene(){
-    shared_ptr<Image> color;
+    /*shared_ptr<Image> color;
     shared_ptr<Image> bump;
     color = Image::create(1280, 1280, ImageFormat::RGBA8());
     bump = Image::create(1280, 1280, ImageFormat::RGBA8());
@@ -113,6 +114,16 @@ void App::generateCoralScene(){
     //String puff = makePuffball(0, 0, "8_9");
     text.writeSymbol((String)"};};");
     text.commit();
+    */
+
+    TextOutput text = TextOutput("data-files/Scene/massCoral.Scene.Any");
+    CoralSceneGenerator sceneGenerator;
+    String scene("");
+    String name("CORALS");
+    String type("");
+    sceneGenerator.writeScene(scene, type, name, 5 ,5 );
+    text.writeSymbols(scene);
+    text.commit(true);
 }
 
 void App::createScene(String sceneName) {

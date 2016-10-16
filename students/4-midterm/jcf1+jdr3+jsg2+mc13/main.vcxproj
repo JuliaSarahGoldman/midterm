@@ -105,6 +105,7 @@
   <ItemGroup>
     <None Include="data-files\Coral.Scene.Any" />
     <None Include="data-files\Coral3D.Scene.Any" />
+    <None Include="data-files\data-files\Scene\massCoral.Scene.Any" />
     <None Include="data-files\genCoral.Scene.Any" />
     <None Include="data-files\greenCyl.Scene.Any" />
     <None Include="data-files\Scene\massCoral.Scene.Any" />

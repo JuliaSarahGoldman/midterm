@@ -44,7 +44,7 @@ void CoralGenerator3D::make3DCoral(String& coral, int depth, float radius, float
 String CoralGenerator3D::write3DCoral(int depth, float startRadius, float startHeight){
     String coral("OFF\n");
     coral += format("%d %d 1\n", 8, 8);
-    CoordinateFrame original = CoordinateFrame::fromXYZYPRDegrees(0,0,0,0,0,0);
+    CoordinateFrame original(Matrix3(1,1,1,1,1,1,1,1,1), Point3(0,0,0));
     coral += makeTube(depth, startRadius, startHeight, 8, original);
     make3DCoral(coral, depth, startRadius, startHeight, 8, original, original);
     return coral;
