@@ -3,7 +3,7 @@
 #include "Rasterizer.h"
 #include "CoralGenerator.h"
 #include "CoralGenerator3D.h"
-//#include "CoralSceneGenerator.h"
+#include "CoralSceneGenerator.h"
 
 // Tells C++ to invoke command-line main() function even on OS X and Win32.
 G3D_START_AT_MAIN();
@@ -116,12 +116,13 @@ void App::generateCoralScene() {
     text.commit();
     */
 
-    TextOutput text = TextOutput("data-files/Scene/massCoral.Scene.Any");
-    //CoralSceneGenerator sceneGenerator;
+    TextOutput text = TextOutput("glassTank.Scene.Any");
+    CoralSceneGenerator sceneGenerator;
     String scene("");
-    String name("CORALS");
+    String name("GlassTank");
     String type("");
-    //sceneGenerator.writeScene(scene, type, name, 5 ,5 );
+    
+    sceneGenerator.writeScene(scene, type, name, 5 ,5 );
     text.writeSymbols(scene);
     text.commit(true);
 }
@@ -142,7 +143,7 @@ void App::createScene(String sceneName) {
 // not in the constructor so that common exceptions will be
 // automatically caught.
 void App::onInit() {
-    //generateCoralScene();
+    generateCoralScene();
     GApp::onInit();
     setFrameDuration(1.0f / 120.0f);
 
@@ -196,8 +197,8 @@ void App::onInit() {
     painter->merge(color_q1, color_q2, color_q3, color_q4, color); 
     painter->merge(bump_q1, bump_q2, bump_q3, bump_q4, bump); 
 
-    show(color);
-    show(bump);
+    //show(color);
+    //show(bump);
     color->save("../data-files/crazy-lambertian.png");
     bump->save("../data-files/crazy-bump.png");
 
@@ -210,8 +211,8 @@ void App::onInit() {
     painter->merge(color_q1, color_q2, color_q3, color_q4, color); 
     painter->merge(bump_q1, bump_q2, bump_q3, bump_q4, bump); 
 
-    show(color);
-    show(bump);
+   // show(color);
+   // show(bump);
     color->save("../data-files/finger-lambertian.png");
     bump->save("../data-files/finger-bump.png");
 
@@ -223,8 +224,8 @@ void App::onInit() {
     painter->merge(color_q1, color_q2, color_q3, color_q4, color); 
     painter->merge(bump_q1, bump_q2, bump_q3, bump_q4, bump); 
 
-    show(color);
-    show(bump);
+ //   show(color);
+ //   show(bump);
     color->save("../data-files/thin-lambertian.png");
     bump->save("../data-files/thin-bump.png");
 
@@ -236,8 +237,8 @@ void App::onInit() {
     painter->merge(color_q1, color_q2, color_q3, color_q4, color); 
     painter->merge(bump_q1, bump_q2, bump_q3, bump_q4, bump);
 
-    show(color);
-    show(bump);
+ //   show(color);
+//    show(bump);
     color->save("../data-files/branch-lambertian.png");
     bump->save("../data-files/branch-bump.png");
     

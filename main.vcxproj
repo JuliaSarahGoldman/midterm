@@ -95,6 +95,7 @@
   <ItemGroup>
     <ClCompile Include="source\App.cpp" />
     <ClCompile Include="source\CoralGenerator.cpp" />
+    <ClCompile Include="source\CoralSceneGenerator.cpp" />
     <ClCompile Include="source\Rasterizer.cpp" />
     <ClCompile Include="source\CoralGenerator3D.cpp" />
   </ItemGroup>
