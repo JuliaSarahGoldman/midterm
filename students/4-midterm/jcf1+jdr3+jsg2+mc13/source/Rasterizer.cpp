@@ -17,6 +17,38 @@ void Rasterizer::setPixel(int x, int y, const Color4& c, shared_ptr<Image>& imag
     }
 }
 
+void Rasterizer::merge(const shared_ptr<Image>& q1, const shared_ptr<Image>& q2, const shared_ptr<Image>& q3, const shared_ptr<Image>& q4, shared_ptr<Image>& image) const {
+    int width(image->width());
+    int height(image->height());
+
+    Thread::runConcurrently(Point2int32(0, 0), Point2int32(width, height), [&](Point2int32 pixel) {
+        int x(pixel.x);
+        int y(pixel.y);
+        Color4 c(0, 0, 0, 0);
+
+        switch (findQuadrant(x, y, width, height)) {
+        case 1:
+            if(inBounds(x,y,q1)) q1->get(pixel, c);
+            break;
+        case 2: 
+            if(inBounds(x-width/2,y,q2)) q2->get(Point2int32(x-width/2, y),c); 
+            break; 
+        case 3: 
+            if(inBounds(x,y-height/2,q3))q3->get(Point2int32(x, y-height/2),c); 
+            break; 
+        case 4: 
+            if(inBounds(x-width/2,y-height/2,q4))q4->get(Point2int32(x-width/2, y-height/2), c); 
+            break;
+        }
+        setPixel(x,y,c,image);
+    });
+};
+
+int Rasterizer::findQuadrant(int x, int y, int width, int height) const{
+    int a(x < width / 2 ? 1 : 2);
+    int b(a + 2);
+    return y < height / 2 ? a : b;
+}
 
 void Rasterizer::drawLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, shared_ptr<Image>& image) const {
     drawLine(point1, point2, 0, c, image, Color4(1, 1, 1), shared_ptr<Image>(Image::create(2, 2, ImageFormat::RGB32F())));

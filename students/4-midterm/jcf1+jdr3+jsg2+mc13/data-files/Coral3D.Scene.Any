@@ -49,12 +49,6 @@ name = "Coral 3D";
 
         }; 
         
-        castle = VisibleEntity {
-            model = "castle";
-            frame = CFrame::fromXYZYPRDegrees(16,0,16, 0, 0, 0);
-
-        };
-
         camera = Camera {
             frame = CFrame::fromXYZYPRDegrees(0, 0, 5);
         };
