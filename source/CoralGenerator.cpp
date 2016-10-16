@@ -24,45 +24,45 @@ void CoralGenerator::writeCoral(String coralType, Color3 coralColor, shared_ptr<
     int w4(width/4); 
     if (coralType == "thin") {
         // Generate 4 faces, one in each quadrant
-        generateThinCoral(5, Point2int32(w4, height/2), -90, 100, 20, 16.0f, edgeBuffer, thickBuffer);
+     /*   generateThinCoral(5, Point2int32(w4, height/2), -90, 100, 20, 16.0f, edgeBuffer, thickBuffer);
         generateThinCoral(5, Point2int32(3*w4, height/2), -90, 100, 20, 16.0f, edgeBuffer, thickBuffer);
         generateThinCoral(5, Point2int32(w4, height-16), -90, 100, 20, 16.0f, edgeBuffer, thickBuffer);
-        generateThinCoral(5, Point2int32(3*w4, height-16), -90, 100, 20, 16.0f, edgeBuffer, thickBuffer);
+        generateThinCoral(5, Point2int32(3*w4, height-16), -90, 100, 20, 16.0f, edgeBuffer, thickBuffer);*/
 
-        //generateThinCoral(5, Point2int32(width/2, 3*height/4), -90, 100, 20, 16.0f, edgeBuffer, thickBuffer);
+        generateThinCoral(5, Point2int32(width/2, height-16), -90, 100, 20, 16.0f, edgeBuffer, thickBuffer);
 
     }
     else if (coralType == "finger") {
-        generateFingerCoral(5, Point2int32(w4, height/2), -90, 100, 20, 16.0f, edgeBuffer, thickBuffer);
+       /* generateFingerCoral(5, Point2int32(w4, height/2), -90, 100, 20, 16.0f, edgeBuffer, thickBuffer);
         generateFingerCoral(5, Point2int32(3*w4, height/2), -90, 100, 20, 16.0f, edgeBuffer, thickBuffer);
         generateFingerCoral(5, Point2int32(w4, height-16), -90, 100, 20, 16.0f, edgeBuffer, thickBuffer);
-        generateFingerCoral(5, Point2int32(3*w4,height-16), -90, 100, 20, 16.0f, edgeBuffer, thickBuffer);
+        generateFingerCoral(5, Point2int32(3*w4,height-16), -90, 100, 20, 16.0f, edgeBuffer, thickBuffer);*/
 
-        //generateFingerCoral(5, Point2int32(width/2, 3*height/4), -90, 100, 20, 16.0f, edgeBuffer, thickBuffer);
+        generateFingerCoral(5, Point2int32(width/2, height-16), -90, 100, 20, 16.0f, edgeBuffer, thickBuffer);
     }
     else if (coralType == "flat") {
-        generateFlatCoral(6, Point2int32(w4, height/2), -90, 100, 30, 16.0f, edgeBuffer, thickBuffer);
+      /*  generateFlatCoral(6, Point2int32(w4, height/2), -90, 100, 30, 16.0f, edgeBuffer, thickBuffer);
         generateFlatCoral(6, Point2int32(3*w4, height/2), -90, 100, 30, 16.0f, edgeBuffer, thickBuffer);
         generateFlatCoral(6, Point2int32(w4, height-16), -90, 100, 30, 16.0f, edgeBuffer, thickBuffer);
-        generateFlatCoral(6, Point2int32(3*w4,height-16), -90, 100, 30, 16.0f, edgeBuffer, thickBuffer);
+        generateFlatCoral(6, Point2int32(3*w4,height-16), -90, 100, 30, 16.0f, edgeBuffer, thickBuffer);*/
 
-       // generateFlatCoral(6, Point2int32(width/2, 3*height/4), -90, 100, 30, 16.0f, edgeBuffer, thickBuffer);
+       generateFlatCoral(6, Point2int32(width/2, height -16), -90, 100, 30, 16.0f, edgeBuffer, thickBuffer);
     }
     else if (coralType == "branch") {
-        generateBranchCoral(6, Point2int32(w4, height/2), -90, 20, 15, 6.0f, edgeBuffer, thickBuffer);
+      /*  generateBranchCoral(6, Point2int32(w4, height/2), -90, 20, 15, 6.0f, edgeBuffer, thickBuffer);
         generateBranchCoral(6, Point2int32(3*w4, height/2), -90, 20, 15, 6.0f, edgeBuffer, thickBuffer);
         generateBranchCoral(6, Point2int32(w4, height-16), -90, 20, 15, 6.0f, edgeBuffer, thickBuffer);
-        generateBranchCoral(6, Point2int32(3*w4,height-16), -90, 20, 15, 6.0f, edgeBuffer, thickBuffer);
+        generateBranchCoral(6, Point2int32(3*w4,height-16), -90, 20, 15, 6.0f, edgeBuffer, thickBuffer);*/
 
-        //generateBranchCoral(6, Point2int32(width/2, 3*height/4), -90, 20, 15, 6.0f, edgeBuffer, thickBuffer);
+       generateBranchCoral(6, Point2int32(width/2, height-16), -90, 20, 15, 6.0f, edgeBuffer, thickBuffer);
     }
     else {
-        generateCrazyCoral(6, Point2int32(w4, height/2), -90, 100, 30, 16.0f, edgeBuffer, thickBuffer);
+      /*  generateCrazyCoral(6, Point2int32(w4, height/2), -90, 100, 30, 16.0f, edgeBuffer, thickBuffer);
         generateCrazyCoral(6, Point2int32(3*w4, height/2), -90, 100, 30, 16.0f, edgeBuffer, thickBuffer);
         generateCrazyCoral(6, Point2int32(w4, height-16), -90, 100, 30, 16.0f, edgeBuffer, thickBuffer);
-        generateCrazyCoral(6, Point2int32(3*w4, height-16), -90, 100, 30, 16.0f, edgeBuffer, thickBuffer);
+        generateCrazyCoral(6, Point2int32(3*w4, height-16), -90, 100, 30, 16.0f, edgeBuffer, thickBuffer);*/
         
-        //generateCrazyCoral(6, Point2int32(width/2, 3*height/4), -90, 100, 30, 16.0f, edgeBuffer, thickBuffer);
+        generateCrazyCoral(6, Point2int32(width/2, height-16), -90, 100, 30, 16.0f, edgeBuffer, thickBuffer);
     }
 
     try {
@@ -73,7 +73,7 @@ void CoralGenerator::writeCoral(String coralType, Color3 coralColor, shared_ptr<
             Point2int32 s = edgeBuffer[i][0];
             Point2int32 f = edgeBuffer[i][1];
 
-            painter->drawThickLine(s, f, coralColor, thickBuffer[i], color, bump,height/2+16);
+            painter->drawThickLine(s, f, coralColor, thickBuffer[i], color, bump);
         }
 
     }

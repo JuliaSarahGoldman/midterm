@@ -56,7 +56,7 @@ App::App(const GApp::Settings& settings) : GApp(settings) {
 }
 
 
-String App::makeCoralString(shared_ptr<Image>& color, shared_ptr<Image>& bump, shared_ptr<CoralGenerator>& coralG, float x, float z, String id){
+String App::makeCoralString(shared_ptr<Image>& color, shared_ptr<Image>& bump, shared_ptr<CoralGenerator>& coralG, float x, float z, String id) {
 
     coralG->writeCoral("branch", Color3(0, fmod(.1*x, 1), fmod(0.1*z, 1)), color, bump);
     color->save("../data-files/" + id + "-lambertian.png");
@@ -64,16 +64,16 @@ String App::makeCoralString(shared_ptr<Image>& color, shared_ptr<Image>& bump, s
 
     String coral = String("\ncoral_");
     coral += id
-+       "= VisibleEntity {"
-+"\n        model = \"starModel\";"
-+"\n        frame = CFrame::fromXYZYPRDegrees("
-+   (String)std::to_string(x) + ", 0," + (String)std::to_string(z) +", 0, 0, 0);"
-+"\n    articulatedModelPose = UniversalMaterial::Specification { "
-+"\n                lambertian = \"" + id +"-lambertian.png\";\n                bump = \"" + id +"-bump.png\"\n            };\n        };\n\n";
+        + "= VisibleEntity {"
+        + "\n        model = \"starModel\";"
+        + "\n        frame = CFrame::fromXYZYPRDegrees("
+        + (String)std::to_string(x) + ", 0," + (String)std::to_string(z) + ", 0, 0, 0);"
+        + "\n    articulatedModelPose = UniversalMaterial::Specification { "
+        + "\n                lambertian = \"" + id + "-lambertian.png\";\n                bump = \"" + id + "-bump.png\"\n            };\n        };\n\n";
     return coral;
 }
 
-void App::generateCoralScene(){
+void App::generateCoralScene() {
     /*shared_ptr<Image> color;
     shared_ptr<Image> bump;
     color = Image::create(1280, 1280, ImageFormat::RGBA8());
@@ -91,7 +91,7 @@ void App::generateCoralScene(){
 +"\n                setTwoSided(all(), true);"
 +"\n            };"
 +"\n        };"
-+"\n    };\n"  
++"\n    };\n"
 + "\n      entities = { "
 + "\n        sun = Light { "
 + "\n            attenuation = (0, 0, 1); "
@@ -104,13 +104,13 @@ void App::generateCoralScene(){
 + "\n        };"
 +"\n         camera = Camera {"
 +"\n            frame = CFrame::fromXYZYPRDegrees(0, 0, 5);"
-+"\n        };\n"); 
++"\n        };\n");
     for (int i = 0; i <= 10; i+=2){
         for (int j = 0; j <=10; j+=2){
             text.writeSymbol(makeCoralString(color, bump, coralG, i, j, (String)std::to_string(i) + "_" + (String)std::to_string(j) +"a"));
         }
     }
-    
+
     //String puff = makePuffball(0, 0, "8_9");
     text.writeSymbol((String)"};};");
     text.commit();
@@ -131,7 +131,7 @@ void App::createScene(String sceneName) {
 
     //Create the models for the scene
     CoralGenerator3D gen;
-    String modelString(gen.write3DCoral(0,.3f,1.0f));
+    String modelString(gen.write3DCoral(0, .3f, 1.0f));
     output.writeSymbols(modelString);
 
     // End the File
@@ -156,39 +156,93 @@ void App::onInit() {
     // developerWindow->videoRecordDialog->setScreenShotFormat("PNG");
     // developerWindow->videoRecordDialog->setCaptureGui(false);
     developerWindow->cameraControlWindow->moveTo(Point2(developerWindow->cameraControlWindow->rect().x0(), 0));
-    
+
     shared_ptr<Image> color;
     shared_ptr<Image> bump;
     color = Image::create(1280, 1280, ImageFormat::RGBA8());
     bump = Image::create(1280, 1280, ImageFormat::RGBA8());
+
+    shared_ptr<Image> color_q1;
+    shared_ptr<Image> bump_q1;
+    color_q1 = Image::create(640, 640, ImageFormat::RGBA8());
+    bump_q1 = Image::create(640, 640, ImageFormat::RGBA8());
+
+    shared_ptr<Image> color_q2;
+    shared_ptr<Image> bump_q2;
+    color_q2 = Image::create(640, 640, ImageFormat::RGBA8());
+    bump_q2 = Image::create(640, 640, ImageFormat::RGBA8());
+
+    shared_ptr<Image> color_q3;
+    shared_ptr<Image> bump_q3;
+    color_q3 = Image::create(640, 640, ImageFormat::RGBA8());
+    bump_q3 = Image::create(640, 640, ImageFormat::RGBA8());
+
+    shared_ptr<Image> color_q4;
+    shared_ptr<Image> bump_q4;
+    color_q4 = Image::create(640, 640, ImageFormat::RGBA8());
+    bump_q4 = Image::create(640, 640, ImageFormat::RGBA8());
+
     shared_ptr<CoralGenerator> coralG(new CoralGenerator());
-    coralG->writeCoral("crazy", Color3(1,.412,.706), color, bump);
+    shared_ptr<Rasterizer> painter(new Rasterizer());
+
+
+    // Generate 4 quadrants
+    coralG->writeCoral("crazy", Color3(1, .412, .706), color_q1, bump_q1);
+    coralG->writeCoral("crazy", Color3(1, .412, .706), color_q2, bump_q2);
+    coralG->writeCoral("crazy", Color3(1, .412, .706), color_q3, bump_q3);
+    coralG->writeCoral("crazy", Color3(1, .412, .706), color_q4, bump_q4);
+
+    // Merge them into the big image 
+    painter->merge(color_q1, color_q2, color_q3, color_q4, color); 
+    painter->merge(bump_q1, bump_q2, bump_q3, bump_q4, bump); 
+
     show(color);
     show(bump);
     color->save("../data-files/crazy-lambertian.png");
     bump->save("../data-files/crazy-bump.png");
 
-    
-    coralG->writeCoral("finger", Color3(.1,.5,1.0), color, bump);
+
+    coralG->writeCoral("finger", Color3(.1, .5, 1.0), color_q1, bump_q1);
+    coralG->writeCoral("finger", Color3(.1, .5, 1.0), color_q2, bump_q2);
+    coralG->writeCoral("finger", Color3(.1, .5, 1.0), color_q3, bump_q3);
+    coralG->writeCoral("finger", Color3(.1, .5, 1.0), color_q4, bump_q4);
+
+    painter->merge(color_q1, color_q2, color_q3, color_q4, color); 
+    painter->merge(bump_q1, bump_q2, bump_q3, bump_q4, bump); 
+
     show(color);
     show(bump);
     color->save("../data-files/finger-lambertian.png");
     bump->save("../data-files/finger-bump.png");
 
-    coralG->writeCoral("thin", Color3(.1,.9,.3), color, bump);
+    coralG->writeCoral("thin", Color3(.1, .9, .3), color_q1, bump_q1);
+    coralG->writeCoral("thin", Color3(.1, .9, .3), color_q2, bump_q2);
+    coralG->writeCoral("thin", Color3(.1, .9, .3), color_q3, bump_q3);
+    coralG->writeCoral("thin", Color3(.1, .9, .3), color_q4, bump_q4);
+
+    painter->merge(color_q1, color_q2, color_q3, color_q4, color); 
+    painter->merge(bump_q1, bump_q2, bump_q3, bump_q4, bump); 
+
     show(color);
     show(bump);
     color->save("../data-files/thin-lambertian.png");
     bump->save("../data-files/thin-bump.png");
-    
-    coralG->writeCoral("branch", Color3(1,.2,0), color, bump);
+
+    coralG->writeCoral("branch", Color3(1, .2, .0), color_q1, bump_q1);
+    coralG->writeCoral("branch", Color3(1, .2, .0), color_q2, bump_q2);
+    coralG->writeCoral("branch", Color3(1, .2, .0), color_q3, bump_q3);
+    coralG->writeCoral("branch", Color3(1, .2, .0), color_q4, bump_q4);
+
+    painter->merge(color_q1, color_q2, color_q3, color_q4, color); 
+    painter->merge(bump_q1, bump_q2, bump_q3, bump_q4, bump);
+
     show(color);
     show(bump);
     color->save("../data-files/branch-lambertian.png");
     bump->save("../data-files/branch-bump.png");
-
-    createScene("corall");
     
+    createScene("corall");
+
     loadScene(
         //"G3D Sponza"
         "Coral 3D" // Load something simple
@@ -257,34 +311,34 @@ void App::makeGUI() {
                 painter->drawThickLine(Point2int32(100, 499), Point2int32(200, 0), Color3(1, 0, 0),5, image, map); // Positive
                 */
                 //Really Flat diagonals
-                painter->drawThickLine(Point2int32(0,250), Point2int32(599, 300), Color3(1,0,0), 5, image, map);
-                /*
-                //Really Steep diagonals
-                painter->drawThickLine(Point2int32(400,0), Point2int32(410, 499), Color3(1,0,0), 5, image, map);
+        painter->drawThickLine(Point2int32(0, 250), Point2int32(599, 300), Color3(1, 0, 0), 5, image, map);
+        /*
+        //Really Steep diagonals
+        painter->drawThickLine(Point2int32(400,0), Point2int32(410, 499), Color3(1,0,0), 5, image, map);
 
-               // drawMyGraph(image);
-                //drawClock(image);
-                //drawCantorDust(20, 350, 220, 5, image);
+       // drawMyGraph(image);
+        //drawClock(image);
+        //drawCantorDust(20, 350, 220, 5, image);
 
-                */
-/*
-        painter->drawThickLine(Point2int32(300, 0), Point2int32(300, 499), Color3(1, 0, 0), 5, image, map);
-        painter->drawThickLine(Point2int32(0, 250), Point2int32(599, 250), Color3(1, 0, 0), 5, image, map);
+        */
+        /*
+                painter->drawThickLine(Point2int32(300, 0), Point2int32(300, 499), Color3(1, 0, 0), 5, image, map);
+                painter->drawThickLine(Point2int32(0, 250), Point2int32(599, 250), Color3(1, 0, 0), 5, image, map);
 
-        painter->drawThickLine(Point2int32(150, 0), Point2int32(450, 499), Color3(1, 0, 0), 5, image, map);
-        painter->drawThickLine(Point2int32(450, 0), Point2int32(150, 499), Color3(1, 0, 0), 5, image, map);
+                painter->drawThickLine(Point2int32(150, 0), Point2int32(450, 499), Color3(1, 0, 0), 5, image, map);
+                painter->drawThickLine(Point2int32(450, 0), Point2int32(150, 499), Color3(1, 0, 0), 5, image, map);
 
-        painter->drawThickLine(Point2int32(0, 125), Point2int32(599, 375), Color3(1, 0, 0), 5, image, map);
-        painter->drawThickLine(Point2int32(0, 375), Point2int32(599, 125), Color3(1, 0, 0), 5, image, map);
+                painter->drawThickLine(Point2int32(0, 125), Point2int32(599, 375), Color3(1, 0, 0), 5, image, map);
+                painter->drawThickLine(Point2int32(0, 375), Point2int32(599, 125), Color3(1, 0, 0), 5, image, map);
 
 
-        painter->drawThickLine(Point2int32(0, 0), Point2int32(599, 499), Color3(1, 0, 0), 5, image, map);
-        painter->drawThickLine(Point2int32(0, 499), Point2int32(599, 0), Color3(1, 0, 0), 5, image, map);
+                painter->drawThickLine(Point2int32(0, 0), Point2int32(599, 499), Color3(1, 0, 0), 5, image, map);
+                painter->drawThickLine(Point2int32(0, 499), Point2int32(599, 0), Color3(1, 0, 0), 5, image, map);
 
-        painter->drawThickLine(Point2int32(225, 0), Point2int32(375, 499), Color3(1, 0, 0), 5, image, map);
-        painter->drawThickLine(Point2int32(375, 0), Point2int32(225, 499), Color3(1, 0, 0), 5, image, map);
+                painter->drawThickLine(Point2int32(225, 0), Point2int32(375, 499), Color3(1, 0, 0), 5, image, map);
+                painter->drawThickLine(Point2int32(375, 0), Point2int32(225, 499), Color3(1, 0, 0), 5, image, map);
 
-*/
+        */
         painter->drawThickLine(Point2int32(300, 50), Point2int32(300, 449), Color3(1, 0, 0), 5, image, map);
         painter->drawThickLine(Point2int32(50, 250), Point2int32(549, 250), Color3(1, 0, 0), 5, image, map);
 
