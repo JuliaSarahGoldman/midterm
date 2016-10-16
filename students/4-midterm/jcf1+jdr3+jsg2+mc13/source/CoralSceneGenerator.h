@@ -31,8 +31,20 @@ private:
     //All Other Models
     //Castle Found @ http://www.turbosquid.com/FullPreview/Index.cfm/ID/552087
     const String CASTLE = "Models/Castle.zip/Castle/Castle.obj";
+    // 
+    const String CASTLE2 = "Models/Castle/Castle2.obj";
     //Shark Found @ http://www.turbosquid.com/FullPreview/Index.cfm/ID/763930
     const String SHARK = "Models/Shark.zip/Shark/Shark.obj";
+    //Rocks
+    const String ROCK1 = "Models/outcrops.zip/granite_outcrops/RockOutcrop1.obj";
+    const String ROCK2 = "Models/outcrops.zip/granite_outcrops/RockOutcrop2.obj";
+    const String ROCK3 = "Models/outcrops.zip/granite_outcrops/RockOutcrop3.obj";
+    const String ROCK4 = "Models/outcrops.zip/granite_outcrops/RockOutcrop4.obj";
+    const String ROCK5 = "Models/outcrops.zip/granite_outcrops/RockOutcrop5.obj";
+
+    const String CHEST = "Models/Chest/Chest.obj";
+
+    const String CORALDIR = "Models/Coral/Coral";
 
 protected:
     void writeSeaScene(String& scene, int numCoralTypes, int totalCoral);
