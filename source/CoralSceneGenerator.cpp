@@ -79,6 +79,15 @@ void CoralSceneGenerator::writeEntities(String& scene, int numCoralTypes, int to
     "\n        camera = Camera {" +
     "\n            frame = CFrame::fromXYZYPRDegrees(-0.1, 1.4, 0, -90,-85);" +
     "\n        };" +
+    "\n        sun = Light {" +
+    "\n               attenuation = (0, 0, 1);" +
+    "\n                bulbPower = Power3(70); "+
+    "\n                frame = CFrame::fromXYZYPRDegrees(-15, 207, -41, -164, -77, 77);" +
+    "\n                shadowMapSize = Vector2int16(2048, 2048); "+
+    "\n                spotHalfAngleDegrees = 5;"
+    "\n                spotSquare = true; "+
+    "\n                type = \"SPOT\"; "+
+    "\n        };"+
     "\n" +
     "\n        side1 = VisibleEntity {" +
     "\n            model = \"glassRectangle\";" +
@@ -152,7 +161,7 @@ void CoralSceneGenerator::writeEntities(String& scene, int numCoralTypes, int to
         entities += writeSchoolOfFish("fish" + (String) std::to_string(fishType), Random::threadCommon().integer(15, 25));
     }
     
-    for(int i(0); i< 8; ++i) {
+    for(int i(0); i< 20; ++i) {
         String index = (String) std::to_string(Random::threadCommon().integer(1,4));
         entities += (String) "" + 
         "\n\n    coral" + (String) std::to_string(i) + " = VisibleEntity {"+ 

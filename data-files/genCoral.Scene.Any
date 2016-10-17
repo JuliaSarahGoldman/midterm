@@ -100,7 +100,12 @@
             frame = CFrame::fromXYZYPRDegrees(0, 0, 0, 0, 0, 0);
             articulatedModelPose = UniversalMaterial::Specification { 
                 lambertian = "models/Coral/Coral1.png";
-                bump = "models/Coral/Coral1_Bump.png";
+                bump = BumpMap::Specification {
+                    texture = "models/Coral/Coral1_Bump.png";
+                    settings = BumpMap::Settings {
+                        iterations = 0;
+                    }
+                }
             };
         };
 
@@ -109,7 +114,12 @@
             frame = CFrame::fromXYZYPRDegrees(1, 0, 1, 0, 0, 0);
             articulatedModelPose = UniversalMaterial::Specification { 
                 lambertian = "models/Coral/Coral2.png";
-                bump = "models/Coral/Coral2_Bump.png";
+                bump = BumpMap::Specification {
+                    texture = "models/Coral/Coral2_Bump.png";
+                    settings = BumpMap::Settings {
+                        iterations = 0;
+                    }
+                }
             };
         };
 
@@ -118,7 +128,12 @@
             frame = CFrame::fromXYZYPRDegrees(1.5, 0, 2, 0, 0, 0);
             articulatedModelPose = UniversalMaterial::Specification { 
                 lambertian = "models/Coral/Coral4.png";
-                bump = "models/Coral/Coral4_Bump.png";
+                bump = BumpMap::Specification {
+                    texture = "models/Coral/Coral4_Bump.png";
+                    settings = BumpMap::Settings {
+                        iterations = 0;
+                    }
+                }
             };
         };
 
@@ -127,7 +142,12 @@
             frame = CFrame::fromXYZYPRDegrees(2.5, 0, 1, 0, 0, 0);
             articulatedModelPose = UniversalMaterial::Specification { 
                 lambertian = "models/Coral/Coral3.png";
-                bump = "models/Coral/Coral3_Bump.png";
+                bump = BumpMap::Specification {
+                    texture = "models/Coral/Coral3_Bump.png";
+                    settings = BumpMap::Settings {
+                        iterations = 0;
+                    }
+                }
             };
         };
 
@@ -136,7 +156,12 @@
             frame = CFrame::fromXYZYPRDegrees(3, 0, 2, 0, 0, 0);
             articulatedModelPose = UniversalMaterial::Specification { 
                 lambertian = "models/Coral/Coral5.png";
-                bump = "models/Coral/Coral5_Bump.png";
+                bump = BumpMap::Specification {
+                    texture = "models/Coral/Coral5_Bump.png";
+                    settings = BumpMap::Settings {
+                        iterations = 0;
+                    }
+                }
             };
         };
 
