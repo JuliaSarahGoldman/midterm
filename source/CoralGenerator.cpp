@@ -30,6 +30,7 @@ void CoralGenerator::writeCoral(String coralType, Color3 coralColor, shared_ptr<
         generateThinCoral(5, Point2int32(3*w4, height-16), -90, 100, 20, 16.0f, edgeBuffer, thickBuffer);*/
 
         generateThinCoral(5, Point2int32(width/2, height-16), -90, 100, 20, 16.0f, edgeBuffer, thickBuffer);
+        //generateThinCoral(5, Point2int32(width/2, height-16), -45, 100, 20, 16.0f, edgeBuffer, thickBuffer);
 
     }
     else if (coralType == "finger") {
@@ -39,6 +40,7 @@ void CoralGenerator::writeCoral(String coralType, Color3 coralColor, shared_ptr<
         generateFingerCoral(5, Point2int32(3*w4,height-16), -90, 100, 20, 16.0f, edgeBuffer, thickBuffer);*/
 
         generateFingerCoral(5, Point2int32(width/2, height-16), -90, 100, 20, 16.0f, edgeBuffer, thickBuffer);
+        //generateFingerCoral(5, Point2int32(width/2, height-16), -45, 100, 20, 16.0f, edgeBuffer, thickBuffer);
     }
     else if (coralType == "flat") {
       /*  generateFlatCoral(6, Point2int32(w4, height/2), -90, 100, 30, 16.0f, edgeBuffer, thickBuffer);
@@ -47,6 +49,7 @@ void CoralGenerator::writeCoral(String coralType, Color3 coralColor, shared_ptr<
         generateFlatCoral(6, Point2int32(3*w4,height-16), -90, 100, 30, 16.0f, edgeBuffer, thickBuffer);*/
 
        generateFlatCoral(6, Point2int32(width/2, height -16), -90, 100, 30, 16.0f, edgeBuffer, thickBuffer);
+        //generateFlatCoral(6, Point2int32(width/2, height -16), -90, 100, 30, 16.0f, edgeBuffer, thickBuffer);
     }
     else if (coralType == "branch") {
       /*  generateBranchCoral(6, Point2int32(w4, height/2), -90, 20, 15, 6.0f, edgeBuffer, thickBuffer);

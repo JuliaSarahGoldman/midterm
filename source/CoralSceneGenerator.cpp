@@ -114,12 +114,12 @@ void CoralSceneGenerator::writeEntities(String& scene, int numCoralTypes, int to
     "\n            model = \"ground\";" +
     "\n            frame = CFrame::fromXYZYPRDegrees(0,-2.0f,0.9f,0,0,0);" +
     "\n        };" +
-    "\n" +    
+/*    "\n" +    
     "\n        castle1 = VisibleEntity {" +
     "\n            model = \"castle\";" +
     "\n            frame = CFrame::fromXYZYPRDegrees(4.1f,-1.9f, 2.3f,3,4,5);" +
     "\n        };" +
-    "\n" +
+    "\n" +*/
     "\n        aRock1 = VisibleEntity {" +
     "\n            model = \"rock1\";" +
     "\n            frame = CFrame::fromXYZYPRDegrees(-3.0f,-1.7f,1.7f,0,0,0);" +
@@ -225,10 +225,10 @@ void CoralSceneGenerator::writeModels(String& scene, int numCoralTypes, int tota
     "\n        scale = .01f;" +
     "\n    };" +
     "\n" +
-    "\n    castle = ArticulatedModel::Specification {" +
+/*    "\n    castle = ArticulatedModel::Specification {" +
     "\n        filename = \"" + CASTLE + "\";" +
     "\n        scale = .002f;" +
-    "\n    };" +
+    "\n    };" +*/
     "\n" +    
     "\n    chest = ArticulatedModel::Specification {" +
     "\n        filename = \"" + CHEST + "\";" +
@@ -280,8 +280,8 @@ void CoralSceneGenerator::writeModels(String& scene, int numCoralTypes, int tota
     "\n            transformGeometry(all(), Matrix4::scale(11.6f,0.6f,5.6f));" + 
     "\n            setMaterial(all()," +
     "\n                UniversalMaterial::Specification {" +
-    "\n                    lambertian = \"ground.jpg\";" +
-    "\n                    bump = \"groundBump.jpg\";" +
+    "\n                    lambertian = Color3(1,1,0)" //\"ground.jpg\";" +
+ //   "\n                    bump = \"groundBump.jpg\";" +
     "\n            });" +
     "\n        };" +
     "\n    };" +
