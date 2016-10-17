@@ -170,6 +170,12 @@ void CoralSceneGenerator::writeEntities(String& scene, int numCoralTypes, int to
         "\n        articulatedModelPose = UniversalMaterial::Specification {"  + 
         "\n            lambertian = \"" + CORALDIR + index + ".png\";" +
         "\n            bump = \"" + CORALDIR + index + "_Bump.png\";" +
+        "\n            bump = BumpMap::Specification {" +
+        "\n                 texture =\"" + CORALDIR + index + "_Bump.png\";" +
+        "\n                 settings = BumpMap::Settings {"+
+        "\n                     iterations = 0;"+
+        "\n                 }"+
+        "\n           }"+
         "\n        };" +
         "\n    };" +
         "\n";

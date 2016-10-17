@@ -8,6 +8,24 @@
 
 2016-10-17: Slightly Thinner
 =============================================================
+Now using:
+               bump = BumpMap::Specification {
+                    texture = "models/Coral/Coral1_Bump.png";
+                    settings = BumpMap::Settings {
+                        iterations = 0;
+                    }
+                }
+
+Instead of:
+            bump = "models/Coral/Coral1_Bump.png";
+
+Iterations was previously 1, using a form of bumping that resulted in our holes:
+![](2016-10-17_010_4-midterm_r1720_g3d_r927__.jpg)
+Now that iterations is 1, we use a different bumping technique that does not reuslt in holes (and which seems to clear up our edge stuff in space problem too?)
+![](2016-10-17_013_4-midterm_r1724_g3d_r927__.jpg)
+
+2016-10-17: Slightly Thinner
+=============================================================
 
 ![](2016-10-17_012_4-midterm_r1720_g3d_r927__.jpg)
 
