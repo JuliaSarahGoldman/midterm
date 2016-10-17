@@ -58,7 +58,7 @@ App::App(const GApp::Settings& settings) : GApp(settings) {
 
 String App::makeCoralString(shared_ptr<Image>& color, shared_ptr<Image>& bump, shared_ptr<CoralGenerator>& coralG, float x, float z, String id) {
 
-    coralG->writeCoral("branch", Color3(0, fmod(.1*x, 1), fmod(0.1*z, 1)), color, bump);
+    coralG->writeCoral("branch", Color3(0, fmod(.1*x, 1), fmod(0.1*z, 1)), color, bump, 16.0f, 23.0f, 30.0f);
     color->save("../data-files/" + id + "-lambertian.png");
     bump->save("../data-files/" + id + "-bump.png");
 
@@ -188,23 +188,15 @@ void App::onInit() {
 
 
     // Generate 4 quadrants
-    coralG->writeCoral("crazy", Color3(1, .412, .706), color_q1, bump_q1);
-    coralG->writeCoral("crazy", Color3(1, .412, .706), color_q2, bump_q2);
-    coralG->writeCoral("crazy", Color3(1, .412, .706), color_q3, bump_q3);
-    coralG->writeCoral("crazy", Color3(1, .412, .706), color_q4, bump_q4);
+    coralG->writeCoral("crazy", Color3(1, .412, .706), color_q1, bump_q1, 1.0f, 15.0f, 25.0f);
+    coralG->writeCoral("crazy", Color3(1, .412, .706), color_q2, bump_q2, 1.0f, 15.0f, 25.0f);
+    coralG->writeCoral("crazy", Color3(1, .412, .706), color_q3, bump_q3, 1.0f, 15.0f, 25.0f);
+    coralG->writeCoral("crazy", Color3(1, .412, .706), color_q4, bump_q4, 1.0f, 15.0f, 25.0f);
 
     // Merge them into the big image 
     painter->merge(color_q1, color_q2, color_q3, color_q4, color);
     painter->merge(bump_q1, bump_q2, bump_q3, bump_q4, bump);
 
-    show(color_q1);
-    show(color_q2);
-    show(color_q3);
-    show(color_q4);
-    show(bump_q1);
-    show(bump_q2);
-    show(bump_q3);
-    show(bump_q4);
     show(color);
     show(bump);
 
@@ -212,10 +204,10 @@ void App::onInit() {
     bump->save("../data-files/models/Coral/Coral1_Bump.png");
 
 
-    coralG->writeCoral("finger", Color3(.1, .5, 1.0), color_q1, bump_q1);
-    coralG->writeCoral("finger", Color3(.1, .5, 1.0), color_q2, bump_q2);
-    coralG->writeCoral("finger", Color3(.1, .5, 1.0), color_q3, bump_q3);
-    coralG->writeCoral("finger", Color3(.1, .5, 1.0), color_q4, bump_q4);
+    coralG->writeCoral("finger", Color3(.1, .5, 1.0), color_q1, bump_q1, 16.0f, 20.0f, 30.0f);
+    coralG->writeCoral("finger", Color3(.1, .5, 1.0), color_q2, bump_q2, 16.0f, 20.0f, 30.0f);
+    coralG->writeCoral("finger", Color3(.1, .5, 1.0), color_q3, bump_q3, 16.0f, 20.0f, 30.0f);
+    coralG->writeCoral("finger", Color3(.1, .5, 1.0), color_q4, bump_q4, 16.0f, 20.0f, 30.0f);
 
     painter->merge(color_q1, color_q2, color_q3, color_q4, color);
     painter->merge(bump_q1, bump_q2, bump_q3, bump_q4, bump);
@@ -226,10 +218,10 @@ void App::onInit() {
     color->save("../data-files/models/Coral/Coral2.png");
     bump->save("../data-files/models/Coral/Coral2_Bump.png");
 
-    coralG->writeCoral("thin", Color3(.1, .9, .3), color_q1, bump_q1);
-    coralG->writeCoral("thin", Color3(.1, .9, .3), color_q2, bump_q2);
-    coralG->writeCoral("thin", Color3(.1, .9, .3), color_q3, bump_q3);
-    coralG->writeCoral("thin", Color3(.1, .9, .3), color_q4, bump_q4);
+    coralG->writeCoral("thin", Color3(.1, .9, .3), color_q1, bump_q1, 16.0f, 28.0f, 30.0f);
+    coralG->writeCoral("thin", Color3(.1, .9, .3), color_q2, bump_q2, 16.0f, 28.0f, 30.0f);
+    coralG->writeCoral("thin", Color3(.1, .9, .3), color_q3, bump_q3, 16.0f, 28.0f, 30.0f);
+    coralG->writeCoral("thin", Color3(.1, .9, .3), color_q4, bump_q4, 16.0f, 28.0f, 30.0f);
 
     painter->merge(color_q1, color_q2, color_q3, color_q4, color);
     painter->merge(bump_q1, bump_q2, bump_q3, bump_q4, bump);
@@ -240,10 +232,10 @@ void App::onInit() {
     color->save("../data-files/models/Coral/Coral3.png");
     bump->save("../data-files/models/Coral/Coral3_Bump.png");
 
-    coralG->writeCoral("branch", Color3(1, .2, .0), color_q1, bump_q1);
-    coralG->writeCoral("branch", Color3(1, .2, .0), color_q2, bump_q2);
-    coralG->writeCoral("branch", Color3(1, .2, .0), color_q3, bump_q3);
-    coralG->writeCoral("branch", Color3(1, .2, .0), color_q4, bump_q4);
+    coralG->writeCoral("branch", Color3(1, .2, .0), color_q1, bump_q1, 6.0f, 12.0f, 20.0f);
+    coralG->writeCoral("branch", Color3(1, .2, .0), color_q2, bump_q2, 6.0f, 12.0f, 20.0f);
+    coralG->writeCoral("branch", Color3(1, .2, .0), color_q3, bump_q3, 6.0f, 12.0f, 20.0f);
+    coralG->writeCoral("branch", Color3(1, .2, .0), color_q4, bump_q4, 6.0f, 12.0f, 20.0f);
 
     painter->merge(color_q1, color_q2, color_q3, color_q4, color);
     painter->merge(bump_q1, bump_q2, bump_q3, bump_q4, bump);
@@ -255,10 +247,10 @@ void App::onInit() {
     bump->save("../data-files/models/Coral/Coral4_Bump.png");
 
     // Generate 4 quadrants
-    coralG->writeCoral("flat", Color3(0, 1, 1), color_q1, bump_q1);
-    coralG->writeCoral("flat", Color3(0, 1, 1), color_q2, bump_q2);
-    coralG->writeCoral("flat", Color3(0, 1, 1), color_q3, bump_q3);
-    coralG->writeCoral("flat", Color3(0, 1, 1), color_q4, bump_q4);
+    coralG->writeCoral("flat", Color3(0, 1, 1), color_q1, bump_q1, 16.0f, 23.0f, 30.0f);
+    coralG->writeCoral("flat", Color3(0, 1, 1), color_q2, bump_q2, 16.0f, 23.0f, 30.0f);
+    coralG->writeCoral("flat", Color3(0, 1, 1), color_q3, bump_q3, 16.0f, 23.0f, 30.0f);
+    coralG->writeCoral("flat", Color3(0, 1, 1), color_q4, bump_q4, 16.0f, 23.0f, 30.0f);
 
     // Merge them into the big image 
     painter->merge(color_q1, color_q2, color_q3, color_q4, color);
