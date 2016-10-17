@@ -161,7 +161,7 @@ void CoralSceneGenerator::writeEntities(String& scene, int numCoralTypes, int to
         entities += writeSchoolOfFish("fish" + (String) std::to_string(fishType), Random::threadCommon().integer(15, 25));
     }
     
-    for(int i(0); i< 20; ++i) {
+    for(int i(0); i< 500; ++i) {
         String index = (String) std::to_string(Random::threadCommon().integer(1,4));
         entities += (String) "" + 
         "\n\n    coral" + (String) std::to_string(i) + " = VisibleEntity {"+ 
@@ -295,8 +295,8 @@ void CoralSceneGenerator::writeModels(String& scene, int numCoralTypes, int tota
     "\n            transformGeometry(all(), Matrix4::scale(11.6f,0.6f,5.6f));" + 
     "\n            setMaterial(all()," +
     "\n                UniversalMaterial::Specification {" +
-    "\n                    lambertian = Color3(1,1,0)" //\"ground.jpg\";" +
- //   "\n                    bump = \"groundBump.jpg\";" +
+    "\n                    lambertian = \"ground.jpg\";" +
+    "\n                    bump = \"groundBump.jpg\";" +
     "\n            });" +
     "\n        };" +
     "\n    };" +
