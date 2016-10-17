@@ -76,7 +76,8 @@ void CoralGenerator::writeCoral(String coralType, Color3 coralColor, shared_ptr<
     }
 
     try {
-        color->setAll(Color4(coralColor, 0));
+        //color->setAll(Color4(coralColor, 0));
+        painter->drawGradiantBackground(Color4(coralColor, 0.0), Color4(Color3::black(), 0.0), height, width, color);
         bump->setAll(Color3::black());
 
         for (int i(0); i < edgeBuffer.size(); ++i) {
