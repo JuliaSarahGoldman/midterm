@@ -143,7 +143,7 @@ void App::createScene(String sceneName) {
 // not in the constructor so that common exceptions will be
 // automatically caught.
 void App::onInit() {
-    generateCoralScene();
+    
     GApp::onInit();
     setFrameDuration(1.0f / 120.0f);
 
@@ -197,10 +197,8 @@ void App::onInit() {
     painter->merge(color_q1, color_q2, color_q3, color_q4, color); 
     painter->merge(bump_q1, bump_q2, bump_q3, bump_q4, bump); 
 
-    //show(color);
-    //show(bump);
-    color->save("../data-files/crazy-lambertian.png");
-    bump->save("../data-files/crazy-bump.png");
+    color->save("../data-files/models/Coral/Coral1.png");
+    bump->save("../data-files/models/Coral/Coral1_Bump.png");
 
 
     coralG->writeCoral("finger", Color3(.1, .5, 1.0), color_q1, bump_q1);
@@ -211,10 +209,8 @@ void App::onInit() {
     painter->merge(color_q1, color_q2, color_q3, color_q4, color); 
     painter->merge(bump_q1, bump_q2, bump_q3, bump_q4, bump); 
 
-   // show(color);
-   // show(bump);
-    color->save("../data-files/finger-lambertian.png");
-    bump->save("../data-files/finger-bump.png");
+    color->save("../data-files/models/Coral/Coral2.png");
+    bump->save("../data-files/models/Coral/Coral2_Bump.png");
 
     coralG->writeCoral("thin", Color3(.1, .9, .3), color_q1, bump_q1);
     coralG->writeCoral("thin", Color3(.1, .9, .3), color_q2, bump_q2);
@@ -224,10 +220,9 @@ void App::onInit() {
     painter->merge(color_q1, color_q2, color_q3, color_q4, color); 
     painter->merge(bump_q1, bump_q2, bump_q3, bump_q4, bump); 
 
- //   show(color);
- //   show(bump);
-    color->save("../data-files/thin-lambertian.png");
-    bump->save("../data-files/thin-bump.png");
+
+    color->save("../data-files/models/Coral/Coral3.png");
+    bump->save("../data-files/models/Coral/Coral3_Bump.png");
 
     coralG->writeCoral("branch", Color3(1, .2, .0), color_q1, bump_q1);
     coralG->writeCoral("branch", Color3(1, .2, .0), color_q2, bump_q2);
@@ -237,16 +232,31 @@ void App::onInit() {
     painter->merge(color_q1, color_q2, color_q3, color_q4, color); 
     painter->merge(bump_q1, bump_q2, bump_q3, bump_q4, bump);
 
- //   show(color);
-//    show(bump);
-    color->save("../data-files/branch-lambertian.png");
-    bump->save("../data-files/branch-bump.png");
+    color->save("../data-files/models/Coral/Coral4.png");
+    bump->save("../data-files/models/Coral/Coral4_Bump.png");
+
+    // Generate 4 quadrants
+    coralG->writeCoral("flat", Color3(0, 1, 1), color_q1, bump_q1);
+    coralG->writeCoral("flat", Color3(0, 1, 1), color_q2, bump_q2);
+    coralG->writeCoral("flat", Color3(0, 1, 1), color_q3, bump_q3);
+    coralG->writeCoral("flat", Color3(0, 1, 1), color_q4, bump_q4);
+
+    // Merge them into the big image 
+    painter->merge(color_q1, color_q2, color_q3, color_q4, color); 
+    painter->merge(bump_q1, bump_q2, bump_q3, bump_q4, bump); 
+
+    show(color);
+    show(bump);
+
+    color->save("../data-files/models/Coral/Coral5.png");
+    bump->save("../data-files/models/Coral/Coral5_Bump.png");
     
+    generateCoralScene();
     createScene("corall");
 
     loadScene(
         //"G3D Sponza"
-        "Coral 3D" // Load something simple
+        "Test Coral" // Load something simple
         //developerWindow->sceneEditorWindow->selectedSceneName()  // Load the first scene encountered 
     );
 }
