@@ -12,14 +12,14 @@ models = {
         
 fish0 = ArticulatedModel::Specification {
             filename =
-"Models/TropicalFish.zip/TropicalFish/TropicalFish09.obj";
+"Models/TropicalFish.zip/TropicalFish/TropicalFish07.obj";
             scale = .001f;
         };
 
         
 fish1 = ArticulatedModel::Specification {
             filename =
-"Models/TropicalFish.zip/TropicalFish/TropicalFish11.obj";
+"Models/TropicalFish.zip/TropicalFish/TropicalFish13.obj";
             scale = .001f;
         };
 
@@ -33,14 +33,14 @@ fish2 = ArticulatedModel::Specification {
         
 fish3 = ArticulatedModel::Specification {
             filename =
-"Models/TropicalFish.zip/TropicalFish/TropicalFish03.obj";
+"Models/TropicalFish.zip/TropicalFish/TropicalFish14.obj";
             scale = .001f;
         };
 
         
 fish4 = ArticulatedModel::Specification {
             filename =
-"Models/TropicalFish.zip/TropicalFish/TropicalFish13.obj";
+"Models/TropicalFish.zip/TropicalFish/TropicalFish09.obj";
             scale = .001f;
         };
 
@@ -222,371 +222,301 @@ entities = {
 CFrame::fromXYZYPRDegrees(-4.3,-2.0f,-0.6f,-141.0f,2.2f,9.9f);
         };
 
-         fish250 = VisibleEntity {
+         fish180 = VisibleEntity {
             model = "fish2";
-        frame = CFrame::fromXYZYPRDegrees(2.314565f , 0.539469f , -0.279021f
-,359.976990f, -38.248947f, 0.0f);
-        };
-    fish251 = VisibleEntity {
-            model = "fish2";
-        frame = CFrame::fromXYZYPRDegrees(0.011105f , -0.571702f , 2.494336f
-,156.659607f, 36.395401f, 0.0f);
-        };
-    fish252 = VisibleEntity {
-            model = "fish2";
-        frame = CFrame::fromXYZYPRDegrees(-1.600610f , -1.023407f , 0.814415f
-,123.192940f, -8.765656f, 0.0f);
-        };
-    fish253 = VisibleEntity {
-            model = "fish2";
-        frame = CFrame::fromXYZYPRDegrees(-4.914532f , -0.184923f , 1.670833f
-,199.252502f, 3.389133f, 0.0f);
-        };
-    fish254 = VisibleEntity {
-            model = "fish2";
-        frame = CFrame::fromXYZYPRDegrees(-0.606901f , 1.258057f , 0.081522f
-,235.591766f, 4.439400f, 0.0f);
-        };
-    fish255 = VisibleEntity {
-            model = "fish2";
-        frame = CFrame::fromXYZYPRDegrees(2.643520f , -1.081631f , 0.592994f
-,131.340561f, 19.033890f, 0.0f);
-        };
-    fish256 = VisibleEntity {
-            model = "fish2";
-        frame = CFrame::fromXYZYPRDegrees(0.734149f , -0.974430f , -0.208389f
-,307.824341f, 24.763786f, 0.0f);
-        };
-    fish257 = VisibleEntity {
-            model = "fish2";
-        frame = CFrame::fromXYZYPRDegrees(0.103279f , -1.297099f , 0.221429f
-,188.772919f, -14.148666f, 0.0f);
-        };
-    fish258 = VisibleEntity {
-            model = "fish2";
-        frame = CFrame::fromXYZYPRDegrees(1.327425f , -0.058702f , 2.265720f
-,244.701111f, -29.466383f, 0.0f);
-        };
-    fish259 = VisibleEntity {
-            model = "fish2";
-        frame = CFrame::fromXYZYPRDegrees(-1.559645f , -1.535604f , 1.105257f
-,174.497757f, -52.302715f, 0.0f);
-        };
-    fish2510 = VisibleEntity {
-            model = "fish2";
-        frame = CFrame::fromXYZYPRDegrees(-4.616318f , 0.329288f , 1.306913f
-,131.545395f, -38.053276f, 0.0f);
-        };
-    fish2511 = VisibleEntity {
-            model = "fish2";
-        frame = CFrame::fromXYZYPRDegrees(3.633969f , 1.042828f , -0.154478f
-,232.282288f, 47.134445f, 0.0f);
-        };
-    fish2512 = VisibleEntity {
-            model = "fish2";
-        frame = CFrame::fromXYZYPRDegrees(0.723712f , -0.482736f , 0.745766f
-,206.392899f, -27.779907f, 0.0f);
-        };
-    fish2513 = VisibleEntity {
-            model = "fish2";
-        frame = CFrame::fromXYZYPRDegrees(3.312194f , -0.318817f , 0.586838f
-,282.713776f, -18.907383f, 0.0f);
-        };
-    fish2514 = VisibleEntity {
-            model = "fish2";
-        frame = CFrame::fromXYZYPRDegrees(0.540425f , 0.165989f , 1.410952f
-,321.410645f, -51.539936f, 0.0f);
-        };
-    fish2515 = VisibleEntity {
-            model = "fish2";
-        frame = CFrame::fromXYZYPRDegrees(0.870234f , -0.601723f , 2.305801f
-,32.323673f, 48.804527f, 0.0f);
-        };
-    fish2516 = VisibleEntity {
-            model = "fish2";
-        frame = CFrame::fromXYZYPRDegrees(-2.120512f , -1.170245f , 2.087483f
-,64.095772f, -42.591652f, 0.0f);
-        };
-    fish2517 = VisibleEntity {
-            model = "fish2";
-        frame = CFrame::fromXYZYPRDegrees(-2.659526f , 1.239684f , 0.319622f
-,324.507629f, 16.217697f, 0.0f);
-        };
-    fish2518 = VisibleEntity {
-            model = "fish2";
-        frame = CFrame::fromXYZYPRDegrees(-1.586726f , -1.438953f , 1.237731f
-,129.674652f, -44.086678f, 0.0f);
-        };
-    fish2519 = VisibleEntity {
-            model = "fish2";
-        frame = CFrame::fromXYZYPRDegrees(1.474823f , 0.559952f , 1.354588f
-,295.879059f, -39.266014f, 0.0f);
-        };
-    fish2520 = VisibleEntity {
-            model = "fish2";
-        frame = CFrame::fromXYZYPRDegrees(1.629175f , 0.314455f , 0.599950f
-,85.527214f, -41.281647f, 0.0f);
-        };
-    fish2521 = VisibleEntity {
-            model = "fish2";
-        frame = CFrame::fromXYZYPRDegrees(0.718013f , -1.259822f , 1.962325f
-,185.794128f, 35.759369f, 0.0f);
-        };
-    fish2522 = VisibleEntity {
-            model = "fish2";
-        frame = CFrame::fromXYZYPRDegrees(-2.516021f , 1.328822f , 0.334971f
-,183.231125f, 5.563152f, 0.0f);
-        };
-    fish2523 = VisibleEntity {
-            model = "fish2";
-        frame = CFrame::fromXYZYPRDegrees(1.947630f , 0.144605f , 1.828490f
-,125.338364f, -5.433208f, 0.0f);
-        };
-    fish2524 = VisibleEntity {
-            model = "fish2";
-        frame = CFrame::fromXYZYPRDegrees(-0.642643f , -1.384298f , 1.768378f
-,221.447662f, -50.374813f, 0.0f);
-        };
-    fish180 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(0.796316f , -0.354050f , 2.140016f
-,22.869202f, 11.217293f, 0.0f);
+        frame = CFrame::fromXYZYPRDegrees(0.526197f , 0.751914f , -0.378615f
+,144.146973f, -28.578585f, 0.0f);
         };
     fish181 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(-1.159309f , -1.595728f , 1.044952f
-,44.039558f, -23.585327f, 0.0f);
+            model = "fish2";
+        frame = CFrame::fromXYZYPRDegrees(2.020959f , 0.250873f , -0.399040f
+,208.687531f, 50.215057f, 0.0f);
         };
     fish182 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(2.534476f , 1.294793f , 0.106587f
-,129.571640f, -34.384079f, 0.0f);
+            model = "fish2";
+        frame = CFrame::fromXYZYPRDegrees(1.233814f , -0.093108f , 1.887804f
+,216.287033f, -11.383625f, 0.0f);
         };
     fish183 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(-1.483535f , 1.455910f , 1.648005f
-,78.410423f, 11.762070f, 0.0f);
+            model = "fish2";
+        frame = CFrame::fromXYZYPRDegrees(1.797175f , 0.276457f , 2.169335f
+,329.055969f, 6.245602f, 0.0f);
         };
     fish184 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(2.869722f , -0.037726f , -0.525852f
-,337.565125f, 47.514374f, 0.0f);
+            model = "fish2";
+        frame = CFrame::fromXYZYPRDegrees(3.384140f , -1.041215f , 0.673587f
+,61.847855f, -32.314255f, 0.0f);
         };
     fish185 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(-3.641249f , 0.291524f , 2.505054f
-,52.065212f, 32.330688f, 0.0f);
+            model = "fish2";
+        frame = CFrame::fromXYZYPRDegrees(-1.279385f , -0.073851f , 1.286897f
+,330.081940f, -4.271114f, 0.0f);
         };
     fish186 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(-3.829802f , 0.179378f , 1.159849f
-,93.243813f, -54.932068f, 0.0f);
+            model = "fish2";
+        frame = CFrame::fromXYZYPRDegrees(-1.014033f , -0.471869f , -0.364684f
+,294.867157f, -26.108974f, 0.0f);
         };
     fish187 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(0.961368f , 0.454728f , 1.428993f
-,280.710754f, -24.208153f, 0.0f);
+            model = "fish2";
+        frame = CFrame::fromXYZYPRDegrees(-2.210999f , -0.451364f , 2.535012f
+,99.706528f, 6.422031f, 0.0f);
         };
     fish188 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(1.321826f , -1.024762f , 0.139255f
-,161.587402f, -9.992771f, 0.0f);
+            model = "fish2";
+        frame = CFrame::fromXYZYPRDegrees(4.196955f , -0.447612f , 1.348165f
+,281.240936f, 27.378616f, 0.0f);
         };
     fish189 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(-1.493398f , 0.340353f , 0.250280f
-,76.450378f, -52.730061f, 0.0f);
+            model = "fish2";
+        frame = CFrame::fromXYZYPRDegrees(0.378397f , -1.295027f , 1.803627f
+,157.155121f, -34.357201f, 0.0f);
         };
     fish1810 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(-0.051533f , 0.247781f , 2.116899f
-,235.178268f, 37.775818f, 0.0f);
+            model = "fish2";
+        frame = CFrame::fromXYZYPRDegrees(-2.845721f , 0.890213f , 0.856513f
+,308.468445f, 34.797462f, 0.0f);
         };
     fish1811 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(1.715593f , -0.112048f , 1.985918f
-,144.545517f, 30.753647f, 0.0f);
+            model = "fish2";
+        frame = CFrame::fromXYZYPRDegrees(-1.617941f , 1.386029f , 0.782935f
+,190.768280f, -24.822193f, 0.0f);
         };
     fish1812 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(2.836622f , 1.262715f , 0.147680f
-,335.586426f, 33.875114f, 0.0f);
+            model = "fish2";
+        frame = CFrame::fromXYZYPRDegrees(1.378249f , -0.823049f , 2.119403f
+,358.442108f, 27.735504f, 0.0f);
         };
     fish1813 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(-4.154771f , -1.300556f , 1.259775f
-,185.465393f, 15.913704f, 0.0f);
+            model = "fish2";
+        frame = CFrame::fromXYZYPRDegrees(-3.395042f , 0.797119f , 1.508339f
+,320.585999f, 52.742065f, 0.0f);
         };
     fish1814 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(-1.373955f , -1.042928f , 2.007505f
-,49.266617f, -19.311409f, 0.0f);
+            model = "fish2";
+        frame = CFrame::fromXYZYPRDegrees(-3.198827f , -0.148464f , 1.676451f
+,297.935913f, 48.458885f, 0.0f);
         };
     fish1815 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(-0.813985f , 1.237622f , 2.014012f
-,317.352631f, 21.035782f, 0.0f);
+            model = "fish2";
+        frame = CFrame::fromXYZYPRDegrees(-2.630334f , -0.547519f , 1.918464f
+,0.846128f, 31.144630f, 0.0f);
         };
     fish1816 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(-0.060721f , -1.454571f , 1.628644f
-,342.399567f, 5.544312f, 0.0f);
+            model = "fish2";
+        frame = CFrame::fromXYZYPRDegrees(-3.401425f , 1.288020f , 0.584815f
+,256.232452f, 41.947777f, 0.0f);
         };
     fish1817 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(-2.693417f , 1.541433f , 1.338700f
-,288.656067f, 47.730148f, 0.0f);
+            model = "fish2";
+        frame = CFrame::fromXYZYPRDegrees(2.598438f , -0.687546f , 2.299271f
+,77.632858f, -49.017712f, 0.0f);
         };
-    fish250 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(2.143888f , 1.382547f , 0.690660f
-,265.086853f, -45.386765f, 0.0f);
+    fish160 = VisibleEntity {
+            model = "fish2";
+        frame = CFrame::fromXYZYPRDegrees(-4.246136f , -0.534582f , 0.890298f
+,131.186646f, 32.550606f, 0.0f);
         };
-    fish251 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(-2.305128f , -0.306738f , 0.997409f
-,42.700546f, -48.732296f, 0.0f);
+    fish161 = VisibleEntity {
+            model = "fish2";
+        frame = CFrame::fromXYZYPRDegrees(1.959517f , 0.810875f , -0.324289f
+,73.798615f, -39.826176f, 0.0f);
         };
-    fish252 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(3.773730f , -0.070112f , 0.620520f
-,66.022858f, -42.022923f, 0.0f);
+    fish162 = VisibleEntity {
+            model = "fish2";
+        frame = CFrame::fromXYZYPRDegrees(2.660698f , 1.506118f , 1.493373f
+,140.713470f, 29.693443f, 0.0f);
         };
-    fish253 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(-0.777491f , 0.494551f , -0.378102f
-,122.224304f, 15.001556f, 0.0f);
+    fish163 = VisibleEntity {
+            model = "fish2";
+        frame = CFrame::fromXYZYPRDegrees(-1.794997f , 0.061267f , 0.874508f
+,301.810303f, -23.979923f, 0.0f);
         };
-    fish254 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(2.294881f , -1.537897f , 0.780294f
-,111.493858f, 36.054840f, 0.0f);
+    fish164 = VisibleEntity {
+            model = "fish2";
+        frame = CFrame::fromXYZYPRDegrees(-0.948773f , 0.882476f , -0.320755f
+,315.756287f, -36.223156f, 0.0f);
         };
-    fish255 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(-1.670647f , -1.247055f , 1.384266f
-,96.504112f, 0.608994f, 0.0f);
+    fish165 = VisibleEntity {
+            model = "fish2";
+        frame = CFrame::fromXYZYPRDegrees(-1.020018f , 1.493941f , 1.077389f
+,283.589325f, 27.150330f, 0.0f);
         };
-    fish256 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(0.318632f , -1.317442f , 1.880093f
-,122.821526f, -13.682117f, 0.0f);
+    fish166 = VisibleEntity {
+            model = "fish2";
+        frame = CFrame::fromXYZYPRDegrees(0.551906f , -0.047908f , 0.446637f
+,35.138409f, -23.182989f, 0.0f);
         };
-    fish257 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(0.530055f , -0.777531f , 2.392301f
-,12.078279f, 16.601746f, 0.0f);
+    fish167 = VisibleEntity {
+            model = "fish2";
+        frame = CFrame::fromXYZYPRDegrees(2.264577f , -0.014256f , 0.980252f
+,8.114760f, -3.542408f, 0.0f);
         };
-    fish258 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(2.946126f , -0.111508f , 0.363789f
-,116.911858f, 26.651138f, 0.0f);
+    fish168 = VisibleEntity {
+            model = "fish2";
+        frame = CFrame::fromXYZYPRDegrees(1.750192f , -0.192285f , -0.332579f
+,218.990265f, 53.422195f, 0.0f);
         };
-    fish259 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(0.922455f , 0.891612f , 0.038951f
-,55.947590f, 3.247448f, 0.0f);
+    fish169 = VisibleEntity {
+            model = "fish2";
+        frame = CFrame::fromXYZYPRDegrees(-1.095675f , -0.756019f , 0.578430f
+,39.414547f, 23.358109f, 0.0f);
         };
-    fish2510 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(-1.728210f , -0.976415f , 1.363961f
-,292.225525f, 34.267357f, 0.0f);
+    fish1610 = VisibleEntity {
+            model = "fish2";
+        frame = CFrame::fromXYZYPRDegrees(-0.627181f , 0.636716f , 1.269607f
+,6.019320f, -2.797852f, 0.0f);
         };
-    fish2511 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(-1.205284f , 0.668259f , -0.305393f
-,230.795181f, 11.405373f, 0.0f);
+    fish1611 = VisibleEntity {
+            model = "fish2";
+        frame = CFrame::fromXYZYPRDegrees(-2.526367f , -0.240846f , 0.297893f
+,289.053772f, -43.725601f, 0.0f);
         };
-    fish2512 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(0.112807f , 0.140598f , 0.077820f
-,257.794830f, -54.309841f, 0.0f);
+    fish1612 = VisibleEntity {
+            model = "fish2";
+        frame = CFrame::fromXYZYPRDegrees(1.520159f , -1.116155f , 0.434682f
+,314.057220f, 54.573601f, 0.0f);
         };
-    fish2513 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(-2.575741f , -0.495883f , -0.492409f
-,293.314514f, -16.246452f, 0.0f);
+    fish1613 = VisibleEntity {
+            model = "fish2";
+        frame = CFrame::fromXYZYPRDegrees(3.840573f , 0.051176f , 0.947524f
+,67.787727f, -41.361710f, 0.0f);
         };
-    fish2514 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(-2.355686f , 1.210076f , 1.729595f
-,193.243179f, 1.193680f, 0.0f);
+    fish1614 = VisibleEntity {
+            model = "fish2";
+        frame = CFrame::fromXYZYPRDegrees(0.746821f , 0.941049f , -0.074413f
+,333.740021f, -31.097692f, 0.0f);
         };
-    fish2515 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(-4.665015f , -0.529526f , 1.418096f
-,243.226547f, 45.043892f, 0.0f);
+    fish1615 = VisibleEntity {
+            model = "fish2";
+        frame = CFrame::fromXYZYPRDegrees(0.828074f , 1.070785f , 1.367918f
+,13.804094f, 6.665165f, 0.0f);
         };
-    fish2516 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(1.658869f , 0.457520f , 0.977830f
-,187.355087f, 53.512085f, 0.0f);
+    fish200 = VisibleEntity {
+            model = "fish0";
+        frame = CFrame::fromXYZYPRDegrees(2.123681f , 1.002501f , 0.303883f
+,169.111542f, 31.509880f, 0.0f);
         };
-    fish2517 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(-4.328722f , 1.235596f , 1.210982f
-,11.825792f, 4.095707f, 0.0f);
+    fish201 = VisibleEntity {
+            model = "fish0";
+        frame = CFrame::fromXYZYPRDegrees(0.488001f , 0.375224f , 2.383194f
+,197.071548f, 18.448608f, 0.0f);
         };
-    fish2518 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(3.748988f , 1.417788f , 0.492498f
-,315.346252f, -53.145027f, 0.0f);
+    fish202 = VisibleEntity {
+            model = "fish0";
+        frame = CFrame::fromXYZYPRDegrees(-2.484706f , 0.026829f , 1.916237f
+,38.703732f, 20.945557f, 0.0f);
         };
-    fish2519 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(-1.211139f , -1.304939f , 1.925770f
-,271.571442f, -19.012383f, 0.0f);
+    fish203 = VisibleEntity {
+            model = "fish0";
+        frame = CFrame::fromXYZYPRDegrees(-2.068447f , -0.245987f , 0.798838f
+,166.186935f, 27.742661f, 0.0f);
         };
-    fish2520 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(-0.258134f , -0.979968f , 1.268747f
-,222.545151f, -20.124077f, 0.0f);
+    fish204 = VisibleEntity {
+            model = "fish0";
+        frame = CFrame::fromXYZYPRDegrees(0.084219f , 0.691891f , 2.382314f
+,75.299324f, -4.543026f, 0.0f);
         };
-    fish2521 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(-2.244410f , -0.618293f , 1.885123f
-,62.491817f, -22.089382f, 0.0f);
+    fish205 = VisibleEntity {
+            model = "fish0";
+        frame = CFrame::fromXYZYPRDegrees(-3.577046f , 0.811863f , -0.137949f
+,246.547348f, 35.835266f, 0.0f);
         };
-    fish2522 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(-2.112632f , 0.478916f , 0.302194f
-,354.194061f, 17.808044f, 0.0f);
+    fish206 = VisibleEntity {
+            model = "fish0";
+        frame = CFrame::fromXYZYPRDegrees(-3.439976f , -1.464547f , 1.284940f
+,336.461395f, 18.189453f, 0.0f);
         };
-    fish2523 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(2.905970f , -1.220628f , 1.854243f
-,8.043180f, 50.136658f, 0.0f);
+    fish207 = VisibleEntity {
+            model = "fish0";
+        frame = CFrame::fromXYZYPRDegrees(0.652153f , 0.699920f , -0.154516f
+,298.668365f, 47.624931f, 0.0f);
         };
-    fish2524 = VisibleEntity {
-            model = "fish3";
-        frame = CFrame::fromXYZYPRDegrees(1.824610f , 0.950620f , 1.282295f
-,34.274315f, 6.375446f, 0.0f);
+    fish208 = VisibleEntity {
+            model = "fish0";
+        frame = CFrame::fromXYZYPRDegrees(-1.121244f , 0.603102f , 2.415012f
+,115.053009f, -35.466194f, 0.0f);
+        };
+    fish209 = VisibleEntity {
+            model = "fish0";
+        frame = CFrame::fromXYZYPRDegrees(2.088019f , -1.464333f , 1.381189f
+,133.987076f, -42.130428f, 0.0f);
+        };
+    fish2010 = VisibleEntity {
+            model = "fish0";
+        frame = CFrame::fromXYZYPRDegrees(2.124106f , -0.318902f , -0.559962f
+,275.381958f, 19.561691f, 0.0f);
+        };
+    fish2011 = VisibleEntity {
+            model = "fish0";
+        frame = CFrame::fromXYZYPRDegrees(-1.142946f , -1.452459f , 1.603545f
+,103.041435f, 40.841690f, 0.0f);
+        };
+    fish2012 = VisibleEntity {
+            model = "fish0";
+        frame = CFrame::fromXYZYPRDegrees(2.175227f , -1.356007f , 0.882862f
+,300.536285f, -4.091892f, 0.0f);
+        };
+    fish2013 = VisibleEntity {
+            model = "fish0";
+        frame = CFrame::fromXYZYPRDegrees(1.351364f , 1.442389f , 0.728399f
+,214.374527f, 25.144066f, 0.0f);
+        };
+    fish2014 = VisibleEntity {
+            model = "fish0";
+        frame = CFrame::fromXYZYPRDegrees(2.766773f , 0.418730f , 2.536168f
+,297.427734f, 51.885109f, 0.0f);
+        };
+    fish2015 = VisibleEntity {
+            model = "fish0";
+        frame = CFrame::fromXYZYPRDegrees(-2.007387f , -1.165314f , -0.086343f
+,324.192108f, -10.790779f, 0.0f);
+        };
+    fish2016 = VisibleEntity {
+            model = "fish0";
+        frame = CFrame::fromXYZYPRDegrees(1.037585f , -0.183801f , -0.574904f
+,203.903778f, -51.126190f, 0.0f);
+        };
+    fish2017 = VisibleEntity {
+            model = "fish0";
+        frame = CFrame::fromXYZYPRDegrees(1.124527f , -0.575577f , 2.413188f
+,157.704681f, 30.580093f, 0.0f);
+        };
+    fish2018 = VisibleEntity {
+            model = "fish0";
+        frame = CFrame::fromXYZYPRDegrees(2.263801f , -0.958414f , 2.251301f
+,164.870285f, -0.288948f, 0.0f);
+        };
+    fish2019 = VisibleEntity {
+            model = "fish0";
+        frame = CFrame::fromXYZYPRDegrees(1.491202f , 0.565068f , 2.270820f
+,349.815216f, 45.085815f, 0.0f);
         };
 
 
     coral0 = VisibleEntity {
         model = "genericCoralModel";
-        frame = CFrame::fromXYZYPRDegrees(-3.775217, -1.2f,2.743337, 0, 0, 0);
+        frame = CFrame::fromXYZYPRDegrees(3.710196, -1.2f,1.429225, 0, 0, 0);
         articulatedModelPose = UniversalMaterial::Specification {
-            lambertian = "Models/Coral/Coral4.png";
-            bump = "Models/Coral/Coral4_Bump.png";
+            lambertian = "Models/Coral/Coral1.png";
+            bump = "Models/Coral/Coral1_Bump.png";
         };
     };
 
 
     coral1 = VisibleEntity {
         model = "genericCoralModel";
-        frame = CFrame::fromXYZYPRDegrees(-1.823889, -1.2f,0.329335, 0, 0, 0);
+        frame = CFrame::fromXYZYPRDegrees(1.542389, -1.2f,0.247918, 0, 0, 0);
         articulatedModelPose = UniversalMaterial::Specification {
-            lambertian = "Models/Coral/Coral3.png";
-            bump = "Models/Coral/Coral3_Bump.png";
+            lambertian = "Models/Coral/Coral1.png";
+            bump = "Models/Coral/Coral1_Bump.png";
         };
     };
 
 
     coral2 = VisibleEntity {
         model = "genericCoralModel";
-        frame = CFrame::fromXYZYPRDegrees(-2.090415, -1.2f,1.646473, 0, 0, 0);
+        frame = CFrame::fromXYZYPRDegrees(0.367680, -1.2f,2.410563, 0, 0, 0);
         articulatedModelPose = UniversalMaterial::Specification {
             lambertian = "Models/Coral/Coral1.png";
             bump = "Models/Coral/Coral1_Bump.png";
@@ -596,57 +526,37 @@ CFrame::fromXYZYPRDegrees(-4.3,-2.0f,-0.6f,-141.0f,2.2f,9.9f);
 
     coral3 = VisibleEntity {
         model = "genericCoralModel";
-        frame = CFrame::fromXYZYPRDegrees(2.889741, -1.2f,0.130085, 0, 0, 0);
+        frame = CFrame::fromXYZYPRDegrees(-2.710634, -1.2f,1.411553, 0, 0, 0);
         articulatedModelPose = UniversalMaterial::Specification {
-            lambertian = "Models/Coral/Coral2.png";
-            bump = "Models/Coral/Coral2_Bump.png";
+            lambertian = "Models/Coral/Coral3.png";
+            bump = "Models/Coral/Coral3_Bump.png";
         };
     };
 
 
     coral4 = VisibleEntity {
         model = "genericCoralModel";
-        frame = CFrame::fromXYZYPRDegrees(-4.658365, -1.2f,1.725843, 0, 0, 0);
+        frame = CFrame::fromXYZYPRDegrees(-0.527978, -1.2f,2.695284, 0, 0, 0);
         articulatedModelPose = UniversalMaterial::Specification {
-            lambertian = "Models/Coral/Coral2.png";
-            bump = "Models/Coral/Coral2_Bump.png";
+            lambertian = "Models/Coral/Coral3.png";
+            bump = "Models/Coral/Coral3_Bump.png";
         };
     };
 
 
     coral5 = VisibleEntity {
         model = "genericCoralModel";
-        frame = CFrame::fromXYZYPRDegrees(-0.246608, -1.2f,0.531055, 0, 0, 0);
+        frame = CFrame::fromXYZYPRDegrees(-5.169679, -1.2f,-0.640020, 0, 0, 0);
         articulatedModelPose = UniversalMaterial::Specification {
-            lambertian = "Models/Coral/Coral2.png";
-            bump = "Models/Coral/Coral2_Bump.png";
+            lambertian = "Models/Coral/Coral3.png";
+            bump = "Models/Coral/Coral3_Bump.png";
         };
     };
 
 
     coral6 = VisibleEntity {
         model = "genericCoralModel";
-        frame = CFrame::fromXYZYPRDegrees(1.532085, -1.2f,2.051942, 0, 0, 0);
-        articulatedModelPose = UniversalMaterial::Specification {
-            lambertian = "Models/Coral/Coral3.png";
-            bump = "Models/Coral/Coral3_Bump.png";
-        };
-    };
-
-
-    coral7 = VisibleEntity {
-        model = "genericCoralModel";
-        frame = CFrame::fromXYZYPRDegrees(-4.569122, -1.2f,0.779119, 0, 0, 0);
-        articulatedModelPose = UniversalMaterial::Specification {
-            lambertian = "Models/Coral/Coral3.png";
-            bump = "Models/Coral/Coral3_Bump.png";
-        };
-    };
-
-
-    coral8 = VisibleEntity {
-        model = "genericCoralModel";
-        frame = CFrame::fromXYZYPRDegrees(4.403100, -1.2f,1.383431, 0, 0, 0);
+        frame = CFrame::fromXYZYPRDegrees(-3.374996, -1.2f,2.228813, 0, 0, 0);
         articulatedModelPose = UniversalMaterial::Specification {
             lambertian = "Models/Coral/Coral4.png";
             bump = "Models/Coral/Coral4_Bump.png";
@@ -654,9 +564,29 @@ CFrame::fromXYZYPRDegrees(-4.3,-2.0f,-0.6f,-141.0f,2.2f,9.9f);
     };
 
 
+    coral7 = VisibleEntity {
+        model = "genericCoralModel";
+        frame = CFrame::fromXYZYPRDegrees(-3.057147, -1.2f,2.056437, 0, 0, 0);
+        articulatedModelPose = UniversalMaterial::Specification {
+            lambertian = "Models/Coral/Coral1.png";
+            bump = "Models/Coral/Coral1_Bump.png";
+        };
+    };
+
+
+    coral8 = VisibleEntity {
+        model = "genericCoralModel";
+        frame = CFrame::fromXYZYPRDegrees(-5.403339, -1.2f,0.313011, 0, 0, 0);
+        articulatedModelPose = UniversalMaterial::Specification {
+            lambertian = "Models/Coral/Coral1.png";
+            bump = "Models/Coral/Coral1_Bump.png";
+        };
+    };
+
+
     coral9 = VisibleEntity {
         model = "genericCoralModel";
-        frame = CFrame::fromXYZYPRDegrees(0.506270, -1.2f,0.756129, 0, 0, 0);
+        frame = CFrame::fromXYZYPRDegrees(1.611649, -1.2f,0.667021, 0, 0, 0);
         articulatedModelPose = UniversalMaterial::Specification {
             lambertian = "Models/Coral/Coral1.png";
             bump = "Models/Coral/Coral1_Bump.png";
@@ -666,7 +596,7 @@ CFrame::fromXYZYPRDegrees(-4.3,-2.0f,-0.6f,-141.0f,2.2f,9.9f);
 
     coral10 = VisibleEntity {
         model = "genericCoralModel";
-        frame = CFrame::fromXYZYPRDegrees(-3.290416, -1.2f,1.830634, 0, 0, 0);
+        frame = CFrame::fromXYZYPRDegrees(1.676261, -1.2f,0.954901, 0, 0, 0);
         articulatedModelPose = UniversalMaterial::Specification {
             lambertian = "Models/Coral/Coral4.png";
             bump = "Models/Coral/Coral4_Bump.png";
@@ -676,27 +606,17 @@ CFrame::fromXYZYPRDegrees(-4.3,-2.0f,-0.6f,-141.0f,2.2f,9.9f);
 
     coral11 = VisibleEntity {
         model = "genericCoralModel";
-        frame = CFrame::fromXYZYPRDegrees(-1.899268, -1.2f,0.257035, 0, 0, 0);
+        frame = CFrame::fromXYZYPRDegrees(3.416985, -1.2f,-0.645917, 0, 0, 0);
         articulatedModelPose = UniversalMaterial::Specification {
-            lambertian = "Models/Coral/Coral2.png";
-            bump = "Models/Coral/Coral2_Bump.png";
+            lambertian = "Models/Coral/Coral4.png";
+            bump = "Models/Coral/Coral4_Bump.png";
         };
     };
 
 
     coral12 = VisibleEntity {
         model = "genericCoralModel";
-        frame = CFrame::fromXYZYPRDegrees(4.255336, -1.2f,1.754039, 0, 0, 0);
-        articulatedModelPose = UniversalMaterial::Specification {
-            lambertian = "Models/Coral/Coral3.png";
-            bump = "Models/Coral/Coral3_Bump.png";
-        };
-    };
-
-
-    coral13 = VisibleEntity {
-        model = "genericCoralModel";
-        frame = CFrame::fromXYZYPRDegrees(4.380048, -1.2f,1.373761, 0, 0, 0);
+        frame = CFrame::fromXYZYPRDegrees(2.777050, -1.2f,-0.076413, 0, 0, 0);
         articulatedModelPose = UniversalMaterial::Specification {
             lambertian = "Models/Coral/Coral2.png";
             bump = "Models/Coral/Coral2_Bump.png";
@@ -704,9 +624,9 @@ CFrame::fromXYZYPRDegrees(-4.3,-2.0f,-0.6f,-141.0f,2.2f,9.9f);
     };
 
 
-    coral14 = VisibleEntity {
+    coral13 = VisibleEntity {
         model = "genericCoralModel";
-        frame = CFrame::fromXYZYPRDegrees(-1.329453, -1.2f,2.349974, 0, 0, 0);
+        frame = CFrame::fromXYZYPRDegrees(-4.669120, -1.2f,1.073318, 0, 0, 0);
         articulatedModelPose = UniversalMaterial::Specification {
             lambertian = "Models/Coral/Coral1.png";
             bump = "Models/Coral/Coral1_Bump.png";
@@ -714,9 +634,19 @@ CFrame::fromXYZYPRDegrees(-4.3,-2.0f,-0.6f,-141.0f,2.2f,9.9f);
     };
 
 
+    coral14 = VisibleEntity {
+        model = "genericCoralModel";
+        frame = CFrame::fromXYZYPRDegrees(-3.309615, -1.2f,0.954713, 0, 0, 0);
+        articulatedModelPose = UniversalMaterial::Specification {
+            lambertian = "Models/Coral/Coral4.png";
+            bump = "Models/Coral/Coral4_Bump.png";
+        };
+    };
+
+
     coral15 = VisibleEntity {
         model = "genericCoralModel";
-        frame = CFrame::fromXYZYPRDegrees(-5.009271, -1.2f,0.743552, 0, 0, 0);
+        frame = CFrame::fromXYZYPRDegrees(1.440727, -1.2f,-0.571382, 0, 0, 0);
         articulatedModelPose = UniversalMaterial::Specification {
             lambertian = "Models/Coral/Coral3.png";
             bump = "Models/Coral/Coral3_Bump.png";
@@ -726,7 +656,17 @@ CFrame::fromXYZYPRDegrees(-4.3,-2.0f,-0.6f,-141.0f,2.2f,9.9f);
 
     coral16 = VisibleEntity {
         model = "genericCoralModel";
-        frame = CFrame::fromXYZYPRDegrees(-1.427233, -1.2f,2.051993, 0, 0, 0);
+        frame = CFrame::fromXYZYPRDegrees(-2.249174, -1.2f,0.353647, 0, 0, 0);
+        articulatedModelPose = UniversalMaterial::Specification {
+            lambertian = "Models/Coral/Coral4.png";
+            bump = "Models/Coral/Coral4_Bump.png";
+        };
+    };
+
+
+    coral17 = VisibleEntity {
+        model = "genericCoralModel";
+        frame = CFrame::fromXYZYPRDegrees(4.913493, -1.2f,-0.549211, 0, 0, 0);
         articulatedModelPose = UniversalMaterial::Specification {
             lambertian = "Models/Coral/Coral2.png";
             bump = "Models/Coral/Coral2_Bump.png";
@@ -734,32 +674,22 @@ CFrame::fromXYZYPRDegrees(-4.3,-2.0f,-0.6f,-141.0f,2.2f,9.9f);
     };
 
 
-    coral17 = VisibleEntity {
-        model = "genericCoralModel";
-        frame = CFrame::fromXYZYPRDegrees(2.836054, -1.2f,1.563031, 0, 0, 0);
-        articulatedModelPose = UniversalMaterial::Specification {
-            lambertian = "Models/Coral/Coral3.png";
-            bump = "Models/Coral/Coral3_Bump.png";
-        };
-    };
-
-
     coral18 = VisibleEntity {
         model = "genericCoralModel";
-        frame = CFrame::fromXYZYPRDegrees(2.586462, -1.2f,0.051976, 0, 0, 0);
+        frame = CFrame::fromXYZYPRDegrees(0.812861, -1.2f,-0.240108, 0, 0, 0);
         articulatedModelPose = UniversalMaterial::Specification {
-            lambertian = "Models/Coral/Coral4.png";
-            bump = "Models/Coral/Coral4_Bump.png";
+            lambertian = "Models/Coral/Coral2.png";
+            bump = "Models/Coral/Coral2_Bump.png";
         };
     };
 
 
     coral19 = VisibleEntity {
         model = "genericCoralModel";
-        frame = CFrame::fromXYZYPRDegrees(-5.076286, -1.2f,1.191654, 0, 0, 0);
+        frame = CFrame::fromXYZYPRDegrees(-2.515007, -1.2f,0.155844, 0, 0, 0);
         articulatedModelPose = UniversalMaterial::Specification {
-            lambertian = "Models/Coral/Coral4.png";
-            bump = "Models/Coral/Coral4_Bump.png";
+            lambertian = "Models/Coral/Coral2.png";
+            bump = "Models/Coral/Coral2_Bump.png";
         };
     };
 
