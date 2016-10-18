@@ -35,16 +35,16 @@ void CoralGenerator::writeCoral(String coralType, Color3 coralColor, shared_ptr<
     int height(color->height());
     int w4(width/4); 
     if (coralType == "thin") {
-        maxDepth = 3;
+        maxDepth = 4;
         generateThinCoral(maxDepth, Point2int32(width/2, height - (2 * initialThickness)), -90, 100, minAngle, maxAngle, initialThickness, edgeBuffer, thickBuffer);
 
     }
     else if (coralType == "finger") {
-        maxDepth = 5;
+        maxDepth = 4;
         generateFingerCoral(maxDepth, Point2int32(width/2, height - (2 * initialThickness)), -90, 100, minAngle, maxAngle, initialThickness, edgeBuffer, thickBuffer);
     }
     else if (coralType == "flat") {
-        maxDepth = 6;
+        maxDepth = 7;
         generateFlatCoral(maxDepth, Point2int32(width/2, height - (2 * initialThickness)), -90, 100, minAngle, maxAngle, initialThickness, edgeBuffer, thickBuffer);
     }
     else if (coralType == "branch") {
@@ -56,7 +56,7 @@ void CoralGenerator::writeCoral(String coralType, Color3 coralColor, shared_ptr<
         generateTallCoral(maxDepth, Point2int32(width/2, height - (2 * initialThickness)), -90, 100, minAngle, maxAngle, initialThickness, edgeBuffer, thickBuffer);
     }
     else {
-        maxDepth = 5;
+        maxDepth = 4;
         generateCrazyCoral(maxDepth, Point2int32(width/2, height - (2 * initialThickness)), -90, 100, minAngle, maxAngle, initialThickness, edgeBuffer, thickBuffer);
     }
 
@@ -104,19 +104,19 @@ void CoralGenerator::generateFlatCoral(int depth, Point2int32& location, float c
     Table<String, Array<String>> rules;
 
     //Array<String> SBuffer("-[FY]+[FY]++[FY]--[FFYF]+++[FFYF]---[FY]");
-    Array<String> SBuffer("-[FY]+[FY]++[FY]");
+    Array<String> SBuffer("Y--[FY]+[YFY]");
     rules.set("S", SBuffer);
 
     //Array<String> YBuffer("-[FFFX]+[FFFX]++[FFFX]--[FFXFF]+++[FFXFF]---[FFFX]");
-    Array<String> YBuffer("++[FX]", "--[FX]");
+    Array<String> YBuffer("++[XFX]", "--[XFX]");
     rules.set("Y", YBuffer);
 
-    Array<String> XBuffer("FF", "", "+[FXF]");
+    Array<String> XBuffer("+[FXF]");
     rules.set("X", XBuffer);
 
     rules.set("F", Array<String>(""));
 
-    applyRules(depth, location, cumulativeAngle, drawLength, minAngle, maxAngle, thick, 0.9f, 0.9f, "S", rules, edgeBuffer, thickBuffer);
+    applyRules(depth, location, cumulativeAngle, drawLength, minAngle, maxAngle, thick, 0.8f, 0.75f, "S", rules, edgeBuffer, thickBuffer);
 }
 
 void CoralGenerator::generateBranchCoral(int depth, Point2int32& location, float cumulativeAngle, float drawLength, float minAngle, float maxAngle, float thick, /*Array<Array<Point2int32>>&*/Array<shared_ptr<Edges>>& edgeBuffer, Array<float>& thickBuffer) {
