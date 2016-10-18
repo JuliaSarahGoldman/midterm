@@ -23,6 +23,8 @@ protected:
         Calls Image::set() */
     void setPixel(int x, int y, const Color4& c, shared_ptr<Image>& image) const; 
 
+    Color4 gradientColor(const Color4& c0, const Color4& c1, float a, int width, int height, const Point2int32& p0, const Point2int32& p1, const std::function<float (Point2int32, Point2int32, int, int)>& mix) const;
+
     /** Called by merge() */
     int findQuadrant(int x, int y, int width, int height) const;
 
