@@ -1,5 +1,5 @@
 /**
-  \file Drawung.h
+  \file Rasterizer.h
  */
  /*  John Freeman
      Jose Rivas-Garcia
@@ -30,6 +30,8 @@ public:
     /** Calls adjustBounds()
         writes to image*/
     void drawThickLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, int thickness, shared_ptr<Image>& image, shared_ptr<Image>& map) const;
+
+    void drawThickLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, int thickness, shared_ptr<Image>& image, shared_ptr<Image>& map, bool branchEnd) const;
 
     /** writes to image */
     void drawGradiantBackground(const Color4& c1, const Color4& c2, int height, int width, shared_ptr<Image>& image) const;

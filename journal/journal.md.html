@@ -6,6 +6,22 @@
         **Julia Goldman (jdg2@williams.edu),**
         **and Matheus de Carvalho Souza (mc13@williams.edu)** 
 
+2016-10-17: Smooth bump map
+=============================================================
+![Flat Coral - Before](2016-10-17_027_4-midterm_r1747_g3d_r927___Flat_Coral_-_Before.png width=200px) ![Tall Coral - Before](2016-10-17_026_4-midterm_r1747_g3d_r927___Tall_Coral_-_Before.png width=200px) ![Crazy Coral - Before](2016-10-17_031_4-midterm_r1747_g3d_r927___Crazy_Coral_-_Before.png width=200px) ![Finger Coral - Before](2016-10-17_030_4-midterm_r1747_g3d_r927___Finger_Coral_-_Before.png width=200px) ![Thin Coral - Before](2016-10-17_029_4-midterm_r1747_g3d_r927___Thin_Coral_-_Before.png width=200px) ![Branch Coral - Before](2016-10-17_028_4-midterm_r1747_g3d_r927___Thin_Coral_-_Before.png width=200px) ![Lines - Before](2016-10-17_032_4-midterm_r1747_g3d_r927___Lines_-_Before.png width=200px)
+
+![Flat Coral - After](2016-10-17_020_4-midterm_r1747_g3d_r927___Flat_Coral_-_After.png width=200px) ![Tall Coral - After](2016-10-17_019_4-midterm_r1747_g3d_r927___Tall_Coral_-_After.png width=200px) ![Crazy Coral - After](2016-10-17_024_4-midterm_r1747_g3d_r927___Crazy_Coral_-_After.png width=200px) ![Finger Coral - After](2016-10-17_023_4-midterm_r1747_g3d_r927___Finger_Coral_-_After.png width=200px) ![Thin Coral - After](2016-10-17_022_4-midterm_r1747_g3d_r927___Finger_Coral_-_After.png width=200px) ![Branch Coral - After](2016-10-17_021_4-midterm_r1747_g3d_r927___Branch_Coral_-_After.png width=200px) ![Lines - after](2016-10-17_025_4-midterm_r1747_g3d_r927___Lines_-_after.png width=200px)
+
+How we do it: 
+- An overload of drawThickLine now takes in a branchEnd bool parameter. If we're at the end of a line segment (any point which x or y coordinate is "below" the origin of the center line or "above" the end) and not at the end of the branch, we smooth the bumpmap. That takes care of the ends of the line segments and keeps the overlapping branches mostly intact. 
+- branchEnd = curDepth == maxDepth, where curDepth is the current depth of a line segment within our L-system, and maxDepth is the maximum depth. 
+- To determine branchEnd we had to: 
+    1. Create the Edges class, which works like a struct and holds the origin and end coordinates of the L-system edge, as well as its depth. 
+    2. Change the edgeBuffer in CoralGenerator to Array<shared_ptr<Edges>>, and adjust the rest of the CoralGenerator.cpp and CoralGenerator.h accordingly. Namely, change the parameter types to match the modification, and change how we append to edgeBuffer within applyRules(). 
+    3. As we iterate through edgeBuffer, branchEnd = (maxDepth - edgeBuffer[i]->depth) == maxDepth.
+
+Our results are not perfect, but are quite good.
+
 
 2016-10-17: With Tall Coral
 =============================================================
