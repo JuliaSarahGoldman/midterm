@@ -13,11 +13,12 @@ Introduction
 
 This program will procedurally generate distinct species of corral using a Lindernmeyer System (L-system). By specifying the species and specifying a color, we can generate unique corral and anenomes that will look amazing in any underwater environment. Corral and anenomes, like trees, can be represented as a recursive structure made of cylinders that shrink as they go farther from the base. Thus, an L-System can be used to model Corral and anenomes. In order to avoid having an exponential number of polygons as we recurse, we model the L-systems in 2D, generating a bump map for each coral as we do so. Then, we create a billboard for each piece of coral, with a material that has the colored image of the coral as its lambertian and the bump map as the bump.
 
-Specification
+Specification ##Needs to match what we actually have
 ============================================================================================
 
 Procedurally generate realistic coral using "Billboard" Texture and Normal Maps. 
 
+####Do we actually wnat a user interface? We don't really need one.
 1. Make a user interface with the following controls:
   1. Integer number box for the total different amount of species of coral to appear in the image.
   2. Integer number box for the total number of coral to appear in the image.
@@ -25,14 +26,15 @@ Procedurally generate realistic coral using "Billboard" Texture and Normal Maps.
   4. Check box for adding shadows.
   5. A "Generate Scene" Button to geneate the scene.
 
+###Again do we need this?
 2. When the "Generate" button is pressed, the program:
   1. Immediately displays a waiting screen.
   2. Renders an image as described below and then displays it in a new window with proper gamma
      encoding.
 
 3. Scene Generation:
-  1. Create different object files representing different species of coral with slight variations.
-  2. Write a scene file that puts the coral in an ocean like setting with a sun hitting the top.
+  1. Create different 2D images representing different species of coral with slight variations.
+  2. Write a scene file that puts the coral on a model in an ocean like setting with a sun hitting the top.
   3. Add fish models in the scene to make it look realistic if the fish check box is checked.
 
 4. Code:
@@ -40,10 +42,13 @@ Procedurally generate realistic coral using "Billboard" Texture and Normal Maps.
   2. Define a method that generates the appropriate scene.
 
 5. Correctness Results:
+##No 3D Coral, so no
+##We should have correctness results for each type of coral though, as seen below.
   1. Show the triangle mesh of a piece of coral, and demonstrate how it is being rotated.
   2. Show a piece of coral and its shadow and the direction of the light.
   3. Show a piece of coral along 4 different viewpoints.
 
+##Change this to what we're actually doing.
 6. Demonstration Results:
   1. A scene with multiple coral on a heightfield.
   2. A scene with coral and a few fish floating around.
@@ -102,6 +107,8 @@ We use rasterization's pixel filling techniques to create arbitrary color and bu
 
 Design
 =====================================================================================
+##Update tables and descriptions, and add tables for the rest of our classes.
+##We need to add Doxygen links too.
 
 App makesd an instance of CoralGenerator which it uses to call writeCoral with 2 given images.  CoralGenerator then generates the coral using one of the generate methods specifying an L-System and writes the results of that generation to the images using an instance of the Rasterizor class' drawThickLine method.  Finally, App saves these two images and displays them as a billboard in our coral custom scene.
 
@@ -134,6 +141,7 @@ The following are the results of our procedural generation. We first demonstrate
 
 Correctness Results
 -------------------------------------------------------------------------------------
+##Regenerate image using current version of our coral.
 ![Coral 4](thin.png width=200px) ![Coral 5](thinMap.png width=200px) ![Coral 6](thinCoral.jpg width=200px) 
 
 ![Coral 4](finger.png width=200px) ![Coral 5](fingerMap.png width=200px) ![Coral 6](fingerCoral.jpg width=200px) 
@@ -167,6 +175,7 @@ Demonstration Images
 
 Schedule
 ===================================================================
+##I removed all references to teh 3D coral.
 
 |To Do| Date | Person|
 |-----|------|-------|
@@ -175,11 +184,9 @@ Schedule
 |Bump Mapping Draft | 9 Oct. 2016 | Julia|
 |Drawing Lines Draft | 9 Oct. 2016 | Matheus|
 |2D Coral Creation Draft| 10 Oct. 2016 | All|
-|Creating 3D Draft | 10 Oct. 2016 | Jose|
 |Bump Mapping MVP | 11 Oct. 2016 | Julia|
 |Drawing Lines MVP | 11 Oct. 2016 | Matheus|
 |L-System Creation MVP | 11 Oct. 2016 | John|
-|Creating 3D MVP | 12 Oct. 2016 | Jose|
 |Create Scene Draft | 13 Oct. 2016 | Jose|
 |Report MVP | 13 Oct. 2016 | Jose and Julia|
 |L-System Creation Polish | 16 Oct. 2016 | John and Jose|
@@ -198,7 +205,9 @@ Change Log
 5. Updated specification to say what we want to be able to make. Jose 10/8
 6. Creating 2D L-systems in App using line drawing code. John 10/9
 7. Created a separate class for genertaing L-systems. John 10/10
-8. Creted a separate class for generating 3D coral L-systems. Jose 10/13
+8. Created a separate class for generating 3D coral L-systems. Jose 10/13
+9. Separate class for 3D coral went away. ###When did this happen?
+#####Document creation of all other new classes.
 
 <!-- Markdeep: -->
 <style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace;}</style><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>

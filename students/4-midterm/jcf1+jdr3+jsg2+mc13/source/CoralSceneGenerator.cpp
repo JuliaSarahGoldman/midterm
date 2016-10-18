@@ -73,22 +73,34 @@ void CoralSceneGenerator::writeEntities(String& scene, int numCoralTypes, int to
     // Set the Skybox
     entities += (String) "" +
     "\n        skybox = Skybox {" + 
-    "\n            texture = \"cubemap/whiteroom/whiteroom-*.png\";" + 
+//    "\n            texture = \"cubemap/whiteroom/whiteroom-*.png\";" + 
+    "\n            texture = Color3(0,0,.05);" +
     "\n        };" +
     "\n" +
     "\n        camera = Camera {" +
     "\n            frame = CFrame::fromXYZYPRDegrees(0.0, 1.0, 14.0, -1.2,4.0);" +
     "\n        };" +
-    "\n        sun = Light {" +
+    "\n        light1 = Light {" +
     "\n               attenuation = (0, 0, 1);" +
-    "\n                bulbPower = Power3(70); "+
-    "\n                frame = CFrame::fromXYZYPRDegrees(-15, 207, -41, -164, -77, 77);" +
+    "\n                bulbPower = Power3(200); "+
+//    "\n                frame = CFrame::fromXYZYPRDegrees(-15, 207, -41, -164, -77, 77);" +
+    "\n                frame = CFrame::fromXYZYPRDegrees(4, 3, .5, -164, -77, 77);" +
     "\n                shadowMapSize = Vector2int16(2048, 2048); "+
-    "\n                spotHalfAngleDegrees = 5;"
+    "\n                spotHalfAngleDegrees = 60;"
     "\n                spotSquare = true; "+
     "\n                type = \"SPOT\"; "+
     "\n        };"+
     "\n" +
+    "\n        light2 = Light {" +
+    "\n               attenuation = (0, 0, 1);" +
+    "\n                bulbPower = Power3(200); "+
+//    "\n                frame = CFrame::fromXYZYPRDegrees(-15, 207, -41, -164, -77, 77);" +
+    "\n                frame = CFrame::fromXYZYPRDegrees(-4, 3, .5, -164, -77, 77);" +
+    "\n                shadowMapSize = Vector2int16(2048, 2048); "+
+    "\n                spotHalfAngleDegrees = 60;"
+    "\n                spotSquare = true; "+
+    "\n                type = \"SPOT\"; "+
+    "\n        };\n"+
     "\n        side1 = VisibleEntity {" +
     "\n            model = \"glassRectangle\";" +
     "\n            frame = CFrame::fromXYZYPRDegrees(0,0,-2,0,0,0);" +
