@@ -16,11 +16,25 @@ bool Rasterizer::inBounds(int x, int y, const shared_ptr<Image>& image) const {
     return x >= 0 && y >= 0 && x < width && y < height;
 };
 
-void Rasterizer::adjustBounds(int& x0, int& x1, int& y0, int& y1, int width, int height) const {
+/*void Rasterizer::adjustBounds(int& x0, int& x1, int& y0, int& y1, int width, int height) const {
     x0 = max<int>(0, x0);
     y0 = max<int>(0, y0);
     x1 = min<int>(width, x1);
     y1 = min<int>(height, y1);
+};*/
+
+void Rasterizer::adjustBounds(Point2& c0, Point2& c1, int r, int width, int height) const {
+    // Adjust c0 so it's at least r from the image bounds
+    c0.x = max<float>(c0.x, 0.0f + r);
+    c0.x = min<float>(c0.x, width - r);
+    c0.y = max<float>(c0.y, 0.0f + r);
+    c0.y = min<float>(c0.y, height - r);
+
+    // Adjust c1 so it's at least r from the image bounds
+    c1.x = max<float>(c1.x, 0.0f + r);
+    c1.x = min<float>(c1.x, width - r);
+    c1.y = max<float>(c1.y, 0.0f + r);
+    c1.y = min<float>(c1.y, height - r);
 };
 
 void Rasterizer::setPixel(int x, int y, const Color4& c, shared_ptr<Image>& image) const {
@@ -66,18 +80,25 @@ void Rasterizer::drawThickLine(const Point2int32& point1, const Point2int32& poi
     drawThickLine(point1, point2, c, thickness, image, map, true);
 }
 
-void Rasterizer::drawThickLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, int thickness, shared_ptr<Image>& image, shared_ptr<Image>& map, bool branchEnd) const {
+void Rasterizer::drawThickLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, int r, shared_ptr<Image>& image, shared_ptr<Image>& map, bool branchEnd) const {
     Point2 c0(point1.x, point1.y);
+    Point2 c1(point2.x, point2.y);
+
+    adjustBounds(c0, c1, r, image->width(), image->height());
+    LineSegment2D centerLine(LineSegment2D::fromTwoPoints(c0, c1));
+
+
+    /*Point2 c0(point1.x, point1.y);
     Point2 c1(point2.x, point2.y);
     LineSegment2D centerLine(LineSegment2D::fromTwoPoints(c0, c1));
     float r(thickness);
-
+*/
     // Bounding box coordinates
     int x0(min<float>(c0.x, c1.x) - r);
     int x1(max<float>(c0.x, c1.x) + r);
     int y0(min<float>(c0.y, c1.y) - r);
     int y1(max<float>(c0.y, c1.y) + r);
-    adjustBounds(x0, x1, y0, y1, image->width(), image->height());
+    //adjustBounds(x0, x1, y0, y1, image->width(), image->height());
 
     const Color3 bump(Color3::white());
 
@@ -91,14 +112,14 @@ void Rasterizer::drawThickLine(const Point2int32& point1, const Point2int32& poi
         Point2 P(x, y);
         float dist(fabs(centerLine.distance(P)));
 
-        if (dist < r + 0.1f) {
+        if (dist < float(r) + 0.1f) {
             float alpha(float(y) / div);
             Color3 curCol(c.rgb().lerp(Color3::black(), alpha));
             //setPixel(x, y, Color4(curCol, 1.0f), image);
             image->set(x, y, Color4(curCol, 1.0f));
 
 
-            Color3 curBump(bump.lerp(Color3::black(), fabs(dist / r)));
+            Color3 curBump(bump.lerp(Color3::black(), fabs(dist / float(r))));
             //setPixel(x, y, Color4(curBump, 1.0f), map);
 
 
