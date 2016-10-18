@@ -62,11 +62,15 @@ int Rasterizer::findQuadrant(int x, int y, int width, int height) const {
     return y < (height / 2) ? a : b;
 };
 
-void Rasterizer::drawThickLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, int halfGirth, shared_ptr<Image>& image, shared_ptr<Image>& map) const {
+void Rasterizer::drawThickLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, int thickness, shared_ptr<Image>& image, shared_ptr<Image>& map) const {
+    drawThickLine(point1, point2, c, thickness, image, map, true);
+}
+
+void Rasterizer::drawThickLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, int thickness, shared_ptr<Image>& image, shared_ptr<Image>& map, bool branchEnd) const {
     Point2 c0(point1.x, point1.y);
     Point2 c1(point2.x, point2.y);
     LineSegment2D centerLine(LineSegment2D::fromTwoPoints(c0, c1));
-    float r = halfGirth;
+    float r(thickness);
 
     // Bounding box coordinates
     int x0(min<float>(c0.x, c1.x) - r);
@@ -96,22 +100,16 @@ void Rasterizer::drawThickLine(const Point2int32& point1, const Point2int32& poi
 
             Color3 curBump(bump.lerp(Color3::black(), fabs(dist / r)));
             //setPixel(x, y, Color4(curBump, 1.0f), map);
-            map->set(x, y, Color4(curBump, 1.0f));
+
 
             // If we're at the end of a line segment, but not the end or start of coral
-     /*       if (((x < x0 + r || x > x1 - r || y < y0 + r || y > y1 - r)) && !isEnd) {
+            if (((x < x0 + r || x > x1 - r || y < y0 + r || y > y1 - r)) && !branchEnd) {
                 // Smooth out the shading
-
-                Color4 curCol(0, 0, 0, 1);
-                if (inBounds(x, y, image)) {
-                    map->get(Point2int32(x, y), curCol);
-                }
-                setPixel(x, y, bump.max(curCol), map);
+                Color3 prevBump;
+                map->get(pixel, prevBump);
+                curBump = curBump.max(prevBump);
             }
-            else {
-                // Otherwise just draw the bump gradient normally
-                setPixel(x, y, bump, map);
-            }*/
+            map->set(x, y, Color4(curBump, 1.0f));
         }
     });
 
