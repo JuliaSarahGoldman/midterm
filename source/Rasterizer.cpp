@@ -1,6 +1,11 @@
 /** \file Rasterizer.cpp */
+ /*  John Freeman
+     Jose Rivas-Garcia
+     Julia Goldman
+     Matheus de Carvalho Souza
+ */
+
 #include "Rasterizer.h"
-//#include <stack>
 
 Rasterizer::Rasterizer() {};
 Rasterizer::~Rasterizer() {};
@@ -22,6 +27,15 @@ void Rasterizer::setPixel(int x, int y, const Color4& c, shared_ptr<Image>& imag
     if (inBounds(x, y, image)) {
         image->set(x, y, c);
     }
+};
+
+Color4 Rasterizer::gradientColor(const Color4& c0, const Color4& c1, float a, int width, int height, const Point2int32& p0, const Point2int32& p1, const std::function<float (Point2int32, Point2int32, int, int)>& mix) const {
+    float alpha(mix(p0,p1, width, height)); 
+    return Color4(c0.lerp(c1,alpha).rgb(),a); 
+};
+
+float normalGradient(const Point2int32& p0, const Point2int32& p1, int width, int height){ 
+    return float(p1.y)/(1.5f*float(height));
 };
 
 void Rasterizer::merge(const shared_ptr<Image>& q1, const shared_ptr<Image>& q2, const shared_ptr<Image>& q3, const shared_ptr<Image>& q4, shared_ptr<Image>& image) const {
@@ -115,6 +129,8 @@ void Rasterizer::drawGradiantBackground(const Color4& c0, const Color4& c1, int 
     Thread::runConcurrently(Point2int32(0, 0), Point2int32(width, height), [&](Point2int32 pixel) {
         float alpha(float(pixel.y) / (1.5f*height));
         //setPixel(x, y, c0.lerp(c1, alpha), image);
-        image->set(pixel.x, pixel.y, c0.lerp(c1, alpha));
+        Color4 col(gradientColor(c0,c1,0.0f, width,height,Point2int32(0,0), pixel, normalGradient));
+       // image->set(pixel.x, pixel.y, c0.lerp(c1, alpha));
+        image->set(pixel.x, pixel.y, col);
     });
 };
