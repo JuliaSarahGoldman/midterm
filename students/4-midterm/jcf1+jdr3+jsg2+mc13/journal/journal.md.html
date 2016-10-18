@@ -6,6 +6,14 @@
         **Julia Goldman (jdg2@williams.edu),**
         **and Matheus de Carvalho Souza (mc13@williams.edu)** 
 
+2016-10-17: Coral coloring abstraction
+=============================================================
+[Matheus] 
+
+Idea: define separate color gradient function that returns a color 4 value for an specific pixel and takes in a lambda function that changes the output shading of the coral. 
+
+I implemented that, and it worked for the current gradient we have, but we should think through other possible gradient lambda functions that we need before I actually commit the code for this. The few functions I tried weren't successful.
+
 2016-10-17: Field of Coral
 =============================================================
 
@@ -77,6 +85,7 @@ We seem to be getting some odd holes in our coral.
 
 2016-10-17: Gradient Background using G3D lerp function
 =============================================================
+[Matheus] 
 
 ![Blue](2016-10-17_009_4-midterm_r1720_g3d_r927___Blue.png width=200px) ![Blue with lerp](2016-10-17_010_4-midterm_r1720_g3d_r927___Blue_with_lerp.png width=200px)
 ![Bump - our approach](2016-10-17_014_4-midterm_r1725_g3d_r927___Bump_-_our_approach.png width=200px) ![Bump using built-in lerp](2016-10-17_013_4-midterm_r1725_g3d_r927___Bump_with_lerp.png width=200px)
