@@ -77,7 +77,7 @@ void CoralSceneGenerator::writeEntities(String& scene, int numCoralTypes, int to
     "\n        };" +
     "\n" +
     "\n        camera = Camera {" +
-    "\n            frame = CFrame::fromXYZYPRDegrees(-0.1, 1.4, 0, -90,-85);" +
+    "\n            frame = CFrame::fromXYZYPRDegrees(0.0, 1.0, 14.0, -1.2,4.0);" +
     "\n        };" +
     "\n        sun = Light {" +
     "\n               attenuation = (0, 0, 1);" +
@@ -163,19 +163,36 @@ void CoralSceneGenerator::writeEntities(String& scene, int numCoralTypes, int to
     
     for(int i(0); i< 500; ++i) {
         String index = (String) std::to_string(Random::threadCommon().integer(1,7));
+        int modelNum;
+        if(index == "7") {
+            modelNum = 1;
+        }else if (index == "4" || index == "6"){
+             modelNum = Random::threadCommon().integer(1,3);
+        }
+        else{
+            modelNum = Random::threadCommon().integer(1,2);
+        }
+        String yPos;
+        if (modelNum = 1){
+            yPos = ", -1.2f,";
+        } else if (modelNum = 2){
+            yPos = ", -.7";
+        } else if (modelNum = 3){
+            yPos = ", 0.3";
+        }
+
         entities += (String) "" + 
         "\n\n    coral" + (String) std::to_string(i) + " = VisibleEntity {"+ 
-        "\n        model = \"genericCoralModel\";" + 
-        "\n        frame = CFrame::fromXYZYPRDegrees(" + (String) std::to_string(Random::threadCommon().uniform(-5.48f,5.48f)) + ", -1.2f,"+ (String) std::to_string(Random::threadCommon().uniform(-1.0f,3.0f)) + ", 0, 0, 0);" + 
+        "\n        model = \"genericCoralModel" + (String) std::to_string(modelNum) +"\";" + 
+        "\n        frame = CFrame::fromXYZYPRDegrees(" + (String) std::to_string(Random::threadCommon().uniform(-5.4f,5.4f)) + ", -1.2f,"+ (String) std::to_string(Random::threadCommon().uniform(-1.0f,3.0f)) + ", 0, 0, 0);" + 
         "\n        articulatedModelPose = UniversalMaterial::Specification {"  + 
         "\n            lambertian = \"" + CORALDIR + index + ".png\";" +
-        "\n            bump = \"" + CORALDIR + index + "_Bump.png\";" +
         "\n            bump = BumpMap::Specification {" +
         "\n                 texture =\"" + CORALDIR + index + "_Bump.png\";" +
         "\n                 settings = BumpMap::Settings {"+
         "\n                     iterations = 0;"+
-        "\n                 }"+
-        "\n           }"+
+        "\n                 };"+
+        "\n           };"+
         "\n        };" +
         "\n    };" +
         "\n";
@@ -211,9 +228,25 @@ String CoralSceneGenerator::writeSchoolOfFish(const String& fish, int schoolNum)
 void CoralSceneGenerator::writeModels(String& scene, int numCoralTypes, int totalCoral){
     scene += (String) "" + 
     "models = {" +
-    "\n        genericCoralModel = ArticulatedModel::Specification {" + 
+    "\n        genericCoralModel1 = ArticulatedModel::Specification {" + 
     "\n            filename = \"star.off\";" +
     //"\n            scale = 2;" + 
+    "\n            preprocess = {" +
+    "\n                setTwoSided(all(), true);" +
+    "\n            };" +
+    "\n        };" +
+    "\n        " +
+    "\n       genericCoralModel2 = ArticulatedModel::Specification {" + 
+    "\n            filename = \"star.off\";" +
+    "\n            scale = 2;" + 
+    "\n            preprocess = {" +
+    "\n                setTwoSided(all(), true);" +
+    "\n            };" +
+    "\n        };" +
+    "\n        "+
+    "\n       genericCoralModel3 = ArticulatedModel::Specification {" + 
+    "\n            filename = \"star.off\";" +
+    "\n            scale = 3;" + 
     "\n            preprocess = {" +
     "\n                setTwoSided(all(), true);" +
     "\n            };" +
