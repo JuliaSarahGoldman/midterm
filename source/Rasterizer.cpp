@@ -29,7 +29,7 @@ void Rasterizer::setPixel(int x, int y, const Color4& c, shared_ptr<Image>& imag
     }
 };
 
-void Rasterizer::merge(const shared_ptr<Image>& q1, const shared_ptr<Image>& q2, const shared_ptr<Image>& q3, const shared_ptr<Image>& q4, shared_ptr<Image>& image) const {
+void Rasterizer::mergeQuadrants(const shared_ptr<Image>& q1, const shared_ptr<Image>& q2, const shared_ptr<Image>& q3, const shared_ptr<Image>& q4, shared_ptr<Image>& image) const {
     int width(image->width());
     int height(image->height());
 

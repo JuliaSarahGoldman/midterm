@@ -194,8 +194,8 @@ void App::onInit() {
     coralG->writeCoral("crazy", Color3(1, .412, .706), color_q4, bump_q4, 4.0f, 10.0f, 30.0f);
 
     // Merge them into the big image 
-    painter->merge(color_q1, color_q2, color_q3, color_q4, color);
-    painter->merge(bump_q1, bump_q2, bump_q3, bump_q4, bump);
+    painter->mergeQuadrants(color_q1, color_q2, color_q3, color_q4, color);
+    painter->mergeQuadrants(bump_q1, bump_q2, bump_q3, bump_q4, bump);
 
     show(color);
     show(bump);
@@ -209,8 +209,8 @@ void App::onInit() {
     coralG->writeCoral("finger", Color3(.1, .5, 1.0), color_q3, bump_q3, 16.0f, 20.0f, 30.0f);
     coralG->writeCoral("finger", Color3(.1, .5, 1.0), color_q4, bump_q4, 16.0f, 20.0f, 30.0f);
 
-    painter->merge(color_q1, color_q2, color_q3, color_q4, color);
-    painter->merge(bump_q1, bump_q2, bump_q3, bump_q4, bump);
+    painter->mergeQuadrants(color_q1, color_q2, color_q3, color_q4, color);
+    painter->mergeQuadrants(bump_q1, bump_q2, bump_q3, bump_q4, bump);
 
     show(color);
     show(bump);
@@ -223,8 +223,8 @@ void App::onInit() {
     coralG->writeCoral("thin", Color3(.1, .9, .3), color_q3, bump_q3, 16.0f, 28.0f, 30.0f);
     coralG->writeCoral("thin", Color3(.1, .9, .3), color_q4, bump_q4, 16.0f, 28.0f, 30.0f);
 
-    painter->merge(color_q1, color_q2, color_q3, color_q4, color);
-    painter->merge(bump_q1, bump_q2, bump_q3, bump_q4, bump);
+    painter->mergeQuadrants(color_q1, color_q2, color_q3, color_q4, color);
+    painter->mergeQuadrants(bump_q1, bump_q2, bump_q3, bump_q4, bump);
 
     show(color);
     show(bump);
@@ -237,8 +237,8 @@ void App::onInit() {
     coralG->writeCoral("branch", Color3(1, .2, .0), color_q3, bump_q3, 6.0f, 12.0f, 20.0f);
     coralG->writeCoral("branch", Color3(1, .2, .0), color_q4, bump_q4, 6.0f, 12.0f, 20.0f);
 
-    painter->merge(color_q1, color_q2, color_q3, color_q4, color);
-    painter->merge(bump_q1, bump_q2, bump_q3, bump_q4, bump);
+    painter->mergeQuadrants(color_q1, color_q2, color_q3, color_q4, color);
+    painter->mergeQuadrants(bump_q1, bump_q2, bump_q3, bump_q4, bump);
 
     show(color);
     show(bump);
@@ -253,8 +253,8 @@ void App::onInit() {
     coralG->writeCoral("flat", Color3(0, 1, 1), color_q4, bump_q4, 16.0f, 23.0f, 30.0f);
 
     // Merge them into the big image 
-    painter->merge(color_q1, color_q2, color_q3, color_q4, color);
-    painter->merge(bump_q1, bump_q2, bump_q3, bump_q4, bump);
+    painter->mergeQuadrants(color_q1, color_q2, color_q3, color_q4, color);
+    painter->mergeQuadrants(bump_q1, bump_q2, bump_q3, bump_q4, bump);
 
     show(color);
     show(bump);
@@ -267,8 +267,8 @@ void App::onInit() {
     coralG->writeCoral("tall", Color3(1, .412, .706), color_q3, bump_q3, 4.0f, 10.0f, 30.0f);
     coralG->writeCoral("tall", Color3(1, .412, .706), color_q4, bump_q4, 4.0f, 10.0f, 25.0f);
 
-    painter->merge(color_q1, color_q2, color_q3, color_q4, color);
-    painter->merge(bump_q1, bump_q2, bump_q3, bump_q4, bump);
+    painter->mergeQuadrants(color_q1, color_q2, color_q3, color_q4, color);
+    painter->mergeQuadrants(bump_q1, bump_q2, bump_q3, bump_q4, bump);
 
     show(color);
     show(bump);
