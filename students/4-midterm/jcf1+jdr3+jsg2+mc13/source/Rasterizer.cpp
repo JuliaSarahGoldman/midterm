@@ -29,15 +29,6 @@ void Rasterizer::setPixel(int x, int y, const Color4& c, shared_ptr<Image>& imag
     }
 };
 
-Color4 Rasterizer::gradientColor(const Color4& c0, const Color4& c1, float a, int width, int height, const Point2int32& p0, const Point2int32& p1, const std::function<float (Point2int32, Point2int32, int, int)>& mix) const {
-    float alpha(mix(p0,p1, width, height)); 
-    return Color4(c0.lerp(c1,alpha).rgb(),a); 
-};
-
-float normalGradient(const Point2int32& p0, const Point2int32& p1, int width, int height){ 
-    return float(p1.y)/(1.5f*float(height));
-};
-
 void Rasterizer::merge(const shared_ptr<Image>& q1, const shared_ptr<Image>& q2, const shared_ptr<Image>& q3, const shared_ptr<Image>& q4, shared_ptr<Image>& image) const {
     int width(image->width());
     int height(image->height());
@@ -100,11 +91,12 @@ void Rasterizer::drawThickLine(const Point2int32& point1, const Point2int32& poi
             float alpha(float(y) / div);
             Color3 curCol(c.rgb().lerp(Color3::black(), alpha));
             //setPixel(x, y, Color4(curCol, 1.0f), image);
-            image->set(x, y,Color4(curCol, 1.0f)); 
+            image->set(x, y, Color4(curCol, 1.0f));
+
 
             Color3 curBump(bump.lerp(Color3::black(), fabs(dist / r)));
             //setPixel(x, y, Color4(curBump, 1.0f), map);
-            map->set(x,y,Color4(curBump, 1.0f));
+            map->set(x, y, Color4(curBump, 1.0f));
 
             // If we're at the end of a line segment, but not the end or start of coral
      /*       if (((x < x0 + r || x > x1 - r || y < y0 + r || y > y1 - r)) && !isEnd) {
@@ -129,8 +121,6 @@ void Rasterizer::drawGradiantBackground(const Color4& c0, const Color4& c1, int 
     Thread::runConcurrently(Point2int32(0, 0), Point2int32(width, height), [&](Point2int32 pixel) {
         float alpha(float(pixel.y) / (1.5f*height));
         //setPixel(x, y, c0.lerp(c1, alpha), image);
-        Color4 col(gradientColor(c0,c1,0.0f, width,height,Point2int32(0,0), pixel, normalGradient));
-       // image->set(pixel.x, pixel.y, c0.lerp(c1, alpha));
-        image->set(pixel.x, pixel.y, col);
+        image->set(pixel.x, pixel.y, c0.lerp(c1, alpha));
     });
 };
