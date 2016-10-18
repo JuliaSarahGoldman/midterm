@@ -262,6 +262,22 @@ void App::onInit() {
     color->save("../data-files/models/Coral/Coral5.png");
     bump->save("../data-files/models/Coral/Coral5_Bump.png");
 
+    // Generate 4 quadrants
+    coralG->writeCoral("branch", Color3(1, 1, 0), color_q1, bump_q1, 8.0f, 10.0f, 30.0f);
+    coralG->writeCoral("branch", Color3(1, 1, 0), color_q2, bump_q2, 8.0f, 10.0f, 30.0f);
+    coralG->writeCoral("branch", Color3(1, 1, 0), color_q3, bump_q3, 8.0f, 10.0f, 30.0f);
+    coralG->writeCoral("branch", Color3(1, 1, 0), color_q4, bump_q4, 8.0f, 10.0f, 30.0f);
+
+    // Merge them into the big image 
+    painter->mergeQuadrants(color_q1, color_q2, color_q3, color_q4, color);
+    painter->mergeQuadrants(bump_q1, bump_q2, bump_q3, bump_q4, bump);
+
+    show(color);
+    show(bump);
+
+    color->save("../data-files/models/Coral/Coral6.png");
+    bump->save("../data-files/models/Coral/Coral6_Bump.png");
+
     coralG->writeCoral("tall", Color3(1, .412, .706), color_q1, bump_q1, 4.0f, 10.0f, 30.0f);
     coralG->writeCoral("tall", Color3(1, .412, .706), color_q2, bump_q2, 4.0f, 10.0f, 30.0f);
     coralG->writeCoral("tall", Color3(1, .412, .706), color_q3, bump_q3, 4.0f, 10.0f, 30.0f);

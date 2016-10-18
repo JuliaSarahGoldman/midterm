@@ -23,7 +23,7 @@ protected:
         Calls Image::set() */
     void setPixel(int x, int y, const Color4& c, shared_ptr<Image>& image) const; 
 
-    /** Called by merge() */
+    /** Called by merge**/
     int findQuadrant(int x, int y, int width, int height) const;
 
 public:

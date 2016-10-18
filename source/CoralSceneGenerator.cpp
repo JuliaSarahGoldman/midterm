@@ -162,11 +162,11 @@ void CoralSceneGenerator::writeEntities(String& scene, int numCoralTypes, int to
     }
     
     for(int i(0); i< 500; ++i) {
-        String index = (String) std::to_string(Random::threadCommon().integer(1,4));
+        String index = (String) std::to_string(Random::threadCommon().integer(1,7));
         entities += (String) "" + 
         "\n\n    coral" + (String) std::to_string(i) + " = VisibleEntity {"+ 
         "\n        model = \"genericCoralModel\";" + 
-        "\n        frame = CFrame::fromXYZYPRDegrees(" + (String) std::to_string(Random::threadCommon().uniform(-5.5f,5.5f)) + ", -1.2f,"+ (String) std::to_string(Random::threadCommon().uniform(-0.8f,2.8f)) + ", 0, 0, 0);" + 
+        "\n        frame = CFrame::fromXYZYPRDegrees(" + (String) std::to_string(Random::threadCommon().uniform(-5.48f,5.48f)) + ", -1.2f,"+ (String) std::to_string(Random::threadCommon().uniform(-1.0f,3.0f)) + ", 0, 0, 0);" + 
         "\n        articulatedModelPose = UniversalMaterial::Specification {"  + 
         "\n            lambertian = \"" + CORALDIR + index + ".png\";" +
         "\n            bump = \"" + CORALDIR + index + "_Bump.png\";" +
