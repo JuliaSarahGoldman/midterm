@@ -34,13 +34,16 @@
 
     entities = { 
         
-        
+        skybox = Skybox { 
+            texture = Color3(0,0,0.05);//"cubemap/whiteroom/whiteroom-*.png"; 
+        };
+
         light1 = Light { 
             attenuation = ( 0.0001, 0, 1 ); 
-            bulbPower = Power3(60 ); 
+            bulbPower = Power3(80 ); 
             castsShadows = true; 
             extent = Vector2(0.75, 0.75 ); 
-            frame = CFrame::fromXYZYPRDegrees(0, 2, 0, 0, -90, 0 ); 
+            frame = CFrame::fromXYZYPRDegrees(0, 1, 0, 0, -90, 0 ); 
             shadowMapSize = Vector2int16(1024, 1024 ); 
             spotHalfAngleDegrees = 45; 
             spotSquare = true; 
@@ -49,10 +52,10 @@
         
         light2 = Light { 
             attenuation = ( 0.0001, 0, 1 ); 
-            bulbPower = Power3(60 ); 
+            bulbPower = Power3(80 ); 
             castsShadows = true; 
             extent = Vector2(0.75, 0.75 ); 
-            frame = CFrame::fromXYZYPRDegrees(0, 2, 0, 0, 0, 0 ); 
+            frame = CFrame::fromXYZYPRDegrees(0, 1, 0, 0, 0, 0 ); 
             shadowMapSize = Vector2int16(1024, 1024 ); 
             spotHalfAngleDegrees = 45; 
             spotSquare = true; 
@@ -61,10 +64,10 @@
         
         light3 = Light { 
             attenuation = ( 0.0001, 0, 1 ); 
-            bulbPower = Power3(60 ); 
+            bulbPower = Power3(80 ); 
             castsShadows = true; 
             extent = Vector2(0.75, 0.75 ); 
-            frame = CFrame::fromXYZYPRDegrees(0, 2, 0, 90, 0, 0 ); 
+            frame = CFrame::fromXYZYPRDegrees(0, 1, 0, 90, 0, 0 ); 
             shadowMapSize = Vector2int16(1024, 1024 ); 
             spotHalfAngleDegrees = 45; 
             spotSquare = true; 
@@ -73,10 +76,10 @@
         
         light4 = Light { 
             attenuation = ( 0.0001, 0, 1 ); 
-            bulbPower = Power3(60 ); 
+            bulbPower = Power3(80 ); 
             castsShadows = true; 
             extent = Vector2(0.75, 0.75 ); 
-            frame = CFrame::fromXYZYPRDegrees(0, 2, 0, -90, 0, 0 ); 
+            frame = CFrame::fromXYZYPRDegrees(0, 1, 0, -90, 0, 0 ); 
             shadowMapSize = Vector2int16(1024, 1024 ); 
             spotHalfAngleDegrees = 45; 
             spotSquare = true; 
@@ -85,10 +88,10 @@
         
         light5 = Light { 
             attenuation = ( 0.0001, 0, 1 ); 
-            bulbPower = Power3(60 ); 
+            bulbPower = Power3(80 ); 
             castsShadows = true; 
             extent = Vector2(0.75, 0.75 ); 
-            frame = CFrame::fromXYZYPRDegrees(0, 2, 0, 180, 0, 180 ); 
+            frame = CFrame::fromXYZYPRDegrees(0, 1, 0, 180, 0, 180 ); 
             shadowMapSize = Vector2int16(1024, 1024 ); 
             spotHalfAngleDegrees = 45; 
             spotSquare = true; 
@@ -125,7 +128,7 @@
 
         branch = VisibleEntity {
             model = "starModel";
-            frame = CFrame::fromXYZYPRDegrees(1.5, 0, 2, 0, 0, 0);
+            frame = CFrame::fromXYZYPRDegrees(-1, 0, 0, 0, 0, 0);
             articulatedModelPose = UniversalMaterial::Specification { 
                 lambertian = "models/Coral/Coral4.png";
                 bump = BumpMap::Specification {
@@ -139,7 +142,7 @@
 
         thin = VisibleEntity {
             model = "starModel";
-            frame = CFrame::fromXYZYPRDegrees(2.5, 0, 1, 0, 0, 0);
+            frame = CFrame::fromXYZYPRDegrees(0, 0, -1, 0, 0, 0);
             articulatedModelPose = UniversalMaterial::Specification { 
                 lambertian = "models/Coral/Coral3.png";
                 bump = BumpMap::Specification {
@@ -153,7 +156,7 @@
 
         flat = VisibleEntity {
             model = "starModel";
-            frame = CFrame::fromXYZYPRDegrees(3, 0, 2, 0, 0, 0);
+            frame = CFrame::fromXYZYPRDegrees(1, 0, -1, 0, 0, 0);
             articulatedModelPose = UniversalMaterial::Specification { 
                 lambertian = "models/Coral/Coral5.png";
                 bump = BumpMap::Specification {

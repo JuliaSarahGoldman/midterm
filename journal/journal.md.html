@@ -6,6 +6,93 @@
         **Julia Goldman (jdg2@williams.edu),**
         **and Matheus de Carvalho Souza (mc13@williams.edu)** 
 
+2016-10-18: Clean up
+=============================================================
+[Julia] I merged some journal entries and went through the report an dmarked everywhere we need to do stuff. My comments in the report have ##s in front of them, so they should be easy to find.
+
+2016-10-18: Current Lighting
+=============================================================
+
+![](2016-10-18_009_4-midterm_r1771_g3d_r927__.jpg)
+    "\n        light1 = Light {" +
+    "\n               attenuation = (0, 0, 1);" +
+    "\n                bulbPower = Power3(200); "+
+//    "\n                frame = CFrame::fromXYZYPRDegrees(-15, 207, -41, -164, -77, 77);" +
+    "\n                frame = CFrame::fromXYZYPRDegrees(4, 3, .5, -164, -77, 77);" +
+    "\n                shadowMapSize = Vector2int16(2048, 2048); "+
+    "\n                spotHalfAngleDegrees = 60;"
+    "\n                spotSquare = true; "+
+    "\n                type = \"SPOT\"; "+
+    "\n        };"+
+    "\n" +
+    "\n        light2 = Light {" +
+    "\n               attenuation = (0, 0, 1);" +
+    "\n                bulbPower = Power3(200); "+
+//    "\n                frame = CFrame::fromXYZYPRDegrees(-15, 207, -41, -164, -77, 77);" +
+    "\n                frame = CFrame::fromXYZYPRDegrees(-4, 3, .5, -164, -77, 77);" +
+    "\n                shadowMapSize = Vector2int16(2048, 2048); "+
+    "\n                spotHalfAngleDegrees = 60;"
+    "\n                spotSquare = true; "+
+    "\n                type = \"SPOT\"; "+
+    "\n        };\n"+
+
+
+2016-10-18: Slightly Blue Skybox
+=============================================================
+
+![](2016-10-18_008_4-midterm_r1771_g3d_r927__.jpg)
+
+
+
+2016-10-18: Greater Visibility
+=============================================================
+
+![](2016-10-18_006_4-midterm_r1771_g3d_r927__.jpg)
+
+Increased spotHalfAngleDegrees from 5 to 50.
+![](2016-10-18_007_4-midterm_r1771_g3d_r927__.jpg)
+
+
+
+2016-10-18: Tiny lit section
+=============================================================
+
+![](2016-10-18_005_4-midterm_r1771_g3d_r927__.jpg)
+
+With:
+    "\n        sun = Light {" +
+    "\n               attenuation = (0, 0, 1);" +
+    "\n                bulbPower = Power3(100); "+
+    "\n                frame = CFrame::fromXYZYPRDegrees(1, 1, 1, -164, -77, 77);" +
+    "\n                shadowMapSize = Vector2int16(2048, 2048); "+
+    "\n                spotHalfAngleDegrees = 5;"
+    "\n                spotSquare = true; "+
+    "\n                type = \"SPOT\"; "+
+    "\n        };"+
+
+2016-10-18: Fish tank with black skybox.
+=============================================================
+
+![](2016-10-18_004_4-midterm_r1771_g3d_r927__.jpg)
+
+
+
+2016-10-18: More black background.
+=============================================================
+
+![bulbPower changed from 60 to 80.](2016-10-18_003_4-midterm_r1771_g3d_r927__bulbPower_changed_from_60_to_80..jpg)
+
+
+
+2016-10-18: Solid black cubemap.
+=============================================================
+
+![](2016-10-18_002_4-midterm_r1771_g3d_r927__.jpg)
+
+Se skybox texture to Color3(0,0,0)
+
+
+
 2016-10-18: Varied the size of the coral.
 =============================================================
 
@@ -70,30 +157,12 @@ Fish tank with the addition of new Tall coral.
 
 
 
-2016-10-17: Coral
+2016-10-17: Fish Tank
 =============================================================
 
 ![](2016-10-17_020_4-midterm_r1741_g3d_r927__.jpg)
-
-
-
-2016-10-17: Fish Among the Coral
-=============================================================
-
 ![](2016-10-17_019_4-midterm_r1741_g3d_r927__.jpg)
-
-
-
-2016-10-17: Tank
-=============================================================
-
 ![](2016-10-17_018_4-midterm_r1741_g3d_r927__.jpg)
-
-
-
-2016-10-17: Fish tank
-=============================================================
-
 ![](2016-10-17_017_4-midterm_r1741_g3d_r927__.jpg)
 
 
@@ -120,13 +189,7 @@ I implemented that, and it worked for the current gradient we have, but we shoul
 2016-10-17: Field of Coral
 =============================================================
 
-![](2016-10-17_016_4-midterm_r1736_g3d_r927__.jpg)
-
-
-
-2016-10-17: A lot of coral
-=============================================================
-
+![](2016-10-17_016_4-midterm_r1736_g3d_r927__.jpg) 
 ![](2016-10-17_015_4-midterm_r1736_g3d_r927__.jpg)
 
 
@@ -138,7 +201,7 @@ I implemented that, and it worked for the current gradient we have, but we shoul
 
 
 
-2016-10-17: Slightly Thinner
+2016-10-17: Fixed Bump
 =============================================================
 Now using:
                bump = BumpMap::Specification {
@@ -156,7 +219,7 @@ Iterations was previously 1, using a form of bumping that resulted in our holes:
 Now that iterations is 1, we use a different bumping technique that does not reuslt in holes (and which seems to clear up our edge stuff in space problem too?)
 ![](2016-10-17_013_4-midterm_r1724_g3d_r927__.jpg)
 
-2016-10-17: Slightly Thinner
+2016-10-17: Setting Thicknes Slightly Thinner
 =============================================================
 
 ![](2016-10-17_012_4-midterm_r1720_g3d_r927__.jpg)
@@ -168,21 +231,12 @@ Now that iterations is 1, we use a different bumping technique that does not reu
 
 ![](2016-10-17_011_4-midterm_r1720_g3d_r927__.jpg)
 
-
-
-2016-10-17: Holes
+2016-10-17: Possible Hole cause: Bump Maps unalligned?
 =============================================================
 
-![](2016-10-17_010_4-midterm_r1720_g3d_r927__.jpg)
+![](2016-10-17_009_4-midterm_r1720_g3d_r927__.jpg width=250px)! [](2016-10-17_010_4-midterm_r1720_g3d_r927__.jpg width=250px)
 
 We seem to be getting some odd holes in our coral.
-
-
-
-2016-10-17: Bump Maps unalligned
-=============================================================
-
-![](2016-10-17_009_4-midterm_r1720_g3d_r927__.jpg)
 
 
 
@@ -202,7 +256,7 @@ Bump gradients generated by our approach or by lerp yielded the same result, so 
 
 ![](2016-10-17_008_4-midterm_r1708_g3d_r927__.jpg)
 
-Like, only the bottom two images should have overlap.
+If the problem is coral extending beyond its quadrant, only the bottom two images should have overlap.
 
 
 
@@ -218,7 +272,7 @@ Like, only the bottom two images should have overlap.
 
 ![](2016-10-17_006_4-midterm_r1708_g3d_r927__.jpg)
 
-So, yeah I think changing the bounds lsightly could work.
+So, yeah I think changing the bounds slightly could work.
 
 
 
@@ -229,28 +283,6 @@ So, yeah I think changing the bounds lsightly could work.
 
 Spent a while regenerating coral for the scene now that we have merge.
 
-
-
-2016-10-17: Branch Coral Does it too?
-=============================================================
-
-![](2016-10-17_004_4-midterm_r1708_g3d_r927__.jpg)
-
-The pngs look right, so is the problem in the off file?
-Or are we not using the images I think we're using? I think that's it.
-
-
-
-2016-10-17: Cut too close?
-=============================================================
-
-![](2016-10-17_003_4-midterm_r1708_g3d_r927__.jpg)
-
-Maybe we could pretend the bounds are one pixel by one pixel smaller than they
-are?
-
-
-
 2016-10-17: Finger Coral extends down
 =============================================================
 
@@ -259,14 +291,15 @@ are?
 The base i in the right place, but the right side can extend down lower than the
 base. Checking bounds and merging shoudl take care of this, but it doesn't....
 
+![](2016-10-17_003_4-midterm_r1708_g3d_r927__.jpg)
 
+Maybe we could pretend the bounds are one pixel by one pixel smaller than they
+are?
 
-2016-10-17: Just the Blue
-=============================================================
+![Also happening to Branch Coral](2016-10-17_004_4-midterm_r1708_g3d_r927__.jpg)
 
-![](2016-10-17_001_4-midterm_r1708_g3d_r927__.jpg)
-
-Only the blue coral (Finger Coral) is getting cut off.
+The pngs look right, so is the problem in the off file?
+Or are we not using the images I think we're using? I think that's it.
 
 
 
@@ -278,7 +311,7 @@ Only the blue coral (Finger Coral) is getting cut off.
 This is odd, since the coordinates where the coral begins are now more
 reasonable....
 
-
+![Only the blue coral (Finger Coral) is getting cut off.](2016-10-17_001_4-midterm_r1708_g3d_r927__.jpg)
 
 2016-10-16: fish tank and coral
 =============================================================
@@ -346,22 +379,15 @@ Typo in the OFF file.
 The top left quadrant appears to be the problem.
 
 
-
-2016-10-16: Just One Face out of Whack
-=============================================================
-
-![](2016-10-16_004_4-midterm_r1694_g3d_r927__.jpg)
-
-
-
 2016-10-16: Not quite
 =============================================================
 
 ![](2016-10-16_003_4-midterm_r1694_g3d_r927__.jpg)
 
-I think two of the faces are right, and one or two aren't.
+I think at least two of the faces are right, and one or two aren't.
 
-
+![](2016-10-16_004_4-midterm_r1694_g3d_r927__.jpg)
+Actually, I think just onefFace is out of whack
 
 2016-10-16: Too Low
 =============================================================
@@ -370,24 +396,13 @@ I think two of the faces are right, and one or two aren't.
 
 Upper row of coral should start at 640 at the lowest, but instead starts at 650.
 
-
-
-2016-10-16: Theory
-=============================================================
-
-![](2016-10-16_001_4-midterm_r1694_g3d_r927__.jpg)
-
-Maybe soem coral is overlapping into other corals' quadrants?
-
-
-
 2016-10-16: New Off File
 =============================================================
 
-![Corals Don't Quite Line Up](2016-10-16_000_4-midterm_r1694_g3d_r927__Corals_Don_t_Quite_Line_Up.jpg)
+![Corals Don't Quite Line Up](2016-10-16_000_4-midterm_r1694_g3d_r927__Corals_Don_t_Quite_Line_Up.jpg width=200px) ![](2016-10-16_001_4-midterm_r1694_g3d_r927__.jpg width=200px)
 
 New OFF file with Texture Coordiantes for 4 images, but not quite what we want.
-
+Theory: Maybe some coral is overlapping into other corals' quadrants?
 
 
 2016-10-15: Gradient relative to quadrants
@@ -436,24 +451,13 @@ The color gradient is still relative to the whole image and not to the quadrant.
 Each Coral is generated separately with the same parameters. (More efficient
 just to reuse coral, but cool.)
 
-
-
-2016-10-15: Overhead
-=============================================================
-
-![](2016-10-15_007_4-midterm_r1678_g3d_r927__.jpg)
-
-Of course, if we look at our coral from above it all becomes stars.
-
-
-
 2016-10-15: Field of Coral
 =============================================================
 
-![](2016-10-15_006_4-midterm_r1678_g3d_r927__.jpg)
+![](2016-10-15_006_4-midterm_r1678_g3d_r927__.jpg) ![Of course, if we look at our coral from above it all becomes stars.](2016-10-15_007_4-midterm_r1678_g3d_r927__.jpg)
 
 generateCoralScene() now generates a scene file containing a bunch of identical,
-already created coral. The next step is ti make it create the coral itself, for
+already created coral. The next step is to make it create the coral itself, for
 variation.
 
 
@@ -462,28 +466,14 @@ variation.
 =============================================================
 Adding generateCoralScene Function to App for testing purposes. Will probably create separate class when testing is complete.
 
-2016-10-15: Single Model
+
+
+2016-10-15: Testing Using One Model for all Coral Entities
 =============================================================
 
-![](2016-10-15_005_4-midterm_r1676_g3d_r927__.jpg)
-
+![Without Materials](2016-10-15_003_4-midterm_r1676_g3d_r927__Without_Materials.jpg width=200px) ![](2016-10-15_004_4-midterm_r1676_g3d_r927___No_water_.jpg width=200px) ![](2016-10-15_005_4-midterm_r1676_g3d_r927__.jpg width=200px)
 Look in genCoral.Scene.Any to see how multiple coral can share the same model,
-and have the material applied to just the individual entity,
-
-
-
-2016-10-15: Using One Model
-=============================================================
-
-![(No water)](2016-10-15_004_4-midterm_r1676_g3d_r927___No_water_.jpg)
-
-
-
-2016-10-15: Testing Using One Model
-=============================================================
-
-![Without Materials](2016-10-15_003_4-midterm_r1676_g3d_r927__Without_Materials.jpg)
-
+and have the material applied to just the individual entity.
 
 
 2016-10-15: Current Coral
@@ -493,10 +483,10 @@ and have the material applied to just the individual entity,
 
 
 
-2016-10-15: That's better.
+2016-10-15: Fixed OFF File
 =============================================================
 
-![](2016-10-15_001_4-midterm_r1676_g3d_r927__.jpg)
+![That's better.](2016-10-15_001_4-midterm_r1676_g3d_r927__.jpg)
 
 Y coordinates of vertices were slightly off. Now line up properly.
 
@@ -584,61 +574,23 @@ All of this required increasingly confusing code that still did not generate per
 2016-10-13: Weird Coral
 ============================================================
 ![](2016-10-13_016_4-midterm_r1646_g3d_r927___.png)
-
-=============================================================
-
 ![](2016-10-13_015_4-midterm_r1646_g3d_r927___.png)
 
 For some reason, the left branch is more cramped than the right side.
 
 
-
-2016-10-13: Overlapping is weird.
-=============================================================
-
-![](2016-10-13_014_4-midterm_r1628_g3d_r927__.jpg)
-
-
-
 2016-10-13: Now with multiple planes!
 =============================================================
-
-![](2016-10-13_013_4-midterm_r1628_g3d_r927__.jpg)
-
-
-
-2016-10-13: Reflected Coral
-=============================================================
-
-![](2016-10-13_012_4-midterm_r1628_g3d_r927__.jpg)
-
-
-
-2016-10-13: Multiple Coral
-=============================================================
-
-![](2016-10-13_011_4-midterm_r1628_g3d_r927__.jpg)
-
-
-
-2016-10-13: Under water
-=============================================================
-
-![](2016-10-13_010_4-midterm_r1628_g3d_r927__.jpg)
-
-
-
-2016-10-13: Water, low gamma
-=============================================================
-
-![](2016-10-13_009_4-midterm_r1628_g3d_r927__.jpg)
-
+Now using the star OFF file for everything.
+![](2016-10-13_013_4-midterm_r1628_g3d_r927__.jpg width=200px) ![When coral overlaps, there is weirdness.](2016-10-13_014_4-midterm_r1628_g3d_r927__.jpg width=200px)
 
 
 2016-10-13: Under Water
 =============================================================
+Attempting to place coral underwater using the Cornell Box with water.
 
-![](2016-10-13_008_4-midterm_r1622_g3d_r927__.jpg)
+![](2016-10-13_008_4-midterm_r1622_g3d_r927__.jpg width=200px) ![Lowered the gamma](2016-10-13_009_4-midterm_r1628_g3d_r927__.jpg width=200px) ![](2016-10-13_010_4-midterm_r1628_g3d_r927__.jpg width=200px) 
+![Multiple Coral](2016-10-13_011_4-midterm_r1628_g3d_r927__.jpg width=200px) ![Coral reflected in sphere](2016-10-13_012_4-midterm_r1628_g3d_r927__.jpg width=200px)
 
 
 2016-10-13: More Sparse Coral
@@ -660,29 +612,14 @@ For some reason, the left branch is more cramped than the right side.
 
 ![](2016-10-13_007_4-midterm_r1619_g3d_r927__.jpg)
 
-
-
-2016-10-13: What's going on?
-=============================================================
-
-![](2016-10-13_006_4-midterm_r1619_g3d_r927__.jpg)
-
-
-
-2016-10-13: Looks cool from above
-=============================================================
-
-![](2016-10-13_005_4-midterm_r1619_g3d_r927__.jpg)
-
-...but not so much from the side.
-
-
+The bump is more apparent this way.
 
 2016-10-13: Can we make it less lop sided?
 =============================================================
 
-![](2016-10-13_004_4-midterm_r1608_g3d_r927__.jpg)
+![](2016-10-13_004_4-midterm_r1608_g3d_r927__.jpg width=200px) ![View from Above](2016-10-13_005_4-midterm_r1619_g3d_r927__.jpg width=200px) ![Side View](2016-10-13_006_4-midterm_r1619_g3d_r927__.jpg width=200px)
 
+Panes are not alligned correctly.
 
 2016-10-13: Fixed Coral Angles
 =============================================================
@@ -700,7 +637,7 @@ Fixed Coral so that angles are now being added correctly
 
 ![](2016-10-13_000_4-midterm_r1607_g3d_r875__.jpg)
 
--[FFXF]+[FXF][FXFF]F, and F -> FF.
+-\[FFXF\]+\[FXF\]\[FXFF\]F, and F -> FF.
 
 
 2016-10-13: Not centered, but functional
@@ -710,18 +647,11 @@ Fixed Coral so that angles are now being added correctly
 
 
 
-2016-10-13: Upside down
-=============================================================
-
-![](2016-10-13_002_4-midterm_r1608_g3d_r927__.jpg)
-
-
-
 2016-10-13: Expanding to star
 =============================================================
 
-![](2016-10-13_001_4-midterm_r1608_g3d_r927__.jpg)
-
+![](2016-10-13_001_4-midterm_r1608_g3d_r927__.jpg width = 200px) ![Almost there, but upside down.](2016-10-13_002_4-midterm_r1608_g3d_r927__.jpg width=200px)
+Attempting to have 4 images instead of 2.
 Not mapping texture to new pane correctly, but the wireframe looks good.
 
 
@@ -732,7 +662,6 @@ We now have working texture coordinates on the OFF file, although it looks prett
 ![Flat](2016-10-13_000_4-midterm_r1608_g3d_r927__Flat.jpg)
 
 
->>>>>>> .r1618
 2016-10-12: CoralGenerator
 =============================================================
 Added CoralGenerator.h and CoralGenerator.cpp.  Has the same functionality as before, but now seperated from App. Also allows us to mush more easily write new L-Systems to create new kinds of coral.  Only public method is writeCoral.  Saving file is now a responsibility of the caller.
@@ -759,6 +688,8 @@ is getting tesselated.
 
 ![](2016-10-10_008_4-midterm_r1536_g3d_r875__.jpg)
 
+The wireframe for our generic coral model.
+
 
 2016-10-10: Texture?
 =============================================================
@@ -768,18 +699,10 @@ is getting tesselated.
 Created shape to put texture on, but cannot get texture coordinates quite right.
 
 
-2016-10-10:Lots of coral
-=============================================================
-
-![](2016-10-10_007_4-midterm_r1532_g3d_r875__.jpg)
-
-Made using a recusion level of 8.
-
-
 2016-10-10: Coral with Correct Thickness
 =============================================================
 
-![](2016-10-10_006_4-midterm_r1526_g3d_r875__.jpg)
+![](2016-10-10_006_4-midterm_r1526_g3d_r875__.jpg width=200px) ![Made using a recusion level of 8.](2016-10-10_007_4-midterm_r1532_g3d_r875__.jpg width=200px)
 
 
 
@@ -799,7 +722,7 @@ We were calculating slope with integer division before.
 
 
 
-2016-10-10: Still not quite right
+2016-10-10: Adjusting our thick line rasterization
 =============================================================
 
 ![Before](2016-10-10_003_4-midterm_r1526_g3d_r875__Before.jpg)
@@ -811,7 +734,7 @@ Now have: int t_y = abs(halfGirth/(abs(d.direction().x)));
 
 
 
-2016-10-10: Coral
+2016-10-10: Changed model
 =============================================================
 
 ![](2016-10-10_001_4-midterm_r1526_g3d_r875__.jpg)
@@ -837,36 +760,19 @@ Now one sided. Changed drawThickLine slightly, but still not quite right.
 Inconsistent. Ask Prof. McGuire. 
 
 
-
-2016-10-09: Coral!!!!
-=============================================================
-
-![](2016-10-09_012_4-midterm_r1517_g3d_r875__.jpg)
-
-Coral made with a deeper recursion depth.
-
-
-
 2016-10-09: Coral!
 =============================================================
 
-![](2016-10-09_011_4-midterm_r1517_g3d_r875__.jpg)
+![](2016-10-09_011_4-midterm_r1517_g3d_r875__.jpg width=200px) ![Coral made with a deeper recursion depth.](2016-10-09_012_4-midterm_r1517_g3d_r875__.jpg width=200px)
 
 We can generate coral. The thicknesses are off, and it's a bit busy, and I had to manually remove the background of the images, but we can make coral!
-
-
-
-2016-10-09: Gleaming in the sun.
-=============================================================
-
-![](2016-10-09_010_4-midterm_r1517_g3d_r875__.jpg)
 
 
 
 2016-10-09: First image from generated pictures/gradient
 =============================================================
 
-![](2016-10-09_009_4-midterm_r1517_g3d_r875__.jpg)
+![](2016-10-09_009_4-midterm_r1517_g3d_r875__.jpg width=200px) ![Gleaming in th sun](2016-10-09_010_4-midterm_r1517_g3d_r875__.jpg width=200px)
 
 Even though we set the background pixels to (1, 1, 1, 0) initially, when the image is generated the background is (1, 1, 1, 1). Thus, the background had to be removed manually in photoshop, which is not sustainable.
 
