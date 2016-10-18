@@ -11,11 +11,18 @@ bool Rasterizer::inBounds(int x, int y, const shared_ptr<Image>& image) const {
     return x >= 0 && y >= 0 && x < width && y < height;
 };
 
+void Rasterizer::adjustBounds(int& x0, int& x1, int& y0, int& y1, int width, int height) const {
+    x0 = max<int>(0, x0);
+    y0 = max<int>(0, y0);
+    x1 = min<int>(width, x1);
+    y1 = min<int>(height, y1);
+};
+
 void Rasterizer::setPixel(int x, int y, const Color4& c, shared_ptr<Image>& image) const {
     if (inBounds(x, y, image)) {
         image->set(x, y, c);
     }
-}
+};
 
 void Rasterizer::merge(const shared_ptr<Image>& q1, const shared_ptr<Image>& q2, const shared_ptr<Image>& q3, const shared_ptr<Image>& q4, shared_ptr<Image>& image) const {
     int width(image->width());
@@ -48,80 +55,66 @@ int Rasterizer::findQuadrant(int x, int y, int width, int height) const {
     int a(x < (width / 2) ? 1 : 2);
     int b(a + 2);
     return y < (height / 2) ? a : b;
-}
+};
 
 void Rasterizer::drawThickLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, int halfGirth, shared_ptr<Image>& image, shared_ptr<Image>& map) const {
-    drawThickLine(point1, point2, c, halfGirth, image, map, image->height());
-}
-
-void Rasterizer::drawThickLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, int halfGirth, shared_ptr<Image>& image, shared_ptr<Image>& map, int gradientHeight) const {
     Point2 c0(point1.x, point1.y);
     Point2 c1(point2.x, point2.y);
+    LineSegment2D centerLine(LineSegment2D::fromTwoPoints(c0, c1));
     float r = halfGirth;
 
+    // Bounding box coordinates
     int x0(min<float>(c0.x, c1.x) - r);
     int x1(max<float>(c0.x, c1.x) + r);
     int y0(min<float>(c0.y, c1.y) - r);
     int y1(max<float>(c0.y, c1.y) + r);
+    adjustBounds(x0, x1, y0, y1, image->width(), image->height());
 
-    LineSegment2D centerLine(LineSegment2D::fromTwoPoints(c0, c1));
+    const Color3 bump(Color3::white());
 
-    // What the color value is decremented by at each vertical level
-    float div(1.5f*float(gradientHeight));
-    Color4 decrement(c.r / div, c.g / div, c.b / div, 0.0);
+    // gradient divisor
+    const float div(1.5f*float(image->height()));
 
-    // The top pixel within the image bounds
-    int top(y0 >= 0 ? y0 : y0 + r);
+    Thread::runConcurrently(Point2int32(x0, y0), Point2int32(x1, y1), [&](Point2int32 pixel) {
+        int x(pixel.x);
+        int y(pixel.y);
 
-    for (int x = x0; x <= x1; ++x) {
-        // Factor to compensate the original color by, depending on where the firs pixel is being drawn
-        //float f = top < gradientHeight ? top : top - gradientHeight;
-       // Color4 orig(c - f*decrement); // Compensate original color by factor
+        Point2 P(x, y);
+        float dist(fabs(centerLine.distance(P)));
 
-        for (int y(top); y <= y1; ++y) {
-            Point2 P(x, y);
+        if (dist < r + 0.1f) {
+            float alpha(float(y) / div);
+            Color3 curCol(c.rgb().lerp(Color3::black(), alpha));
+            //setPixel(x, y, Color4(curCol, 1.0f), image);
+            image->set(x, y,Color4(curCol, 1.0f)); 
 
-            // Reset color past height to repeat gradient
-            //if (y == gradientHeight) orig = c;
+            Color3 curBump(bump.lerp(Color3::black(), fabs(dist / r)));
+            //setPixel(x, y, Color4(curBump, 1.0f), map);
+            map->set(x,y,Color4(curBump, 1.0f));
 
-            // Only decrement color if y is within image bounds
-            // if (y > 0) orig -= decrement;
+            // If we're at the end of a line segment, but not the end or start of coral
+     /*       if (((x < x0 + r || x > x1 - r || y < y0 + r || y > y1 - r)) && !isEnd) {
+                // Smooth out the shading
 
-            float alpha(float(y) / (1.5f*float(gradientHeight)));
-            Color3 cur(c.rgb().lerp(Color3::black(), alpha));
-
-            if (fabs(centerLine.distance(P)) < r + 0.1f) {
-                setPixel(x, y, Color4(cur, 1.0), image);
-
-                float cValue(1.0f - fabs(centerLine.distance(P) / r));
-                Color4 shade(cValue, cValue, cValue, 1.0);
-
-                setPixel(x, y, shade, map);
-
-                // If we're at the end of a line segment, but not the end or start of coral
-         /*       if (((x < x0 + r || x > x1 - r || y < y0 + r || y > y1 - r)) && !isEnd) {
-                    // Smooth out the shading
-
-                    Color4 curCol(0, 0, 0, 1);
-                    if (inBounds(x, y, image)) {
-                        map->get(Point2int32(x, y), curCol);
-                    }
-                    setPixel(x, y, shade.max(curCol), map);
+                Color4 curCol(0, 0, 0, 1);
+                if (inBounds(x, y, image)) {
+                    map->get(Point2int32(x, y), curCol);
                 }
-                else {
-                    // Otherwise just draw the bump gradient normally
-                    setPixel(x, y, shade, map);
-                }*/
+                setPixel(x, y, bump.max(curCol), map);
             }
-        }
-    }
-}
-
-void Rasterizer::drawGradiantBackground(const Color4& c0, const Color4& c1, int height, int width, shared_ptr<Image>& image) const {
-    Thread::runConcurrently(0, height, [&](int x) {
-        for (int y = 0; y < height; ++y) {
-            float alpha(float(y) / (1.5f*height));
-            setPixel(x, y, c0.lerp(c1, alpha), image);
+            else {
+                // Otherwise just draw the bump gradient normally
+                setPixel(x, y, bump, map);
+            }*/
         }
     });
-}
+
+};
+
+void Rasterizer::drawGradiantBackground(const Color4& c0, const Color4& c1, int height, int width, shared_ptr<Image>& image) const {
+    Thread::runConcurrently(Point2int32(0, 0), Point2int32(width, height), [&](Point2int32 pixel) {
+        float alpha(float(pixel.y) / (1.5f*height));
+        //setPixel(x, y, c0.lerp(c1, alpha), image);
+        image->set(pixel.x, pixel.y, c0.lerp(c1, alpha));
+    });
+};
