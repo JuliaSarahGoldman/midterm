@@ -72,6 +72,9 @@
     <None Include="data-files\glassTank.Scene.Any">
       <Filter>Scene Files</Filter>
     </None>
+    <None Include="properLightCoral.Scene.Any">
+      <Filter>Scene Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
