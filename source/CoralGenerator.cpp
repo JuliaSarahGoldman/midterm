@@ -173,7 +173,7 @@ void CoralGenerator::generateTallCoral(int depth, Point2int32& location, float c
 
     rules.set("F", Array<String>(""));
 
-    applyRules(depth, location, cumulativeAngle, drawLength, minAngle, maxAngle, thick, 0.5f, 0.5f, "FX+[FFFFFW]-[FFFFFW]++[YF]--[ZF]+++[YF]---[ZF]++[FFFFFW]--[FFFFFW]+++[FFFFFW]---[FFFFFW]", rules, edgeBuffer, thickBuffer);
+    applyRules(depth, location, cumulativeAngle, drawLength, minAngle, maxAngle, thick, 0.5f, 0.5f, "X+[FFFFFW]-[FFFFFW]++[+[FFXFFFX]]--[-[FFFXFFX]]+++[+[FFXFFFX]]---[-[FFFXFFX]]++[FFFFFW]--[FFFFFW]+++[FFFFFW]---[FFFFFW]", rules, edgeBuffer, thickBuffer);
 }
 
 void CoralGenerator::generateFingerCoral(int depth, Point2int32& location, float cumulativeAngle, float drawLength, float minAngle, float maxAngle, float thick, Array<Array<Point2int32>>& edgeBuffer, Array<float>& thickBuffer) {
