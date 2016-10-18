@@ -11,6 +11,7 @@ protected:
     void generateCrazyCoral(int depth, Point2int32& location, float cumulativeAngle, float drawLength, float minAngle, float maxAngle, float thick, Array<Array<Point2int32>>& edgeBuffer, Array<float>& thickBuffer);
     void generateFlatCoral(int depth, Point2int32& location, float cumulativeAngle, float drawLength, float minAngle, float maxAngle, float thick, Array<Array<Point2int32>>& edgeBuffer, Array<float>& thickBuffer);
     void generateBranchCoral(int depth, Point2int32& location, float cumulativeAngle, float drawLength, float minAngle, float maxAngle, float thick, Array<Array<Point2int32>>& edgeBuffer, Array<float>& thickBuffer);
+    void generateTallCoral(int depth, Point2int32& location, float cumulativeAngle, float drawLength, float minAngle, float maxAngle, float thick, Array<Array<Point2int32>>& edgeBuffer, Array<float>& thickBuffer);
 
 public:
     
