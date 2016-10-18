@@ -83,16 +83,10 @@ void Rasterizer::drawThickLine(const Point2int32& point1, const Point2int32& poi
 void Rasterizer::drawThickLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, int r, shared_ptr<Image>& image, shared_ptr<Image>& map, bool branchEnd) const {
     Point2 c0(point1.x, point1.y);
     Point2 c1(point2.x, point2.y);
-
     adjustBounds(c0, c1, r, image->width(), image->height());
+
     LineSegment2D centerLine(LineSegment2D::fromTwoPoints(c0, c1));
 
-
-    /*Point2 c0(point1.x, point1.y);
-    Point2 c1(point2.x, point2.y);
-    LineSegment2D centerLine(LineSegment2D::fromTwoPoints(c0, c1));
-    float r(thickness);
-*/
     // Bounding box coordinates
     int x0(min<float>(c0.x, c1.x) - r);
     int x1(max<float>(c0.x, c1.x) + r);
