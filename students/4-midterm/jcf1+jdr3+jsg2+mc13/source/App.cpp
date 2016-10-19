@@ -121,8 +121,7 @@ void App::generateCoralScene() {
     String scene("");
     String name("GlassTank");
     String type("");
-
-    sceneGenerator.writeScene(scene, type, name, 5, 5);
+    sceneGenerator.writeScene(scene, type, name, 5, 10);
     text.writeSymbols(scene);
     text.commit(true);
 }
