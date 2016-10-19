@@ -51,8 +51,7 @@ protected:
     void writeModels(String& scene, int numCoralTypes, int totalCoral);
     void writeEntities(String& scene, int numCoralTypes, int totalCoral);
     String writeSchoolOfFish(const String& Fis, int schoolNum);
-   // void generateCoralScene();
-   // String makeCoralString(shared_ptr<Image>& color, shared_ptr<Image>& bump, shared_ptr<CoralGenerator>& coralG, float x, float y, float z, String id);
+    String writeBubbles(Point2& xBounds, Point2& yBounds, Point2& zBounds);
 
 public:
     void writeScene(String& scene, String& type, String& name, int numCoralTypes, int totalCoral);
