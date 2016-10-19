@@ -34,7 +34,9 @@ private:
     // 
     const String CASTLE2 = "Models/Castle/Castle2.obj";
     //Shark Found @ http://www.turbosquid.com/FullPreview/Index.cfm/ID/763930
-    const String SHARK = "Models/Shark.zip/Shark/Shark.obj";
+    const String SHARK1 = "Models/Shark.zip/Shark/Shark.obj";
+
+    const String SHARK2 = "Models/Shark.zip/Shark/Shark2.obj";
     //Rocks
     const String ROCK1 = "Models/outcrops.zip/granite_outcrops/RockOutcrop1.obj";
     const String ROCK2 = "Models/outcrops.zip/granite_outcrops/RockOutcrop2.obj";
@@ -47,12 +49,15 @@ private:
     const String CORALDIR = "Models/Coral/Coral";
 
 protected:
-    void writeSeaScene(String& scene, int numCoralTypes, int totalCoral);
+    
     void writeModels(String& scene, int numCoralTypes, int totalCoral);
-    void writeEntities(String& scene, int numCoralTypes, int totalCoral);
-    String writeSchoolOfFish(const String& Fis, int schoolNum);
-    String writeBubbles(Point2& xBounds, Point2& yBounds, Point2& zBounds);
+    void writeTankEntities(String& scene, int numCoralTypes, int totalCoral);
+    void writeSeaEntities(String& scene, int numCoralTypes, int totalCoral);
+    String writeSchoolOfFish(const String& Fis, int schoolNum, int id);
+    String writeBubbles(Point2& xBounds, Point2& yBounds, Point3& center);
+    void writeCoral(String& entities, int numCoralTypes, int totalCoral, Point2 xBounds, Point2 zBounds);
 
 public:
-    void writeScene(String& scene, String& type, String& name, int numCoralTypes, int totalCoral);
+    void writeTankScene(String& scene, String& name, int numCoralTypes, int totalCoral);
+    void writeSeaScene(String& scene, String& name, int numCoralTypes, int totalCoral);
 };

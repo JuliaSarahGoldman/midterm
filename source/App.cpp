@@ -120,10 +120,16 @@ void App::generateCoralScene() {
     CoralSceneGenerator sceneGenerator;
     String scene("");
     String name("GlassTank");
-    String type("");
-    sceneGenerator.writeScene(scene, type, name, 7, 250);
+    sceneGenerator.writeTankScene(scene, name, 7, 250);
     text.writeSymbols(scene);
     text.commit(true);
+
+    TextOutput text2 = TextOutput("sea.Scene.Any");
+    scene = "";
+        name = "Sea Scene";
+    sceneGenerator.writeSeaScene(scene, name, 7, 250);
+    text2.writeSymbols(scene);
+    text2.commit(true);
 }
 
 void App::createScene(String sceneName) {
