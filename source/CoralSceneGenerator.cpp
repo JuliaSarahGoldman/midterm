@@ -11,7 +11,7 @@ void CoralSceneGenerator::writeEntities(String& scene, int numCoralTypes, int to
     entities += (String) "" +
     "\n        skybox = Skybox {" + 
 //    "\n            texture = \"cubemap/whiteroom/whiteroom-*.png\";" + 
-    "\n            texture = Color3(0,0,.05);" +
+    "\n            texture = Color3(0,0,.5);" +
     "\n        };" +
     "\n" +
     "\n        camera = Camera {" +
@@ -19,9 +19,8 @@ void CoralSceneGenerator::writeEntities(String& scene, int numCoralTypes, int to
     "\n        };" +
     "\n        light1 = Light {" +
     "\n               attenuation = (0, 0, 1);" +
-    "\n                bulbPower = Power3(200); "+
-//    "\n                frame = CFrame::fromXYZYPRDegrees(-15, 207, -41, -164, -77, 77);" +
-    "\n                frame = CFrame::fromXYZYPRDegrees(4, 3, .5, -164, -77, 77);" +
+    "\n                bulbPower = Power3(2000); "+
+    "\n                frame = CFrame::fromXYZYPRDegrees(3.9, 6.2, 1.4, -164, -77, 77);" +
     "\n                shadowMapSize = Vector2int16(2048, 2048); "+
     "\n                spotHalfAngleDegrees = 60;"
     "\n                spotSquare = true; "+
@@ -30,16 +29,15 @@ void CoralSceneGenerator::writeEntities(String& scene, int numCoralTypes, int to
     "\n" +
     "\n        light2 = Light {" +
     "\n               attenuation = (0, 0, 1);" +
-    "\n                bulbPower = Power3(200); "+
-//    "\n                frame = CFrame::fromXYZYPRDegrees(-15, 207, -41, -164, -77, 77);" +
-    "\n                frame = CFrame::fromXYZYPRDegrees(-4, 3, .5, -164, -77, 77);" +
+    "\n                bulbPower = Power3(2000); "+
+    "\n                frame = CFrame::fromXYZYPRDegrees(-4.1, 5.3, .5, -164, -77, 77);" +
     "\n                shadowMapSize = Vector2int16(2048, 2048); "+
     "\n                spotHalfAngleDegrees = 60;"
     "\n                spotSquare = true; "+
     "\n                type = \"SPOT\"; "+
     "\n        };\n"+
     "\n        side1 = VisibleEntity {" +
-    "\n            model = \"glassRectangle\";" +
+    "\n            model = \"blueRectangle\";" +
     "\n            frame = CFrame::fromXYZYPRDegrees(0,0,-2,0,0,0);" +
     "\n        };" +
     "\n" +
@@ -73,10 +71,10 @@ void CoralSceneGenerator::writeEntities(String& scene, int numCoralTypes, int to
     "\n            frame = CFrame::fromXYZYPRDegrees(0,-2.0f,0.9f,0,0,0);" +
     "\n        };" +
     "\n" +    
-    "\n        castle1 = VisibleEntity {" +
+/*    "\n        castle1 = VisibleEntity {" +
     "\n            model = \"castle\";" +
     "\n            frame = CFrame::fromXYZYPRDegrees(4.1f,-1.9f, 2.3f,3,4,5);" +
-    "\n        };" +
+    "\n        };" +*/
     "\n" +
     "\n        aRock1 = VisibleEntity {" +
     "\n            model = \"rock1\";" +
@@ -243,10 +241,10 @@ void CoralSceneGenerator::writeModels(String& scene, int numCoralTypes, int tota
     "\n        scale = .01f;" +
     "\n    };" +
     "\n" +
-    "\n    castle = ArticulatedModel::Specification {" +
+/*    "\n    castle = ArticulatedModel::Specification {" +
     "\n        filename = \"" + CASTLE + "\";" +
     "\n        scale = .002f;" +
-    "\n    };" +
+    "\n    };" +*/
     "\n" +    
     "\n    chest = ArticulatedModel::Specification {" +
     "\n        filename = \"" + CHEST + "\";" +
@@ -273,6 +271,22 @@ void CoralSceneGenerator::writeModels(String& scene, int numCoralTypes, int tota
     "\n                    etaTransmit = 1.00f;" +
     "\n            });" +
     "\n            transformGeometry(all(), Matrix4::scale(.1f,.1f,.1f));" + 
+    "\n        };" +
+    "\n    };" +
+    "\n" +
+     "\n    blueRectangle = ArticulatedModel::Specification {" +
+    "\n        filename = \"model/cube/cube.obj\";" +
+    "\n        preprocess = {" +
+    "\n            setMaterial(all(), " +
+    "\n                UniversalMaterial::Specification {" +
+    "\n                    lambertian = Color3(0, 0.807843, 0.819608);" +
+//    "\n                    glossy = Color4(Color3(0.3), 0.8);" +
+//    "\n                    transmissive = Color3(0.9, 1.0, 1.0);" +
+//    "\n                    emissive = Color3(0.01);" +
+//    "\n                    etaReflect = 1.0;" +
+//    "\n                    etaTransmit = 1.03;" +
+    "\n            });" +
+    "\n            transformGeometry(all(), Matrix4::scale(12.6f,6.0f,0.6f));" + 
     "\n        };" +
     "\n    };" +
     "\n" +
