@@ -13,17 +13,9 @@
  /** \brief Application framework. */
 class Rasterizer {
 protected:
-    bool inBounds(int x, int y, const shared_ptr<Image>& image) const;
-
     /** Called by drawThickLine()
         Sets c0 and c1 within width by height box*/
-    void adjustBounds(Point2& c0, Point2& c1, int r, int w, int h) const;
-
-    //void adjustBounds(int& x0, int& x1, int& y0, int& y1, int width, int height) const;
-
-    /** Calls inBounds()
-        Calls Image::set() */
-    void setPixel(int x, int y, const Color4& c, shared_ptr<Image>& image) const; 
+    void fitToBounds(Point2& c0, Point2& c1, int r, int w, int h) const;
 
     /** Called by merge**/
     int findQuadrant(int x, int y, int width, int height) const;

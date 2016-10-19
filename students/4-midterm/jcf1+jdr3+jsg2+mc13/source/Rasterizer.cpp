@@ -10,20 +10,7 @@
 Rasterizer::Rasterizer() {};
 Rasterizer::~Rasterizer() {};
 
-bool Rasterizer::inBounds(int x, int y, const shared_ptr<Image>& image) const {
-    int height(image->height());
-    int width(image->width());
-    return x >= 0 && y >= 0 && x < width && y < height;
-};
-
-/*void Rasterizer::adjustBounds(int& x0, int& x1, int& y0, int& y1, int width, int height) const {
-    x0 = max<int>(0, x0);
-    y0 = max<int>(0, y0);
-    x1 = min<int>(width, x1);
-    y1 = min<int>(height, y1);
-};*/
-
-void Rasterizer::adjustBounds(Point2& c0, Point2& c1, int r, int width, int height) const {
+void Rasterizer::fitToBounds(Point2& c0, Point2& c1, int r, int width, int height) const {
     // Adjust c0 so it's at least r from the image bounds
     c0.x = max<float>(c0.x, 0.0f + r);
     c0.x = min<float>(c0.x, width - r);
@@ -37,36 +24,27 @@ void Rasterizer::adjustBounds(Point2& c0, Point2& c1, int r, int width, int heig
     c1.y = min<float>(c1.y, height - r);
 };
 
-void Rasterizer::setPixel(int x, int y, const Color4& c, shared_ptr<Image>& image) const {
-    if (inBounds(x, y, image)) {
-        image->set(x, y, c);
-    }
-};
 
 void Rasterizer::mergeQuadrants(const shared_ptr<Image>& q1, const shared_ptr<Image>& q2, const shared_ptr<Image>& q3, const shared_ptr<Image>& q4, shared_ptr<Image>& image) const {
     int width(image->width());
     int height(image->height());
 
     Thread::runConcurrently(Point2int32(0, 0), Point2int32(width, height), [&](Point2int32 pixel) {
-        int x(pixel.x);
-        int y(pixel.y);
         Color4 c(0, 0, 0, 0);
+        int x(pixel.x % (width / 2));
+        int y(pixel.y % (height / 2));
 
-        switch (findQuadrant(x, y, width, height)) {
-        case 1:
-            q1->get(pixel, c);
+        switch (findQuadrant(pixel.x, pixel.y, width, height)) {
+        case 1: q1->get(Point2int32(x, y), c);
             break;
-        case 2:
-            q2->get(Point2int32(x - (width / 2), y), c);
+        case 2: q2->get(Point2int32(x, y), c);
             break;
-        case 3:
-            q3->get(Point2int32(x, y - (height / 2)), c);
+        case 3: q3->get(Point2int32(x, y), c);
             break;
-        case 4:
-            q4->get(Point2int32(x - (width / 2), y - (height / 2)), c);
+        case 4: q4->get(Point2int32(x, y), c);
             break;
         }
-        setPixel(x, y, c, image);
+        image->set(pixel.x, pixel.y, c);
     });
 };
 
@@ -83,7 +61,8 @@ void Rasterizer::drawThickLine(const Point2int32& point1, const Point2int32& poi
 void Rasterizer::drawThickLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, int r, shared_ptr<Image>& image, shared_ptr<Image>& map, bool branchEnd) const {
     Point2 c0(point1.x, point1.y);
     Point2 c1(point2.x, point2.y);
-    adjustBounds(c0, c1, r, image->width(), image->height());
+
+    fitToBounds(c0, c1, r, image->width(), image->height());
 
     LineSegment2D centerLine(LineSegment2D::fromTwoPoints(c0, c1));
 
@@ -92,7 +71,6 @@ void Rasterizer::drawThickLine(const Point2int32& point1, const Point2int32& poi
     int x1(max<float>(c0.x, c1.x) + r);
     int y0(min<float>(c0.y, c1.y) - r);
     int y1(max<float>(c0.y, c1.y) + r);
-    //adjustBounds(x0, x1, y0, y1, image->width(), image->height());
 
     const Color3 bump(Color3::white());
 
@@ -109,13 +87,10 @@ void Rasterizer::drawThickLine(const Point2int32& point1, const Point2int32& poi
         if (dist < float(r) + 0.1f) {
             float alpha(float(y) / div);
             Color3 curCol(c.rgb().lerp(Color3::black(), alpha));
-            //setPixel(x, y, Color4(curCol, 1.0f), image);
             image->set(x, y, Color4(curCol, 1.0f));
 
 
             Color3 curBump(bump.lerp(Color3::black(), fabs(dist / float(r))));
-            //setPixel(x, y, Color4(curBump, 1.0f), map);
-
 
             // If we're at the end of a line segment, but not the end or start of coral
             if (((x < x0 + r || x > x1 - r || y < y0 + r || y > y1 - r)) && !branchEnd) {
@@ -133,7 +108,6 @@ void Rasterizer::drawThickLine(const Point2int32& point1, const Point2int32& poi
 void Rasterizer::drawGradiantBackground(const Color4& c0, const Color4& c1, int height, int width, shared_ptr<Image>& image) const {
     Thread::runConcurrently(Point2int32(0, 0), Point2int32(width, height), [&](Point2int32 pixel) {
         float alpha(float(pixel.y) / (1.5f*height));
-        //setPixel(x, y, c0.lerp(c1, alpha), image);
         image->set(pixel.x, pixel.y, c0.lerp(c1, alpha));
     });
 };
