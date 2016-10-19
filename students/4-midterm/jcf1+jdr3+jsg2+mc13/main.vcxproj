@@ -90,6 +90,7 @@
     <ClInclude Include="source\CoralGenerator.h" />
     <ClInclude Include="source\CoralSceneGenerator.h" />
     <ClInclude Include="source\Edges.h" />
+    <ClInclude Include="source\PathTracer.h" />
     <ClInclude Include="source\Rasterizer.h" />
     <ClInclude Include="source\CoralGenerator3D.h" />
   </ItemGroup>
@@ -98,6 +99,7 @@
     <ClCompile Include="source\CoralGenerator.cpp" />
     <ClCompile Include="source\CoralSceneGenerator.cpp" />
     <ClCompile Include="source\Edges.cpp" />
+    <ClCompile Include="source\PathTracer.cpp" />
     <ClCompile Include="source\Rasterizer.cpp" />
     <ClCompile Include="source\CoralGenerator3D.cpp" />
   </ItemGroup>
