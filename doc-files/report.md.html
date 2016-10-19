@@ -13,7 +13,7 @@ Introduction
 
 This program will procedurally generate distinct species of corral using a Lindernmeyer System (L-system). By specifying the species and specifying a color, we can generate unique corral and anenomes that will look amazing in any underwater environment. Corral and anenomes, like trees, can be represented as a recursive structure made of cylinders that shrink as they go farther from the base. Thus, an L-System can be used to model Corral and anenomes. In order to avoid having an exponential number of polygons as we recurse, we model the L-systems in 2D, generating a bump map for each coral as we do so. Then, we create a billboard for each piece of coral, with a material that has the colored image of the coral as its lambertian and the bump map as the bump.
 
-Specification ##Needs to be longer
+Specification ##Needs to be longer, possiblt include picture
 ============================================================================================
 
 Procedurally generate realistic coral using "Billboard" Texture and Normal Maps. 
@@ -94,36 +94,37 @@ Design
 
 App makesd an instance of CoralGenerator which it uses to call writeCoral with 2 given images.  CoralGenerator then generates the coral using one of the generate methods specifying an L-System and writes the results of that generation to the images using an instance of the Rasterizor class' drawThickLine method.  Finally, App saves these two images and displays them as a billboard in our coral custom scene.
 
-|Rasterizer: | |
+|[Rasterizer](class_rasterizer.html): | |
 |------------|---|
-|drawThickLine | Draws a line of a given width from one given point to another, in a given color on the color image, and in a gradient for the bump map. |
-|inBounds | Checks if a pixel we want to draw is in within the image. |
-|adjustBounds | Checks if a pixel we want to draw is in within the image. |
-|setPixel | Sets a pixel at a given x-y coordinate to a given color. |
-|mergeQuadrients |  |
-|findQuadrient |  |
-|drawGradientBackground |  |
+|[drawThickLine](class_rasterizer.html#acc2b4bb9010772397ab4fb84192d2c25) | Draws a line of a given width from one given point to another, in a given color on the color image, and in a gradient for the bump map. |
+|[inBounds](class_rasterizer.html#a90077a129bdcf539d68a0bf0b62e1d73) | Checks if a pixel we want to draw is in within the image. |
+|(adjustBounds)[class_rasterizer.html#a600b40c62ae5acd859d50dc49ac6aced] | Checks if a pixel we want to draw is in within the image. |
+|(setPixel](class_rasterizer.html#a9a64bb6ecb87b2ceeb380817aac2a7e9) | Sets a pixel at a given x-y coordinate to a given color. |
+|[mergeQuadrients](class_rasterizer.html#a16ffe7ee5781c8b85001a80a390dde5a) |  |
+|[findQuadrant](class_rasterizer.html#ac3ae73048079019875588ba58c711d68) |  |
+|[drawGradientBackground](class_rasterizer.html#a9ce27a441aef7c1c6d3eefbfb4584eae) |  |
 
 
-|CoralGenerator: | |
+|[CoralGenerator](class_coral_generator.html): | |
 |--------------------------|---------------------------------------|
-|writeCoral | Given two images, a thickness, and 2 angles, it draws the coral lambertian and the accompanying bump map for a given type of coral. |
-|applyRules | Takes a set of tokens and expands each token based on the rules that are passed to it as an L-System. |
-|generateFingerCoral | Generates heavy braching coral that clumps up. |
-|generateThinCoral | Generates heavy branching coral that thins quickly. |
-|generateCrazyCoral | Generates heavy braching coral that clumps up. |
-|generateFlatCoral |  Generates low branching coral that spreads out. |
-|generateBranchCoral | Generates branching, fan-like coral. |
-|generateTallCoral | Generates long, tall wire-like coral. |
+|[writeCoral](class_coral_generator.html#a2f63d6ad93c8c9247b219cdc9049026f) | Given two images, a thickness, and 2 angles, it draws the coral lambertian and the accompanying bump map for a given type of coral. |
+|[applyRules](class_coral_generator.html#a06fd1cda6975a01ee4658e5ffce0ff7c) | Takes a set of tokens and expands each token based on the rules that are passed to it as an L-System. |
+|[generateFingerCoral](class_coral_generator.html#ab7302ff370600c126fd13b530ee293c3) | Generates heavy braching coral that clumps up. |
+|[generateThinCoral](class_coral_generator.html#ae35cd5fb1b018bc85fa9a5dfd1a89aa8) | Generates heavy branching coral that thins quickly. |
+|[generateCrazyCoral](class_coral_generator.html#a23821ec795d4d19c58ec674855af1720) | Generates heavy braching coral that clumps up. |
+|[generateFlatCoral](class_coral_generator.html#ac721c6e88b26f66738cf49b6b15b58b0) |  Generates low branching coral that spreads out. |
+|[generateBranchCoral](class_coral_generator.html#a18061c0c63d314730acbae18120d8fad) | Generates branching, fan-like coral. |
+|[generateTallCoral](class_coral_generator.html#a0658e7979244fd37b08cad459fb7a7d6) | Generates long, tall wire-like coral. |
 
 
-|CoralSceneGenerator: | |
+|[CoralSceneGenerator](class_coral_scene_generator.html): | |
 |--------------------------|---------------------------------------|
-|writeSeaScene | Creates a Scene File for a custom Sea Scene through Helper methods. |
-|writeTankScene | Cretaes a Scene File for a custom Tank Scene through helper methods. |
-|writeModels | Returns a String that creates all of the models in all of the custom scenes. |
-|writeTankEntities | Returns a String for all the entities in the fish tank scene. |
-|writeSchoolOfFish | Returns a String for a school of fish entities. |
+|[writeSeaScene](class_coral_scene_generator.html#a798deb3792e3320e5a37c73828d4adaf) | Creates a Scene File for a custom Sea Scene through Helper methods. |
+|[writeTankScene]() | Cretaes a Scene File for a custom Tank Scene through helper methods. |
+|[writeModels](class_coral_scene_generator.html#a6be6d011035d7bc7eed7997b9067a593) | Returns a String that creates all of the models in all of the custom scenes. |
+|[writeTankEntities]() | Returns a String for all the entities in the fish tank scene. |
+|[writeSchoolOfFish]() | Returns a String for a school of fish entities. |
+|[writeBubbles](class_coral_scene_generator.html#adaa3ae143a1d6e8b6a3f9ede84dd59ff) | Returns a String for a school of bubble entities. |
 
 We have a seperate class called Rasterizer that is responsible for drawing lines onto an image and create a bump map.  This allows us to create billboards for coral that are drawn on a 2D plane but appear to look 3D from afar.  We seperated this class into it's own files in order to keep it seperate from the actual procedual generation giving the code better structure and allowing people to work on both the generation and the presentation of coral at the same time without the worry of conflicts.
 
