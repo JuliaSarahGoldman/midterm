@@ -96,22 +96,34 @@ App makesd an instance of CoralGenerator which it uses to call writeCoral with 2
 
 |Rasterizer: | |
 |------------|---|
-|DrawThickLine | Draws a line of a given width from one given point to another, in a given color on the color image, and in a gradient for the bump map. |
-|inBounds | Checks if a pixel we want to draw is in within the image |
-|setpixel | Sets a pixel at a given x-y coordinate to a given color |
-|drawHLine | Draws a line between two points with the same y coordinate. |
-|drawVLine | Draws a line between two points with the same x coordinate. |
-|drawSteepLine | Draws a line steeper than 45 degrees. |
-|drawFlatLine | Draws a line flatter than 45 degrees. |
-|roundCorners | Rounds the corners of a thick line. |
+|drawThickLine | Draws a line of a given width from one given point to another, in a given color on the color image, and in a gradient for the bump map. |
+|inBounds | Checks if a pixel we want to draw is in within the image. |
+|adjustBounds | Checks if a pixel we want to draw is in within the image. |
+|setPixel | Sets a pixel at a given x-y coordinate to a given color. |
+|mergeQuadrients |  |
+|findQuadrient |  |
+|drawGradientBackground |  |
 
-|Coral Generator: | |
+
+|CoralGenerator: | |
 |--------------------------|---------------------------------------|
-|writeCoral | Given two images, draws the coral lambertian and the accompanying bump map for a given type of coral |
-|applyRules | Takes a set of tokens and expands each token based on the rules that are passed to it. |
-|generateFingerCoral | generates coral based on a set of rules |
-|generateThinCoral | generates coral based on a set of rules |
-|generateCrazyCoral | generates coral based on a set of rules |
+|writeCoral | Given two images, a thickness, and 2 angles, it draws the coral lambertian and the accompanying bump map for a given type of coral. |
+|applyRules | Takes a set of tokens and expands each token based on the rules that are passed to it as an L-System. |
+|generateFingerCoral | Generates heavy braching coral that clumps up. |
+|generateThinCoral | Generates heavy branching coral that thins quickly. |
+|generateCrazyCoral | Generates heavy braching coral that clumps up. |
+|generateFlatCoral |  Generates low branching coral that spreads out. |
+|generateBranchCoral | Generates branching, fan-like coral. |
+|generateTallCoral | Generates long, tall wire-like coral. |
+
+
+|CoralSceneGenerator: | |
+|--------------------------|---------------------------------------|
+|writeSeaScene | Creates a Scene File for a custom Sea Scene through Helper methods. |
+|writeTankScene | Cretaes a Scene File for a custom Tank Scene through helper methods. |
+|writeModels | Returns a String that creates all of the models in all of the custom scenes. |
+|writeTankEntities | Returns a String for all the entities in the fish tank scene. |
+|writeSchoolOfFish | Returns a String for a school of fish entities. |
 
 We have a seperate class called Rasterizer that is responsible for drawing lines onto an image and create a bump map.  This allows us to create billboards for coral that are drawn on a 2D plane but appear to look 3D from afar.  We seperated this class into it's own files in order to keep it seperate from the actual procedual generation giving the code better structure and allowing people to work on both the generation and the presentation of coral at the same time without the worry of conflicts.
 
