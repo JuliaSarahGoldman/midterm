@@ -4,6 +4,7 @@
 #include "CoralGenerator.h"
 #include "CoralGenerator3D.h"
 #include "CoralSceneGenerator.h"
+#include "PathTracer.h"
 
 // Tells C++ to invoke command-line main() function even on OS X and Win32.
 G3D_START_AT_MAIN();
@@ -51,8 +52,6 @@ int main(int argc, const char* argv[]) {
 
 
 App::App(const GApp::Settings& settings) : GApp(settings) {
-    edgeBuffer = Array<Array<Point2int32>>();
-    thickBuffer = Array<float>();
 }
 
 
@@ -237,10 +236,10 @@ void App::onInit() {
     color->save("../data-files/models/Coral/Coral3.png");
     bump->save("../data-files/models/Coral/Coral3_Bump.png");
 
-    coralG->writeCoral("branch", Color3(1, .2, .0), color_q1, bump_q1, 6.0f, 12.0f, 20.0f);
-    coralG->writeCoral("branch", Color3(1, .2, .0), color_q2, bump_q2, 6.0f, 12.0f, 20.0f);
-    coralG->writeCoral("branch", Color3(1, .2, .0), color_q3, bump_q3, 6.0f, 12.0f, 20.0f);
-    coralG->writeCoral("branch", Color3(1, .2, .0), color_q4, bump_q4, 6.0f, 12.0f, 20.0f);
+    coralG->writeCoral("branch", Color3(1, 0, .0), color_q1, bump_q1, 6.0f, 12.0f, 20.0f);
+    coralG->writeCoral("branch", Color3(1, 0, .0), color_q2, bump_q2, 6.0f, 12.0f, 20.0f);
+    coralG->writeCoral("branch", Color3(1, 0, .0), color_q3, bump_q3, 6.0f, 12.0f, 20.0f);
+    coralG->writeCoral("branch", Color3(1, 0, .0), color_q4, bump_q4, 6.0f, 12.0f, 20.0f);
 
     painter->mergeQuadrants(color_q1, color_q2, color_q3, color_q4, color);
     painter->mergeQuadrants(bump_q1, bump_q2, bump_q3, bump_q4, bump);
@@ -300,6 +299,8 @@ void App::onInit() {
     generateCoralScene();
     createScene("corall");
 
+
+
     loadScene(
         //"G3D Sponza"
         "Test Coral" // Load something simple
@@ -314,6 +315,59 @@ void App::makeGUI() {
 
     debugWindow->setVisible(true);
     developerWindow->videoRecordDialog->setEnabled(true);
+    debugPane->setNewChildSize(500, -1, 300);
+
+    GuiPane* rayTracePane = debugPane->addPane("Ray Trace");
+ 
+    rayTracePane->setNewChildSize(240);
+    GuiText temp("1x1");
+    Array<GuiText> resolutionMenu(temp);
+    temp = "320x200";
+    resolutionMenu.append(temp);
+    temp = "640x400";
+    resolutionMenu.append(temp);
+        temp = "1280x720";
+    resolutionMenu.append(temp);
+    GuiDropDownList* list(rayTracePane->addDropDownList("Resolution", resolutionMenu));
+
+    rayTracePane->addNumberBox("Scatter Events", &m_maxScatter, "", GuiTheme::LOG_SLIDER, 1, 2048) -> setUnitsSize(200);
+    rayTracePane->addNumberBox("Paths", &m_pathsPPx, " /pixels", GuiTheme::LOG_SLIDER, 1, 2048) -> setUnitsSize(200);
+ 
+
+    
+
+    rayTracePane->addButton("Render", [this, list, rayTracePane](){
+        drawMessage("Path Tracer is loading");
+        shared_ptr<G3D::Image> image;
+        try{
+            const int width = int(window()->width()  * 0.5f);
+            const int height = int(window()->height() * 0.5f);
+
+            if(!list->selectedIndex()) image = Image::create(1, 1, ImageFormat::RGB32F());
+            else if (list->selectedIndex() == 1) image = Image::create(320,200, ImageFormat::RGB32F());
+            else if (list->selectedIndex() == 2) image = Image::create(640,420, ImageFormat::RGB32F());
+            else image = Image::create(1280,720, ImageFormat::RGB32F());
+            PathTracer tracer = PathTracer(scene(), m_maxScatter, m_pathsPPx);
+            Stopwatch watch("watch");
+            watch.tick();
+            tracer.pathTrace(scene(), activeCamera(), image);
+            watch.tock();
+            const shared_ptr<Texture>& src = Texture::fromImage("Source", image);
+            if (m_result) {
+                m_result->resize(width, height);
+            }
+
+            m_film->exposeAndRender(renderDevice, activeCamera()->filmSettings(), src, settings().hdrFramebuffer.colorGuardBandThickness.x, settings().hdrFramebuffer.depthGuardBandThickness.x, m_result);
+            debugPrintf(String(std::to_string(watch.smoothElapsedTime()) + " seconds").c_str());
+            show(m_result, String(std::to_string(watch.smoothElapsedTime()) + " seconds + Numcores = " + std::to_string(G3D::System::numCores())));
+            show(image, "image");
+            ArticulatedModel::clearCache();
+            
+        }catch(...){
+            msgBox("Unable to load the image.");
+        }
+    });
+
 
     GuiPane* infoPane = debugPane->addPane("Info", GuiTheme::ORNATE_PANE_STYLE);
 
@@ -345,57 +399,6 @@ void App::makeGUI() {
         map->setAll(Color4(0, 0, 0, 0));
 
         shared_ptr<Rasterizer> painter(new Rasterizer());
-        /*
-
-                //painter->drawGradiantBackground(Color3(0, 1, 0), Color3(0, 0, 1), height, width, image);
-                // painter->drawThickLine(Point2int32(0, 0), Point2int32(599, 499), Color3(1, 0, 0), 5, image);
-                painter->drawLine(Point2int32(300, 0), Point2int32(300, 499), Color3(1, 0, 0), image);
-                painter->drawLine(Point2int32(0, 250), Point2int32(599, 250), Color3(1, 0, 0), image);
-                // Flat diagonals
-                painter->drawLine(Point2int32(0, 0), Point2int32(599, 499), Color3(1, 0, 0), image); // Negative
-                painter->drawLine(Point2int32(0, 499), Point2int32(599, 0), Color3(1, 0, 0), image); //Positive
-                //Steep diagonals
-                painter->drawLine(Point2int32(0, 0), Point2int32(100, 499), Color3(1, 0, 0), image); // Negative
-                painter->drawLine(Point2int32(100, 499), Point2int32(200, 0), Color3(1, 0, 0), image); // Positive
-
-                painter->drawThickLine(Point2int32(300, 0), Point2int32(300, 499), Color3(1, 0, 0),5, image, map);
-                painter->drawThickLine(Point2int32(0, 250), Point2int32(599, 250), Color3(1, 0, 0),5, image, map);
-                // Flat diagonals
-                painter->drawThickLine(Point2int32(0, 0), Point2int32(599, 499), Color3(1, 0, 0),5, image, map); // Negative
-                painter->drawThickLine(Point2int32(0, 499), Point2int32(599, 0), Color3(1, 0, 0),5, image, map); //Positive
-                //Steep diagonals
-                painter->drawThickLine(Point2int32(0, 0), Point2int32(100, 499), Color3(1, 0, 0),5, image, map); // Negative
-                painter->drawThickLine(Point2int32(100, 499), Point2int32(200, 0), Color3(1, 0, 0),5, image, map); // Positive
-                */
-                //Really Flat diagonals
-    //    painter->drawThickLine(Point2int32(0, 250), Point2int32(599, 300), Color3(1, 0, 0), 5, image, map);
-        /*
-        //Really Steep diagonals
-        painter->drawThickLine(Point2int32(400,0), Point2int32(410, 499), Color3(1,0,0), 5, image, map);
-
-       // drawMyGraph(image);
-        //drawClock(image);
-        //drawCantorDust(20, 350, 220, 5, image);
-
-        */
-        /*
-                painter->drawThickLine(Point2int32(300, 0), Point2int32(300, 499), Color3(1, 0, 0), 5, image, map);
-                painter->drawThickLine(Point2int32(0, 250), Point2int32(599, 250), Color3(1, 0, 0), 5, image, map);
-
-                painter->drawThickLine(Point2int32(150, 0), Point2int32(450, 499), Color3(1, 0, 0), 5, image, map);
-                painter->drawThickLine(Point2int32(450, 0), Point2int32(150, 499), Color3(1, 0, 0), 5, image, map);
-
-                painter->drawThickLine(Point2int32(0, 125), Point2int32(599, 375), Color3(1, 0, 0), 5, image, map);
-                painter->drawThickLine(Point2int32(0, 375), Point2int32(599, 125), Color3(1, 0, 0), 5, image, map);
-
-
-                painter->drawThickLine(Point2int32(0, 0), Point2int32(599, 499), Color3(1, 0, 0), 5, image, map);
-                painter->drawThickLine(Point2int32(0, 499), Point2int32(599, 0), Color3(1, 0, 0), 5, image, map);
-
-                painter->drawThickLine(Point2int32(225, 0), Point2int32(375, 499), Color3(1, 0, 0), 5, image, map);
-                painter->drawThickLine(Point2int32(375, 0), Point2int32(225, 499), Color3(1, 0, 0), 5, image, map);
-
-        */
         painter->drawThickLine(Point2int32(300, 50), Point2int32(300, 449), Color3(1, 0, 0), 5, image, map);
         painter->drawThickLine(Point2int32(50, 250), Point2int32(549, 250), Color3(1, 0, 0), 5, image, map);
 

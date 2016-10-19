@@ -11,12 +11,14 @@
 /** \brief Application framework. */
 class App : public GApp {
 protected:
+
+    int m_maxScatter;
+    int m_pathsPPx;
+    shared_ptr<Texture> m_result;
+
     /** Called from onInit */
     void makeGUI();
     void createScene(String sceneName);
-
-    Array<Array<Point2int32>> edgeBuffer;
-    Array<float> thickBuffer;
 
     void generateCoralScene();
     String makeCoralString(shared_ptr<Image>& color, shared_ptr<Image>& bump, shared_ptr<CoralGenerator>& coralG, float x, float z, String id);
