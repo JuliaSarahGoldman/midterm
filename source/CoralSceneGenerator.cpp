@@ -426,7 +426,7 @@ void CoralSceneGenerator::writeModels(String& scene, int numCoralTypes, int tota
     for (int i(0); i < 3; ++i) {
         scene += "\n    bubble" + (String)std::to_string(i) + " = ArticulatedModel::Specification {" +
             "\n        filename = \"ifs/sphere.ifs\";" +
-            "\n        scale = " + (String)std::to_string(Random::threadCommon().uniform(0.025f, 0.05f)) + ";" +
+            "\n        scale = " + (String)std::to_string(Random::threadCommon().uniform(0.1f, 0.15f)) + ";" +
             "\n        preprocess = {" +
             "\n            setMaterial(all(), " +
             "\n                UniversalMaterial::Specification {" +
@@ -434,7 +434,7 @@ void CoralSceneGenerator::writeModels(String& scene, int numCoralTypes, int tota
             "\n                    glossy = Color4(Color3(0.3), 0.8);" +
             "\n                    transmissive = Color3(0.9, 1.0, 1.0);" +
             "\n                    emissive = Color3(0.01);" +
-            "\n                    etaReflect = 1.3f;" +
+            "\n                    etaReflect = 1.03f;" +
             "\n                    etaTransmit = 1.00f;" +
             "\n            });" +
             "\n        };" +
