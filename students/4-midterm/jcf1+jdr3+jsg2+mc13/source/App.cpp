@@ -236,10 +236,10 @@ void App::onInit() {
     color->save("../data-files/models/Coral/Coral3.png");
     bump->save("../data-files/models/Coral/Coral3_Bump.png");
 
-    coralG->writeCoral("branch", Color3(1, 0, .0), color_q1, bump_q1, 6.0f, 12.0f, 20.0f);
-    coralG->writeCoral("branch", Color3(1, 0, .0), color_q2, bump_q2, 6.0f, 12.0f, 20.0f);
-    coralG->writeCoral("branch", Color3(1, 0, .0), color_q3, bump_q3, 6.0f, 12.0f, 20.0f);
-    coralG->writeCoral("branch", Color3(1, 0, .0), color_q4, bump_q4, 6.0f, 12.0f, 20.0f);
+    coralG->writeCoral("branch", Color3(1, 0, .0), color_q1, bump_q1, 6.0f, 0.0f, 20.0f);
+    coralG->writeCoral("branch", Color3(1, 0, .0), color_q2, bump_q2, 6.0f, 0.0f, 20.0f);
+    coralG->writeCoral("branch", Color3(1, 0, .0), color_q3, bump_q3, 6.0f, 0.0f, 20.0f);
+    coralG->writeCoral("branch", Color3(1, 0, .0), color_q4, bump_q4, 6.0f, 0.0f, 20.0f);
 
     painter->mergeQuadrants(color_q1, color_q2, color_q3, color_q4, color);
     painter->mergeQuadrants(bump_q1, bump_q2, bump_q3, bump_q4, bump);
