@@ -86,8 +86,29 @@ We use rasterization's pixel filling techniques to create color and bump map ima
 Design
 =====================================================================================
 
-##FlowMap here
-App makes an instance of CoralGenerator which it uses to call writeCoral with 2 given images.  CoralGenerator then generates the coral using one of the generate methods specifying an L-System and writes the results of that generation to the images using an instance of the Rasterizor class' drawThickLine method.  Finally, App saves these two images and displays them as a billboard in our coral custom scene.
+*****************************************************************************************************************************************
+*                                                                                                                                       *
+*   .---------.                  .------------.        .-------------.                                                                  *
+*  |   GAPP    |                 | Rasterizer +------>+ drawThickLine |           .----------------------.     .------------------.     *
+*   '----+----'                  '-----+------'        '-----+-------'            |  CoralSceneGenerator +---->| writeTankScene   |     *
+*        |                             ^                     | draw quadrant      '------+---------------'     | or writeSeaScene |     *
+*        v                             |                     | bump and                  ^                     '-------+----------'     *
+*   .----+---.                  .------+---.                 v lambertian                |                             |                * 
+*   | onInit |                 | writeCoral |          .-----+--------.                  |                             v                *
+*   '----+---'                  '------+---'           | GAPP::onInit |          .-------+-------------.        .------+------.         *
+*        |                             ^               '-----+--------'          | GAPP::generateScene |        | writeModels |         *
+*        v                             | line edges          | 4 map             '-------+-------------'        '-+--------+--'         *
+*    .------------------.         .----+-------.             | quadrants                 ^                        | tank   | sea        *
+*   /  CoralGenerator  /         / Apply Rules/              v bump & lambertian         |                        v sceme  v scene      *
+*  '-----+------------'         '-----+------'          .----+---------.                 |               .--------+--.  .--+-------.    *
+*        |                            ^                | Rasterizer     |  2 maps    .---+--------.      | writeTank |  | writeSea |    *
+*        v                            | L-System       | mergeQuadrants +---------->| GAPP::onInit |     | Entities  |  | Entities |    *
+*  .------------.  1 per quadrant .---+----------.      '--------------'             '--+-------+-'      '--------+--'  '--------+-'    *
+*  | writeCoral +---------------->| generateCoral|                                      | save  | save            ^  load bump   ^      *
+*  '------------'                 '--------------'                                      v bump  v lambertian      | & lambertian |      *
+*****************************************************************************************************************************************
+
+App makesd an instance of CoralGenerator which it uses to call writeCoral with 2 given images.  CoralGenerator then generates the coral using one of the generate methods specifying an L-System and writes the results of that generation to the images using an instance of the Rasterizor class' drawThickLine method.  Finally, App saves these two images and displays them as a billboard in our coral custom scene.
 
 |[Rasterizer](class_rasterizer.html): | |
 |------------|---|
