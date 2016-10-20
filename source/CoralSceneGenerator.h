@@ -56,9 +56,9 @@ protected:
     void writeModels(String& scene, int numCoralTypes, int totalCoral);
     void writeTankEntities(String& scene, int numCoralTypes, int totalCoral);
     void writeSeaEntities(String& scene, int numCoralTypes, int totalCoral);
-    String writeTankFish(const String& Fis, int schoolNum, int id, Point3& center, Point2& xBounds, Point2& yBounds, float zBound);
+    String writeTankFish(const String& Fish, int schoolNum, int id, Point3& center, Point2& xBounds, Point2& yBounds, float zBound);
     
-    String writeSchoolOfFish(const String& Fis, int schoolNum, int id, Point3& center, Point2& xBounds, Point2& yBounds, float zBound);
+    String writeSchoolOfFish(const String& Fish, int schoolNum, int id, Point3& center, Point2& xBounds, Point2& yBounds, float zBound);
 
     String writeBubbles(Point2& xBounds, Point2& yBounds, Point3& center, float zBound);
     void writeCoral(String& entities, int numCoralTypes, int totalCoral, Point2& xBounds, Point2& zBounds, Point3& center);

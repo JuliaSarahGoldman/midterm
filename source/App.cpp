@@ -73,49 +73,7 @@ String App::makeCoralString(shared_ptr<Image>& color, shared_ptr<Image>& bump, s
 }
 
 void App::generateCoralScene() {
-    /*shared_ptr<Image> color;
-    shared_ptr<Image> bump;
-    color = Image::create(1280, 1280, ImageFormat::RGBA8());
-    bump = Image::create(1280, 1280, ImageFormat::RGBA8());
-    shared_ptr<CoralGenerator> coralG(new CoralGenerator());
-
-    TextOutput text = TextOutput("scene/massCoral.Scene.Any");
-    String starCode = String("{ name = \"Coral Field\";");
-    text.writeSymbol(starCode
-+"\n        models = {"
-+"\n            starModel = ArticulatedModel::Specification {"
-+"\n            filename = \"star.off\";"
-+"\n            scale = 2;"
-+"\n            preprocess = {"
-+"\n                setTwoSided(all(), true);"
-+"\n            };"
-+"\n        };"
-+"\n    };\n"
-+ "\n      entities = { "
-+ "\n        sun = Light { "
-+ "\n            attenuation = (0, 0, 1); "
-+ "\n            bulbPower = Power3(4e+005); "
-+ "\n            frame = CFrame::fromXYZYPRDegrees(-15, 207, -41, -164, -77, 77);"
-+ "\n            shadowMapSize = Vector2int16(2048, 2048); "
-+ "\n            spotHalfAngleDegrees = 5; "
-+ "\n            spotSquare = true; "
-+ "\n            type = \"SPOT\"; "
-+ "\n        };"
-+"\n         camera = Camera {"
-+"\n            frame = CFrame::fromXYZYPRDegrees(0, 0, 5);"
-+"\n        };\n");
-    for (int i = 0; i <= 10; i+=2){
-        for (int j = 0; j <=10; j+=2){
-            text.writeSymbol(makeCoralString(color, bump, coralG, i, j, (String)std::to_string(i) + "_" + (String)std::to_string(j) +"a"));
-        }
-    }
-
-    //String puff = makePuffball(0, 0, "8_9");
-    text.writeSymbol((String)"};};");
-    text.commit();
-    */
-
-    TextOutput text = TextOutput("glassTank.Scene.Any");
+    TextOutput text = TextOutput("Scene/glassTank.Scene.Any");
     CoralSceneGenerator sceneGenerator;
     String scene("");
     String name("GlassTank");
@@ -123,10 +81,10 @@ void App::generateCoralScene() {
     text.writeSymbols(scene);
     text.commit(true);
 
-    TextOutput text2 = TextOutput("sea.Scene.Any");
+    TextOutput text2 = TextOutput("Scene/sea.Scene.Any");
     scene = "";
     name = "Sea Scene";
-    sceneGenerator.writeSeaScene(scene, name, 7, 20);
+    sceneGenerator.writeSeaScene(scene, name, 7, 250);
     text2.writeSymbols(scene);
     text2.commit(true);
 }
