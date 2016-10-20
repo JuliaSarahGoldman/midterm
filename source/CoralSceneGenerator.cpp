@@ -116,7 +116,7 @@ void CoralSceneGenerator::writeTankEntities(String& scene, int numCoralTypes, in
         "\n        };" +
         "\n        light1 = Light {" +
         "\n               attenuation = (0, 0, 1);" +
-        "\n                bulbPower = Power3(2000); " +
+        "\n                bulbPower = Power3(20000); " +
         "\n                frame = CFrame::fromXYZYPRDegrees(3.9, 6.2, 1.4, -164, -77, 77);" +
         "\n                shadowMapSize = Vector2int16(2048, 2048); " +
         "\n                spotHalfAngleDegrees = 60;"
@@ -126,7 +126,7 @@ void CoralSceneGenerator::writeTankEntities(String& scene, int numCoralTypes, in
         "\n" +
         "\n        light2 = Light {" +
         "\n               attenuation = (0, 0, 1);" +
-        "\n                bulbPower = Power3(2000); " +
+        "\n                bulbPower = Power3(20000); " +
         "\n                frame = CFrame::fromXYZYPRDegrees(-4.1, 5.3, .5, -164, -77, 77);" +
         "\n                shadowMapSize = Vector2int16(2048, 2048); " +
         "\n                spotHalfAngleDegrees = 60;"
