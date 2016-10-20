@@ -29,8 +29,8 @@ Procedurally generate realistic coral using "Billboard" Texture and Normal Maps.
   3. Write code to procedurally generate interesting scenes using our coral.
 
 3. Correctness Results:
-    1. For each type of coral, show the lambertian image, the bump image, and a simple shot of the resulting coral.
-    3. Take a picture coral from an angle with the mesh visible to demonstrate billboards.
+    1. Take a picture coral from an angle with the mesh visible to demonstrate billboards.
+    2. For each type of coral, show the lambertian image, the bump image, and a simple shot of the resulting coral.
 
 4. Demonstration Results:
   1. A scene with multiple coral in a fishtank with fish.
@@ -81,9 +81,9 @@ Rasterization (partial)
 -----------------------------------------------------------------------------------
 Used to create Billboard lambertian and bump images. 
 
-Rasterization describes a technique to fill out the pixels of a 2D image accorsing to what is visible in a 3D space. 
+Rasterization describes a technique to fill out the pixels of a 2D image according to what is visible in a 3D space. 
 
-We use rasterization's pixel filling techniques to create arbitrary color and bump map images for our corals according to the L-system. As described in the Design section, our algorithm consists mainly of helper methods that draw different types of thicklines around the L-system. 
+We use rasterization's pixel filling techniques to create color and bump map images for our corals according to the L-system. Our algorithm takes a center line from the L-system and sets all image pixels within a thickness from the center line to the given solid color or bump map gradient.
 
 ![Thin lines](2016-10-07_000_4-midterm_r1473_g3d_r875___.png width = 200px) ![Thick color lines](2016-10-12_002_4-midterm_r1571_g3d_r875_.png width=200px) ![Thick bump map lines](2016-10-12_001_4-midterm_r1571_g3d_r875_.png width=200px) ![Color L-system](2016-10-12_004_4-midterm_r1571_g3d_r875_.png width=200px) ![Bump Map L-System](2016-10-12_003_4-midterm_r1571_g3d_r875_.png width=200px)
 
@@ -115,6 +115,7 @@ App makesd an instance of CoralGenerator which it uses to call writeCoral with 2
 |[generateTallCoral](class_coral_generator.html#a0658e7979244fd37b08cad459fb7a7d6) | Generates long, tall wire-like coral. |
 
 
+##Jose fix here
 |[CoralSceneGenerator](class_coral_scene_generator.html): | |
 |--------------------------|---------------------------------------|
 |[writeSeaScene](class_coral_scene_generator.html#a798deb3792e3320e5a37c73828d4adaf) | Creates a Scene File for a custom Sea Scene through Helper methods. |
@@ -124,9 +125,13 @@ App makesd an instance of CoralGenerator which it uses to call writeCoral with 2
 |[writeSchoolOfFish]() | Returns a String for a school of fish entities. |
 |[writeBubbles](class_coral_scene_generator.html#adaa3ae143a1d6e8b6a3f9ede84dd59ff) | Returns a String for a school of bubble entities. |
 
-As a separate class Rasterizer is solely responsible for manipulating inputs and setting image pixels. This choice enabled us to separate the definition of what we draw from the definition of how we draw it, and allowed us to work in different definitions simultaneously. Rasterizer doesn't keep any sate, so indefinitely many images can be drawn by calling the methods of a single instance of the class. Although thick line rasterization can be done linearly, drawThickLine() is quadratic. This drawback in time complexity is compensated by the simplicity and robustness of the quadratic approach, especially considering that we can take great advantage of multithreading for setting image pixels. We generate four separate N x N images of slightly different coral faces, then use mergeQuadrants() to set each to one quadrant of a final 2N x 2N image to be used by our OFF file. Although this can be done directly in our final image, our aproach preserves the robustness of Rasterizer.
+As a class Rasterizer, is solely responsible for manipulating inputs and setting image pixels. This choice enabled us to separate the definition of what we draw from the definition of how we draw it, and allowed us to work in different definitions simultaneously. Rasterizer doesn't keep any sate, so indefinitely many images can be drawn by calling the methods of a single instance of the class. Although thick line rasterization can be done linearly, drawThickLine() is quadratic. This drawback in time complexity is compensated by the simplicity and robustness of the quadratic approach, especially considering that we can take great advantage of multithreading for setting image pixels. We generate four separate N x N images of slightly different coral faces, then use mergeQuadrants() to set each to one quadrant of a final 2N x 2N image to be used by our OFF file. Although this can be done directly in our final image, our aproach preserves the robustness of Rasterizer.
 
-We have another class called CoralGenerator which is responsible for computing the algorithms we are using to do the procedural generation of coral through L-Systems.  It has a public writeCoral method called from App which generates different types of coral and writes them two images for color and the bump map.  It uses a series of generate functions that specify different L-Systems that are passed to the applyRules method and allow us to create many different types of coral without much code.  The apply rules method was written such that it is able to create many different types of coral given different sets of rules, which makes the code for generating coral easy to read and add allows us to easily add new types of coral to be generated without changing any of our old code.
+We have another class called CoralGenerator which is responsible for the procedural generation of coral through L-Systems.  Making the L-Systems a seperate class allows us to focus just on how we would want to generate coral conceptually without having to worry about how the rest of the code functions.  It has a public writeCoral method called from App which generates different types of coral and writes them two images for color and the bump map.  It uses a series of generate functions that specify different L-Systems that are passed to the applyRules method and allow us to create many different types of coral without much code.  The apply rules method was written such that it is able to create many different types of coral given different sets of rules, which makes the code for generating coral easy to read and add allows us to easily add new types of coral to be generated without changing any of our old code.  CoralGenerator also uses a user defined class Edges which holds information for the start and end point for a line to be drawn on an image along with its depth to allow Rasterizer to draw the line and correctly shade it when it is drawn.
+
+CoralSceneGenerator ##Jose write here
+
+We also include a Path Tracer in our project developed by John, Jose, and Julia that allows us to render nice images of the custom scenes we create that we use to show off our coral.
 
 Results
 =====================================================================================
@@ -200,6 +205,8 @@ Change Log
 8. Created a separate class for generating 3D coral L-systems. Jose 10/13
 9. Realized class for 3D coral was unecessary. Jose 10/14
 10. Created a new class to print out different scenes with varying types of coral. Jose 10/15
+11. Added John and Jose's Path Tracer with fixes. John 10/19
+
 
 <!-- Markdeep: -->
 <style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace;}</style><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
