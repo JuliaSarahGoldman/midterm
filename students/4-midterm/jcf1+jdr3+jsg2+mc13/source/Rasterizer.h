@@ -21,7 +21,7 @@ protected:
     int findQuadrant(int x, int y, int width, int height) const;
 
 public:
-    /** Calls adjustBounds()
+    /** Calls fitToBounds()
         writes to image*/
     void drawThickLine(const Point2int32& point1, const Point2int32& point2, const Color4& c, int thickness, shared_ptr<Image>& image, shared_ptr<Image>& map) const;
 
