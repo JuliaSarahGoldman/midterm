@@ -6,7 +6,6 @@ void CoralSceneGenerator::writeSeaEntities(String& scene, int numCoralTypes, int
     // Set the Skybox
     entities += (String) "" +
         "\n        skybox = Skybox {" +
-        //    "\n            texture = \"cubemap/whiteroom/whiteroom-*.png\";" + 
         "\n            texture = Color3(0,0,.5);" +
         "\n        };" +
         "\n" +
@@ -96,8 +95,6 @@ void CoralSceneGenerator::writeSeaEntities(String& scene, int numCoralTypes, int
     writeSeaCoral(entities, 7, 10, Point2(-3.6, 0.2), Point2(-4.7, -2.5), Point3(0,-1.7f,0), "2");
     writeSeaCoral(entities, 7, 10, Point2(-6, -3.3), Point2(-4.1, -0.5f), Point3(0,-0.7f,0), "3");
     
-  // writeSeaCoral(entities, numCoralTypes, totalCoral, Point2(-2.6f, 2.1f), Point2(-0.3f, 5.1f), Point3(0,-0.5,0));
-    
     entities += "\n    ";
     entities += "};";
     entities += "\n";
@@ -111,7 +108,6 @@ void CoralSceneGenerator::writeTankEntities(String& scene, int numCoralTypes, in
     // Set the Skybox
     entities += (String) "" +
         "\n        skybox = Skybox {" +
-        //    "\n            texture = \"cubemap/whiteroom/whiteroom-*.png\";" + 
         "\n            texture = Color3(0,0,.5);" +
         "\n        };" +
         "\n" +
@@ -361,7 +357,6 @@ void CoralSceneGenerator::writeModels(String& scene, int numCoralTypes, int tota
         "models = {" +
         "\n        genericCoralModel1 = ArticulatedModel::Specification {" +
         "\n            filename = \"star.off\";" +
-        //"\n            scale = 2;" + 
         "\n            preprocess = {" +
         "\n                setTwoSided(all(), true);" +
         "\n            };" +

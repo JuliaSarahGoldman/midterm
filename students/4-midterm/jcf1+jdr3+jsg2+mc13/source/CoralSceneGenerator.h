@@ -5,6 +5,7 @@
 #include "Rasterizer.h"
 #include "CoralGenerator3D.h"
 
+/** Coral Scene Generator generates two separate scenes for our Coral. Models are available online to add to the appearance of the scenes. */
 class CoralSceneGenerator {
 private:
     // All Possible Fish Models
@@ -58,8 +59,13 @@ private:
 
 protected:
     
+    /** Called by writeTankScene and writeSeaScene. Both Scenes share the same models. */
     void writeModels(String& scene, int numCoralTypes, int totalCoral);
+
+    /** Called by writeTankScene*/
     void writeTankEntities(String& scene, int numCoralTypes, int totalCoral);
+    
+    /**Called by writeSeaScene*/
     void writeSeaEntities(String& scene, int numCoralTypes, int totalCoral);
 
     /** Used to generate fish facing in random directions within the given bounds. 
@@ -73,8 +79,11 @@ protected:
     /** Generates bubble entities within the given bounds offset by the center. 
         Called by writeSeaEntities and writeTankEntities.*/
     String writeBubbles(Point2& xBounds, Point2& yBounds, Point3& center, float zBound);
+    
+    /** Generates Coral entities within the specified bounds and offset to the center*/
     void writeCoral(String& entities, int numCoralTypes, int totalCoral, Point2& xBounds, Point2& zBounds, Point3& center);
     
+    /** Uses larger coral models to create entities for the sea scene. */
     void writeSeaCoral(String& entities, int numCoralTypes, int totalCoral, Point2& xBounds, Point2& zBounds, Point3& center, String id);
 
 public:
