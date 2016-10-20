@@ -61,7 +61,7 @@ void PathTracer::addEmissives(const Array<shared_ptr<Surfel>>& surfelBuffer, con
         if(notNull(surfel)) {
             image->increment(pixel, modBuffer[index] * surfel -> emittedRadiance(-rays[index].direction()));
         } else {
-            image->increment(pixel, m_skybox->bilinear(rays[index].direction()).rgb() * modBuffer[index]);
+            image->increment(pixel, Color3::black().lerp(Color3::blue(), rays[index].direction().y/10.0f) * modBuffer[index]);//m_skybox->bilinear(rays[index].direction()).rgb() * modBuffer[index]);
         }
     });
 }

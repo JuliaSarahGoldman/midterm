@@ -112,6 +112,7 @@
     <None Include="data-files\data-files\Scene\massCoral.Scene.Any" />
     <None Include="data-files\genCoral.Scene.Any" />
     <None Include="data-files\glassTank.Scene.Any" />
+    <None Include="data-files\goodSea.Scene.Any" />
     <None Include="data-files\greenCyl.Scene.Any" />
     <None Include="data-files\Scene\massCoral.Scene.Any" />
     <None Include="data-files\sea.Scene.Any" />
