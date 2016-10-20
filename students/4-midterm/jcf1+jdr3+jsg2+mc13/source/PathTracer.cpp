@@ -123,14 +123,15 @@ Biradiance3 PathTracer::chooseLight(const shared_ptr<Surfel>& surfel, Point3& po
     }
     float count = G3D::Random::threadCommon().uniform(0.0f, total - 0.0001f);
 
-    shared_ptr<Light> l = m_lights[0];
-    for(int i = 0; i < m_lights.size() && count > 0.0f; ++i) {
-        l = m_lights[i];
-        count -= l->biradiance(surfel->position).sum();
+    int i = 0;
+    for(; i < m_lights.size() && count > 0.0f; ++i) {
+        count -= m_lights[i]->biradiance(surfel->position).sum();
     }
-    position = l->position().xyz();
-    Biradiance3 birad = l->biradiance(surfel->position);
-    return birad / (birad / total);
+
+    const shared_ptr<Light>& light =  m_lights[min(i, m_lights.size() - 1)];
+    position = light->position().xyz();
+    Biradiance3 birad = light->biradiance(surfel->position);
+    return birad * (total / max(0.00001f, birad.sum()));
 }
 
 Radiance3 PathTracer::shade(const Ray& ray, const Ray& shadowRay, const shared_ptr<Surfel>& surfel, Biradiance3 bi){
