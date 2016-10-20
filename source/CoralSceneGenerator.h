@@ -5,7 +5,8 @@
 #include "Rasterizer.h"
 #include "CoralGenerator3D.h"
 
-/** Coral Scene Generator generates two separate scenes for our Coral. Models are available online to add to the appearance of the scenes. */
+/** Coral Scene Generator generates two separate scenes for our Coral. Models are available online to add to the appearance of the scenes.
+    NOTE: Models such as SHARK and SHELL were too large to commit, and are therefore commented out in the implementation of the code.*/
 class CoralSceneGenerator {
 private:
     // All Possible Fish Models
