@@ -190,7 +190,7 @@ void App::onInit() {
     shared_ptr<CoralGenerator> coralG(new CoralGenerator());
     shared_ptr<Rasterizer> painter(new Rasterizer());
 
-/*
+
     // Generate 4 quadrants
     coralG->writeCoral("crazy", Color3(1, .412, .706), color_q1, bump_q1, 4.0f, 10.0f, 30.0f);
     coralG->writeCoral("crazy", Color3(1, .412, .706), color_q2, bump_q2, 4.0f, 10.0f, 30.0f);
@@ -201,8 +201,8 @@ void App::onInit() {
     painter->mergeQuadrants(color_q1, color_q2, color_q3, color_q4, color);
     painter->mergeQuadrants(bump_q1, bump_q2, bump_q3, bump_q4, bump);
 
-    show(color);
-    show(bump);
+    //show(color);
+    //show(bump);
 
     color->save("../data-files/models/Coral/Coral1.png");
     bump->save("../data-files/models/Coral/Coral1_Bump.png");
@@ -216,8 +216,8 @@ void App::onInit() {
     painter->mergeQuadrants(color_q1, color_q2, color_q3, color_q4, color);
     painter->mergeQuadrants(bump_q1, bump_q2, bump_q3, bump_q4, bump);
 
-    show(color);
-    show(bump);
+    //show(color);
+    //show(bump);
 
     color->save("../data-files/models/Coral/Coral2.png");
     bump->save("../data-files/models/Coral/Coral2_Bump.png");
@@ -230,8 +230,8 @@ void App::onInit() {
     painter->mergeQuadrants(color_q1, color_q2, color_q3, color_q4, color);
     painter->mergeQuadrants(bump_q1, bump_q2, bump_q3, bump_q4, bump);
 
-    show(color);
-    show(bump);
+    //show(color);
+    //show(bump);
 
     color->save("../data-files/models/Coral/Coral3.png");
     bump->save("../data-files/models/Coral/Coral3_Bump.png");
@@ -244,8 +244,8 @@ void App::onInit() {
     painter->mergeQuadrants(color_q1, color_q2, color_q3, color_q4, color);
     painter->mergeQuadrants(bump_q1, bump_q2, bump_q3, bump_q4, bump);
 
-    show(color);
-    show(bump);
+    //show(color);
+    //show(bump);
 
     color->save("../data-files/models/Coral/Coral4.png");
     bump->save("../data-files/models/Coral/Coral4_Bump.png");
@@ -260,8 +260,8 @@ void App::onInit() {
     painter->mergeQuadrants(color_q1, color_q2, color_q3, color_q4, color);
     painter->mergeQuadrants(bump_q1, bump_q2, bump_q3, bump_q4, bump);
 
-    show(color);
-    show(bump);
+    //show(color);
+    //show(bump);
 
     color->save("../data-files/models/Coral/Coral5.png");
     bump->save("../data-files/models/Coral/Coral5_Bump.png");
@@ -276,8 +276,8 @@ void App::onInit() {
     painter->mergeQuadrants(color_q1, color_q2, color_q3, color_q4, color);
     painter->mergeQuadrants(bump_q1, bump_q2, bump_q3, bump_q4, bump);
 
-    show(color);
-    show(bump);
+    //show(color);
+    //show(bump);
 
     color->save("../data-files/models/Coral/Coral6.png");
     bump->save("../data-files/models/Coral/Coral6_Bump.png");
@@ -290,11 +290,11 @@ void App::onInit() {
     painter->mergeQuadrants(color_q1, color_q2, color_q3, color_q4, color);
     painter->mergeQuadrants(bump_q1, bump_q2, bump_q3, bump_q4, bump);
 
-    show(color);
-    show(bump);
+    //show(color);
+    //show(bump);
 
     color->save("../data-files/models/Coral/Coral7.png");
-    bump->save("../data-files/models/Coral/Coral7_Bump.png");*/
+    bump->save("../data-files/models/Coral/Coral7_Bump.png");
 
     generateCoralScene();
     createScene("corall");
