@@ -9,8 +9,7 @@
 
 2016-10-19: Path Tracer Fixed and Tank Fix
 =============================================================
-
-Morgan came to lab and helped debug the path tracer we are using, making it faster and not show the black dots, which were being computed as NaN by our Ray Tracer.  He also informed me that having the lights face down on the water in our scenes mean that we are not getting any direct illumination on the actual Scene.  All the light was indirect through the water or the back wall in the tank Scene.  This caused the scene to be very dark and long to render with the path tracer.
+Morgan came to lab and helped debug the path tracer we are using, making it faster and not show the black dots, which were being computed as NaN by our Ray Tracer.  This was achieved by checks in the chooseLight method to make sure we were not dividing by zero and getting rid of a deadlock caused by a shared_ptr<Light>  He also informed me that having the lights face down on the water in our scenes mean that we are not getting any direct illumination on the actual Scene.  All the light was indirect through the water or the back wall in the tank Scene.  This caused the scene to be very dark and long to render with the path tracer.
 
 
 2016-10-19: Another Close Up Coral
