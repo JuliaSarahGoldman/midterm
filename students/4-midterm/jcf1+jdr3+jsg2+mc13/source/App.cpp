@@ -159,9 +159,6 @@ void App::onInit() {
     painter->mergeQuadrants(color_q1, color_q2, color_q3, color_q4, color);
     painter->mergeQuadrants(bump_q1, bump_q2, bump_q3, bump_q4, bump);
 
-    //show(color);
-    //show(bump);
-
     color->save("../data-files/models/Coral/Coral1.png");
     bump->save("../data-files/models/Coral/Coral1_Bump.png");
 
@@ -174,9 +171,6 @@ void App::onInit() {
     painter->mergeQuadrants(color_q1, color_q2, color_q3, color_q4, color);
     painter->mergeQuadrants(bump_q1, bump_q2, bump_q3, bump_q4, bump);
 
-    //show(color);
-    //show(bump);
-
     color->save("../data-files/models/Coral/Coral2.png");
     bump->save("../data-files/models/Coral/Coral2_Bump.png");
 
@@ -188,9 +182,6 @@ void App::onInit() {
     painter->mergeQuadrants(color_q1, color_q2, color_q3, color_q4, color);
     painter->mergeQuadrants(bump_q1, bump_q2, bump_q3, bump_q4, bump);
 
-    //show(color);
-    //show(bump);
-
     color->save("../data-files/models/Coral/Coral3.png");
     bump->save("../data-files/models/Coral/Coral3_Bump.png");
 
@@ -201,9 +192,6 @@ void App::onInit() {
 
     painter->mergeQuadrants(color_q1, color_q2, color_q3, color_q4, color);
     painter->mergeQuadrants(bump_q1, bump_q2, bump_q3, bump_q4, bump);
-
-    //show(color);
-    //show(bump);
 
     color->save("../data-files/models/Coral/Coral4.png");
     bump->save("../data-files/models/Coral/Coral4_Bump.png");
@@ -218,9 +206,6 @@ void App::onInit() {
     painter->mergeQuadrants(color_q1, color_q2, color_q3, color_q4, color);
     painter->mergeQuadrants(bump_q1, bump_q2, bump_q3, bump_q4, bump);
 
-    //show(color);
-    //show(bump);
-
     color->save("../data-files/models/Coral/Coral5.png");
     bump->save("../data-files/models/Coral/Coral5_Bump.png");
 
@@ -234,9 +219,6 @@ void App::onInit() {
     painter->mergeQuadrants(color_q1, color_q2, color_q3, color_q4, color);
     painter->mergeQuadrants(bump_q1, bump_q2, bump_q3, bump_q4, bump);
 
-    //show(color);
-    //show(bump);
-
     color->save("../data-files/models/Coral/Coral6.png");
     bump->save("../data-files/models/Coral/Coral6_Bump.png");
 
@@ -248,21 +230,14 @@ void App::onInit() {
     painter->mergeQuadrants(color_q1, color_q2, color_q3, color_q4, color);
     painter->mergeQuadrants(bump_q1, bump_q2, bump_q3, bump_q4, bump);
 
-    //show(color);
-    //show(bump);
-
     color->save("../data-files/models/Coral/Coral7.png");
     bump->save("../data-files/models/Coral/Coral7_Bump.png");
 
     generateCoralScene();
     createScene("corall");
 
-
-
     loadScene(
-        //"G3D Sponza"
         "Test Coral" // Load something simple
-        //developerWindow->sceneEditorWindow->selectedSceneName()  // Load the first scene encountered 
     );
 }
 
@@ -284,7 +259,7 @@ void App::makeGUI() {
     resolutionMenu.append(temp);
     temp = "640x400";
     resolutionMenu.append(temp);
-        temp = "1280x720";
+    temp = "1280x720";
     resolutionMenu.append(temp);
     GuiDropDownList* list(rayTracePane->addDropDownList("Resolution", resolutionMenu));
 
@@ -345,45 +320,6 @@ void App::makeGUI() {
 
     debugWindow->pack();
     debugWindow->setRect(Rect2D::xywh(0, 0, (float)window()->width(), debugWindow->rect().height()));
-
-    shared_ptr<G3D::Image> image;
-    shared_ptr<G3D::Image> map;
-    try {
-        int width = 600;
-        int height = 500;
-        image = Image::create(width, height, ImageFormat::RGB32F());
-        map = Image::create(width, height, ImageFormat::RGB32F());
-        image->setAll(Color4(1, 1, 1, 0));
-        map->setAll(Color4(0, 0, 0, 0));
-
-        shared_ptr<Rasterizer> painter(new Rasterizer());
-        painter->drawThickLine(Point2int32(300, 50), Point2int32(300, 449), Color3(1, 0, 0), 5, image, map);
-        painter->drawThickLine(Point2int32(50, 250), Point2int32(549, 250), Color3(1, 0, 0), 5, image, map);
-
-        painter->drawThickLine(Point2int32(150, 50), Point2int32(450, 449), Color3(1, 0, 0), 5, image, map);
-        painter->drawThickLine(Point2int32(450, 50), Point2int32(150, 449), Color3(1, 0, 0), 5, image, map);
-
-        painter->drawThickLine(Point2int32(50, 125), Point2int32(549, 375), Color3(1, 0, 0), 5, image, map);
-        painter->drawThickLine(Point2int32(50, 375), Point2int32(549, 125), Color3(1, 0, 0), 5, image, map);
-
-
-        painter->drawThickLine(Point2int32(50, 50), Point2int32(549, 449), Color3(1, 0, 0), 5, image, map);
-        painter->drawThickLine(Point2int32(50, 449), Point2int32(549, 50), Color3(1, 0, 0), 5, image, map);
-
-        painter->drawThickLine(Point2int32(225, 50), Point2int32(375, 449), Color3(1, 0, 0), 5, image, map);
-        painter->drawThickLine(Point2int32(375, 50), Point2int32(225, 449), Color3(1, 0, 0), 5, image, map);
-
-
-        //show(image);
-        //show(map);
-        image->convert(ImageFormat::RGB8());
-        map->convert(ImageFormat::RGB8());
-        image->save("../data-files/tubes.png");
-        map->save("../data-files/tubesMap.png");
-    }
-    catch (...) {
-        msgBox("Unable to load the image.");
-    }
 }
 
 
