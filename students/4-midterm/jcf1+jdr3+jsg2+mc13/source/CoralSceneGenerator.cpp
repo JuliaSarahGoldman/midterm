@@ -33,7 +33,7 @@ void CoralSceneGenerator::writeSeaEntities(String& scene, int numCoralTypes, int
         "\n            frame = CFrame::fromXYZYPRDegrees(0,-2.0f,0.9f,0,0,0);" +
         "\n        };" +
         "\n" +
-        "\n        shark1 = VisibleEntity {" +
+  /*      "\n        shark1 = VisibleEntity {" +
         "\n            model = \"shark1\";" +
         "\n            frame = CFrame::fromXYZYPRDegrees(5.9f, 0.5f, -2.7f, -37.6f, 22.0f, 2.8f);" +
         "\n        };" +
@@ -53,7 +53,7 @@ void CoralSceneGenerator::writeSeaEntities(String& scene, int numCoralTypes, int
         "\n            frame = CFrame::fromXYZYPRDegrees(0.5f, 0, 5.0f, -164.2, .6f, 25.2f);" +
         "\n        };" +
         "\n" +
-        "\n        aRock1 = VisibleEntity {" +
+    */    "\n        aRock1 = VisibleEntity {" +
         "\n            model = \"largeRock1\";" +
         "\n            frame = CFrame::fromXYZYPRDegrees(-4.7f,-1.7f,-2.3,0,0,0);" +
         "\n        };" +
@@ -407,7 +407,7 @@ void CoralSceneGenerator::writeModels(String& scene, int numCoralTypes, int tota
         allFish.remove(whichFish);
     }
     
-    for (int i(0); i < 6; ++i) {
+   /* for (int i(0); i < 6; ++i) {w
         int whichShell = Random::threadCommon().integer(0,1);
         String shell = (whichShell) ? SHELL1 : SHELL2;
         scene += "\n    shell" + (String)std::to_string(i) + " = ArticulatedModel::Specification {" +
@@ -427,7 +427,7 @@ void CoralSceneGenerator::writeModels(String& scene, int numCoralTypes, int tota
             "\n    };" +
             "\n";
     }
-
+    */
     for (int i(0); i < 3; ++i) {
         scene += "\n    bubble" + (String)std::to_string(i) + " = ArticulatedModel::Specification {" +
             "\n        filename = \"ifs/sphere.ifs\";" +
@@ -448,7 +448,7 @@ void CoralSceneGenerator::writeModels(String& scene, int numCoralTypes, int tota
     }
 
     scene += (String) "" +
-        "\n    shark1 = ArticulatedModel::Specification {" +
+   /*     "\n    shark1 = ArticulatedModel::Specification {" +
         "\n        filename = \"" + SHARK1 + "\";" +
         "\n        scale = 0.15f;" +
         "\n    };" +
@@ -462,7 +462,7 @@ void CoralSceneGenerator::writeModels(String& scene, int numCoralTypes, int tota
         "\n        filename = \"" + CASTLE + "\";" +
         "\n        scale = .002f;" +
         "\n    };" +
-        "\n" +
+        "\n" +*/
         "\n    chest = ArticulatedModel::Specification {" +
         "\n        filename = \"" + CHEST + "\";" +
         "\n        scale = 1.0f;" +
