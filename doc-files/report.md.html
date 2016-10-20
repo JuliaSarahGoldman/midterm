@@ -96,13 +96,11 @@ App makesd an instance of CoralGenerator which it uses to call writeCoral with 2
 
 |[Rasterizer](class_rasterizer.html): | |
 |------------|---|
-|[drawThickLine](class_rasterizer.html#acc2b4bb9010772397ab4fb84192d2c25) | Draws a line of a given width from one given point to another, in a given color on the color image, and in a gradient for the bump map. |
-|[inBounds](class_rasterizer.html#a90077a129bdcf539d68a0bf0b62e1d73) | Checks if a pixel we want to draw is in within the image. |
-|(adjustBounds)[class_rasterizer.html#a600b40c62ae5acd859d50dc49ac6aced] | Checks if a pixel we want to draw is in within the image. |
-|(setPixel](class_rasterizer.html#a9a64bb6ecb87b2ceeb380817aac2a7e9) | Sets a pixel at a given x-y coordinate to a given color. |
-|[mergeQuadrients](class_rasterizer.html#a16ffe7ee5781c8b85001a80a390dde5a) |  |
-|[findQuadrant](class_rasterizer.html#ac3ae73048079019875588ba58c711d68) |  |
-|[drawGradientBackground](class_rasterizer.html#a9ce27a441aef7c1c6d3eefbfb4584eae) |  |
+|[drawThickLine](class_rasterizer.html#acc2b4bb9010772397ab4fb84192d2c25) | Calls fitToBounds(). Draws a line of given thickness in a given solid color for the color image, and in greyscale gradient for the bump map image|
+|[fitToBounds)](class_rasterizer.html#a600b40c62ae5acd859d50dc49ac6aced) | Makes sure that center line origin and end are in the image offset by at least the given radius from the image bounds. |
+|[mergeQuadrants](class_rasterizer.html#a16ffe7ee5781c8b85001a80a390dde5a) | Calls findQuadrant(), merges four n x n images into one 2n x 2n image as four quadrants. |
+|[findQuadrant](class_rasterizer.html#ac3ae73048079019875588ba58c711d68) | Given current pixel coordinates and width and height of an image, determines in which quadrant the pixel is with respect to lines width/2 and height/2. |
+|[drawGradientBackground](class_rasterizer.html#a9ce27a441aef7c1c6d3eefbfb4584eae) | Draws a gradient between given start and end colors to an image respect to its height. |
 
 
 |[CoralGenerator](class_coral_generator.html): | |
@@ -126,7 +124,7 @@ App makesd an instance of CoralGenerator which it uses to call writeCoral with 2
 |[writeSchoolOfFish]() | Returns a String for a school of fish entities. |
 |[writeBubbles](class_coral_scene_generator.html#adaa3ae143a1d6e8b6a3f9ede84dd59ff) | Returns a String for a school of bubble entities. |
 
-We have a seperate class called Rasterizer that is responsible for drawing lines onto an image and create a bump map.  This allows us to create billboards for coral that are drawn on a 2D plane but appear to look 3D from afar.  We seperated this class into it's own files in order to keep it seperate from the actual procedual generation giving the code better structure and allowing people to work on both the generation and the presentation of coral at the same time without the worry of conflicts.
+As a separate class Rasterizer is solely responsible for manipulating inputs and setting image pixels. This choice enabled us to separate the definition of what we draw from the definition of how we draw it, and allowed us to work in different definitions simultaneously. Rasterizer doesn't keep any sate, so indefinitely many images can be drawn by calling the methods of a single instance of the class. Although thick line rasterization can be done linearly, drawThickLine() is quadratic. This drawback in time complexity is compensated by the simplicity and robustness of the quadratic approach, especially considering that we can take great advantage of multithreading for setting image pixels. We generate four separate N x N images of slightly different coral faces, then use mergeQuadrants() to set each to one quadrant of a final 2N x 2N image to be used by our OFF file. Although this can be done directly in our final image, our aproach preserves the robustness of Rasterizer.
 
 We have another class called CoralGenerator which is responsible for computing the algorithms we are using to do the procedural generation of coral through L-Systems.  It has a public writeCoral method called from App which generates different types of coral and writes them two images for color and the bump map.  It uses a series of generate functions that specify different L-Systems that are passed to the applyRules method and allow us to create many different types of coral without much code.  The apply rules method was written such that it is able to create many different types of coral given different sets of rules, which makes the code for generating coral easy to read and add allows us to easily add new types of coral to be generated without changing any of our old code.
 
