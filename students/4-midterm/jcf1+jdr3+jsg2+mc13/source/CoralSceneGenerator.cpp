@@ -15,8 +15,8 @@ void CoralSceneGenerator::writeSeaEntities(String& scene, int numCoralTypes, int
         "\n        };" +
         "\n        light1 = Light {" +
         "\n               attenuation = (0, 0, 1);" +
-        "\n                bulbPower = Power3(1e+6); " +
-        "\n                frame = CFrame::fromXYZYPRDegrees(3.9, 100, 1.4, -164, -77, 77);" +
+        "\n                bulbPower = Power3(1e+4); " +
+        "\n                frame = CFrame::fromXYZYPRDegrees(2.4,19.8,5.2,26.6,-70.3,-171.7);" +
         "\n                shadowMapSize = Vector2int16(2048, 2048); " +
         "\n                spotHalfAngleDegrees = 60;"
         "\n                spotSquare = true; " +
@@ -33,29 +33,29 @@ void CoralSceneGenerator::writeSeaEntities(String& scene, int numCoralTypes, int
         "\n            frame = CFrame::fromXYZYPRDegrees(0,-2.0f,0.9f,0,0,0);" +
         "\n        };" +
         "\n" +
-        "\n        shark = VisibleEntity {" +
+        "\n        shark1 = VisibleEntity {" +
         "\n            model = \"shark1\";" +
-        "\n            frame = CFrame::fromXYZYPRDegrees(4.1f,-1.9f, 2.3f,3,4,5);" +
+        "\n            frame = CFrame::fromXYZYPRDegrees(5.9f, 0.5f, -2.7f, -37.6f, 22.0f, 2.8f);" +
         "\n        };" +
         "\n" +
         "\n        shark2 = VisibleEntity {" +
         "\n            model = \"shark2\";" +
-        "\n            frame = CFrame::fromXYZYPRDegrees(4.1f,-1.9f, 2.3f,3,4,5);" +
+        "\n            frame = CFrame::fromXYZYPRDegrees(3.6f, 4.1f, 2.7f,-111.5f, 2.9f, -5.7);" +
         "\n        };" +
         "\n" +
         "\n        shark3 = VisibleEntity {" +
         "\n            model = \"shark1\";" +
-        "\n            frame = CFrame::fromXYZYPRDegrees(4.1f,-1.9f, 2.3f,3,4,5);" +
+        "\n            frame = CFrame::fromXYZYPRDegrees(-4.3f, 0.6f, -3.9f, 62.1f, 25.0f, 17.5f);" +
         "\n        };" +
         "\n" +
         "\n        shark4 = VisibleEntity {" +
         "\n            model = \"shark2\";" +
-        "\n            frame = CFrame::fromXYZYPRDegrees(4.1f,-1.9f, 2.3f,3,4,5);" +
+        "\n            frame = CFrame::fromXYZYPRDegrees(0.5f, 0, 5.0f, -164.2, .6f, 25.2f);" +
         "\n        };" +
         "\n" +
         "\n        aRock1 = VisibleEntity {" +
         "\n            model = \"largeRock1\";" +
-        "\n            frame = CFrame::fromXYZYPRDegrees(-14.3f,-1.7f,0,0,0,0);" +
+        "\n            frame = CFrame::fromXYZYPRDegrees(-4.7f,-1.7f,-2.3,0,0,0);" +
         "\n        };" +
         "\n" +
         "\n        aRock2 = VisibleEntity {" +
@@ -65,29 +65,38 @@ void CoralSceneGenerator::writeSeaEntities(String& scene, int numCoralTypes, int
         "\n" +
         "\n        aRock3 = VisibleEntity {" +
         "\n            model = \"largeRock3\";" +
-        "\n            frame = CFrame::fromXYZYPRDegrees(-10.7f,-1.7f,8.7f,0,0,0);" +
+        "\n            frame = CFrame::fromXYZYPRDegrees(-.6f,-1.7f, 1.2f,174.3,0,0);" +
         "\n        };" +
         "\n" +
         "\n        aRock4 = VisibleEntity {" +
         "\n            model = \"largeRock4\";" +
-        "\n            frame = CFrame::fromXYZYPRDegrees(-2.4f,-1.7f,-6.6f,0,0,0);" +
+        "\n            frame = CFrame::fromXYZYPRDegrees(-1.9f,-1.7f,-6.6f,0,0,0);" +
         "\n        };" +
         "\n" +
         "\n        chest1 = VisibleEntity {" +
         "\n            model = \"chest\";" +
-        "\n            frame = CFrame::fromXYZYPRDegrees(5.4f,-2.0f,-1.3f, 66.0f,2.5f,9.8f);" +
+        "\n            frame = CFrame::fromXYZYPRDegrees(-1.9f,-2.0f,-1.9f, 28.9f, 25.1f,-1.6f);" +
         "\n        };" +
         "\n" +
         "\n     ";
 
-    for (int i(0); i < 3; ++i) {
-        int fishType = Random::threadCommon().integer(0, 5);
-        entities += writeSchoolOfFish("fish" + (String)std::to_string(fishType), Random::threadCommon().integer(15, 25), i);
-    }
+    int fishType = Random::threadCommon().integer(0, 5);
+    entities += writeTankFish("fish" + (String)std::to_string(fishType), Random::threadCommon().integer(5, 10), 0, Point3(-1.5,0.5,-2.5), Point2(-1.5, 1.5), Point2(-0.5, 0.5), 1.2);
+    fishType = Random::threadCommon().integer(0, 5);
+    entities += writeTankFish("fish" + (String)std::to_string(fishType), Random::threadCommon().integer(5, 10), 1, Point3(-2,0.5,-2.5), Point2(-1.5, 1.5), Point2(-1, 1), 1.3);
+    fishType = Random::threadCommon().integer(0, 5);
+    entities += writeSchoolOfFish("fish" + (String)std::to_string(fishType), Random::threadCommon().integer(15, 25), 2, Point3(5.1,1.5,4.2), Point2(-1.5, 1.5), Point2(-1, 1), 1.2);
+    fishType = Random::threadCommon().integer(0, 5);
+    entities += writeSchoolOfFish("fish" + (String)std::to_string(fishType), Random::threadCommon().integer(15, 25), 3, Point3(-4.9,1,7.9), Point2(-3.5, 3.5), Point2(-1.6, 1.6), 1.1);
 
-    entities += writeBubbles(Point2(-3.5f, 3.5f), Point2(-5.5, 5.5), Point3(0.0f,0.0f,1.0f));
+    entities += writeBubbles(Point2(-3.2f, 0.6f), Point2(-1, 1), Point3(-2.1f,1.0f,-4.8f), 1.6);
 
-    writeCoral(entities, numCoralTypes, totalCoral, Point2(-20.0f, 20.0f), Point2(-20.0f, 20.0f));
+    writeSeaCoral(entities, 7, 10, Point2(1.0, 3.2), Point2(-7.4, -3.5), Point3(0,0.5f,0), "0");
+    writeSeaCoral(entities, 7, 15, Point2(-4.3, 2.0), Point2(-1.9, 3.0), Point3(0,-0.5f,0), "1");
+    writeSeaCoral(entities, 7, 10, Point2(-3.6, 0.2), Point2(-4.7, -2.5), Point3(0,-1.7f,0), "2");
+    writeSeaCoral(entities, 7, 10, Point2(-6, -3.3), Point2(-4.1, -0.5f), Point3(0,-0.7f,0), "3");
+    
+  // writeSeaCoral(entities, numCoralTypes, totalCoral, Point2(-2.6f, 2.1f), Point2(-0.3f, 5.1f), Point3(0,-0.5,0));
     
     entities += "\n    ";
     entities += "};";
@@ -192,11 +201,12 @@ void CoralSceneGenerator::writeTankEntities(String& scene, int numCoralTypes, in
 
     for (int i(0); i < 3; ++i) {
         int fishType = Random::threadCommon().integer(0, 5);
-        entities += writeSchoolOfFish("fish" + (String)std::to_string(fishType), Random::threadCommon().integer(15, 25), i);
+        entities += writeTankFish("fish" + (String)std::to_string(fishType), Random::threadCommon().integer(15, 25), i, Point3(0,0,1), Point2(-4.4f, 4.4f), Point2(-.4f, .4f), 1.6);
     }
 
-    entities += writeBubbles(Point2(-3.5f, 3.5f), Point2(-1.1f, 1.5f), Point3(0.0f, 0.0f, 1.0f));
-    writeCoral(entities, numCoralTypes, totalCoral, Point2(-5.4f, 5.4f), Point2(-1.6f, 3.3f));
+    entities += writeBubbles(Point2(-3.5f, 3.5f), Point2(-1.1f, 1.5f), Point3(0.0f, 0.0f, 1.0f), 1.6);
+    
+    writeCoral(entities, numCoralTypes, totalCoral, Point2(-5.4f, 5.4f), Point2(-2.3f, 2.0f), Point3(0, -1.7f, 1));
 
     entities += "\n    ";
     entities += "};";
@@ -205,7 +215,8 @@ void CoralSceneGenerator::writeTankEntities(String& scene, int numCoralTypes, in
     scene += entities;
 }
 
-void CoralSceneGenerator::writeCoral(String& entities, int numCoralTypes, int totalCoral, Point2 xBounds, Point2 zBounds) {
+void CoralSceneGenerator::writeCoral(String& entities, int numCoralTypes, int totalCoral, Point2& xBounds, Point2& zBounds, Point3& center) {
+    float y = center.y;
     for (int i(0); i < totalCoral; ++i) {
         String index = (String)std::to_string(Random::threadCommon().integer(1, numCoralTypes));
         int modelNum;
@@ -220,16 +231,18 @@ void CoralSceneGenerator::writeCoral(String& entities, int numCoralTypes, int to
         }
         String yPos;
         if (modelNum = 1){
-            yPos = ", -1.2f, ";
+            y += 0.5f;
         } else if (modelNum = 2){
-            yPos = ", -.7, ";
+            y+= 1.0f;
         } else if (modelNum = 3){
-            yPos = ", 0.3, ";
+            y += 2.0f;
         }
+        
+        yPos = "f, " + (String) std::to_string(y) + "f, ";
         entities += (String) "" +
             "\n\n    coral" + (String)std::to_string(i) + " = VisibleEntity {" +
             "\n        model = \"genericCoralModel" + (String)std::to_string(modelNum) + "\";" +
-            "\n        frame = CFrame::fromXYZYPRDegrees(" + (String)std::to_string(Random::threadCommon().uniform(xBounds.x, xBounds.y)) + yPos + (String)std::to_string(Random::threadCommon().uniform(zBounds.x, zBounds.y)) + ", 0, 0, 0);" +
+            "\n        frame = CFrame::fromXYZYPRDegrees(" + (String)std::to_string(center.x + Random::threadCommon().uniform(xBounds.x, xBounds.y)) + yPos + (String)std::to_string(center.z + Random::threadCommon().uniform(zBounds.x, zBounds.y)) + "f , 0, 0, 0);" +
             "\n        articulatedModelPose = UniversalMaterial::Specification {" +
             "\n            lambertian = \"" + CORALDIR + index + ".png\";" +
             "\n            bump = BumpMap::Specification {" +
@@ -241,9 +254,46 @@ void CoralSceneGenerator::writeCoral(String& entities, int numCoralTypes, int to
             "\n        };" +
             "\n    };" +
             "\n";
+        y = center.y;
     }
 }
-String CoralSceneGenerator::writeBubbles(Point2& xBounds, Point2& yBounds, Point3& center) {
+
+
+void CoralSceneGenerator::writeSeaCoral(String& entities, int numCoralTypes, int totalCoral, Point2& xBounds, Point2& zBounds, Point3& center, String id) {
+    float y = center.y;
+    for (int i(0); i < totalCoral; ++i) {
+        String index = (String)std::to_string(Random::threadCommon().integer(1, numCoralTypes));
+        int modelNum = Random::threadCommon().integer(3, 4);
+        
+        String yPos;
+        if (modelNum = 3){
+            y += 1.0f;
+        } else if (modelNum = 4){
+            y += 1.5f;
+        }
+        
+        yPos = "f, " + (String) std::to_string(y) + "f, ";
+        entities += (String) "" +
+            "\n\n    coral" + id + (String)std::to_string(i) + " = VisibleEntity {" +
+            "\n        model = \"genericCoralModel" + (String)std::to_string(modelNum) + "\";" +
+            "\n        frame = CFrame::fromXYZYPRDegrees(" + (String)std::to_string(Random::threadCommon().uniform(xBounds.x, xBounds.y)) + yPos + (String)std::to_string(Random::threadCommon().uniform(zBounds.x, zBounds.y)) + "f , " + (String) std::to_string(Random::threadCommon().uniform(0,180)) + "f, " + (String) std::to_string(Random::threadCommon().uniform(-20,20))+ "f, 0);" +
+            "\n        articulatedModelPose = UniversalMaterial::Specification {" +
+            "\n            lambertian = \"" + CORALDIR + index + ".png\";" +
+            "\n            bump = BumpMap::Specification {" +
+            "\n                 texture =\"" + CORALDIR + index + "_Bump.png\";" +
+            "\n                 settings = BumpMap::Settings {" +
+            "\n                     iterations = 0;" +
+            "\n                 };" +
+            "\n           };" +
+            "\n        };" +
+            "\n    };" +
+            "\n";
+        y = center.y;
+    }
+}
+
+
+String CoralSceneGenerator::writeBubbles(Point2& xBounds, Point2& yBounds, Point3& center, float zBound) {
     String bubbles("");
     for (int i(0); i < 75; ++i) {
         float radius = 1.0f;
@@ -255,14 +305,14 @@ String CoralSceneGenerator::writeBubbles(Point2& xBounds, Point2& yBounds, Point
         bubbles += (String) "    bubble" + (String)std::to_string(i) + " = VisibleEntity {" +
             "\n            model = \"bubble" + (String)std::to_string(Random::threadCommon().integer(0, 2)) + "\";" +
             "\n            frame = CFrame::fromXYZYPRDegrees(" + (String)std::to_string(x + Random::threadCommon().uniform(xBounds.x, xBounds.y) + center.x) + "f , " + (String)std::to_string((y  + Random::threadCommon().uniform(yBounds.x, yBounds.y) + center.y)) +
-            "f , " + (String)std::to_string(z + center.z) + "f , 0.0f, 0.0f, 0.0f);" +
+            "f , " + (String)std::to_string(z * zBound + center.z) + "f , 0.0f, 0.0f, 0.0f);" +
             "\n        };" +
             "\n";
     }
     return bubbles;
 }
 
-String CoralSceneGenerator::writeSchoolOfFish(const String& fish, int schoolNum, int id) {
+String CoralSceneGenerator::writeTankFish(const String& fish, int schoolNum, int id, Point3& center, Point2& xBounds, Point2& yBounds, float zBound) {
     String fishSchool("");
     for (int i(0); i < schoolNum; ++i) {
         float radius = 1.6f;
@@ -274,9 +324,32 @@ String CoralSceneGenerator::writeSchoolOfFish(const String& fish, int schoolNum,
         fishSchool += (String) "    fish" + (String)std::to_string(id) + (String)std::to_string(i) + " = VisibleEntity {" +
             "\n            model = \"";
         fishSchool += fish + "\";" +
-            "\n        frame = CFrame::fromXYZYPRDegrees(" + (String)std::to_string(x + Random::threadCommon().uniform(-3.5f, 3.5f)) + "f , ";
-        fishSchool += (String)std::to_string(y) +
-            "f , " + (String)std::to_string(z + 1) + "f ," + (String)std::to_string(Random::threadCommon().uniform(0, 360)) + "f, " + (String)std::to_string(Random::threadCommon().uniform(-55, 55)) + "f, 0.0f);" +
+            "\n        frame = CFrame::fromXYZYPRDegrees(" + (String)std::to_string(x + Random::threadCommon().uniform(xBounds.x, xBounds.y) + center.x) + "f , ";
+        fishSchool += (String)std::to_string(y + Random::threadCommon().uniform(yBounds.x, yBounds.y) + center.y) +
+            "f , " + (String)std::to_string(z * zBound + center.z) + "f ," + (String)std::to_string(Random::threadCommon().uniform(0, 360)) + "f, " + (String)std::to_string(Random::threadCommon().uniform(-55, 55)) + "f, 0.0f);" +
+            "\n        };" +
+            "\n";
+    }
+    return fishSchool;
+}
+
+String CoralSceneGenerator::writeSchoolOfFish(const String& fish, int schoolNum, int id, Point3& center, Point2& xBounds, Point2& yBounds, float zBound) {
+    String fishSchool("");
+    float yaw = Random::threadCommon().uniform(0, 360);
+    float pitch = Random::threadCommon().uniform(-35, 35);
+    for (int i(0); i < schoolNum; ++i) {
+        float radius = 1.0f;
+        float z = Random::threadCommon().uniform(-radius, radius);
+        float phi = Random::threadCommon().uniform(0, 2 * pif());
+        float theta = asinf(z / radius);
+        float x = radius * cosf(theta) * cosf(phi);
+        float y = radius * cosf(theta) * sinf(phi);
+        fishSchool += (String) "    fish" + (String)std::to_string(id) + (String)std::to_string(i) + " = VisibleEntity {" +
+            "\n            model = \"";
+        fishSchool += fish + "\";" +
+            "\n        frame = CFrame::fromXYZYPRDegrees(" + (String)std::to_string(x + Random::threadCommon().uniform(xBounds.x, xBounds.y) + center.x) + "f , ";
+        fishSchool += (String)std::to_string(y + Random::threadCommon().uniform(yBounds.x, yBounds.y) + center.y) +
+            "f , " + (String)std::to_string(z * zBound + center.z) + "f ," + (String)std::to_string(yaw) + "f, " + (String)std::to_string(pitch) + "f, 0.0f);" +
             "\n        };" +
             "\n";
     }
@@ -309,6 +382,15 @@ void CoralSceneGenerator::writeModels(String& scene, int numCoralTypes, int tota
         "\n                setTwoSided(all(), true);" +
         "\n            };" +
         "\n        };" +
+        "\n        " +
+        "\n       genericCoralModel4 = ArticulatedModel::Specification {" +
+        "\n            filename = \"star.off\";" +
+        "\n            scale = 2.3;" +
+        "\n            preprocess = {" +
+        "\n                setTwoSided(all(), true);" +
+        "\n            };" +
+        "\n        };" +
+        "\n        " +
         "\n        ";
 
     Array<String> allFish = FISH;
@@ -318,13 +400,33 @@ void CoralSceneGenerator::writeModels(String& scene, int numCoralTypes, int tota
         scene += (String) "\n" +
             "fish" + (String)std::to_string(i) + " = ArticulatedModel::Specification {" +
             "\n            filename = \"" + fish + "\";" +
-            "\n            scale = .001f;" +
+            "\n            scale = " +(String) std::to_string(Random::threadCommon().uniform(0.0005f, 0.001f)) + ";" +
             "\n        };" +
             "\n" +
             "\n        ";
         allFish.remove(whichFish);
     }
-
+    
+    for (int i(0); i < 6; ++i) {
+        int whichShell = Random::threadCommon().integer(0,1);
+        String shell = (whichShell) ? SHELL1 : SHELL2;
+        scene += "\n    shell" + (String)std::to_string(i) + " = ArticulatedModel::Specification {" +
+            "\n            filename = \"" + shell + "\";" +
+            "\n        scale = " + (String)std::to_string(Random::threadCommon().uniform(0.5f, 1.0f)) + ";" +
+            "\n        preprocess = {" +
+            "\n            setMaterial(all(), " +
+            "\n                UniversdsalMaterial::Specification {" +
+            "\n                    lambertian = Color3(0.02);" +
+            "\n                    glossy = Color4(Color3(0.3), 0.8);" +
+            "\n                    transmissive = Color3(0.9, 1.0, 1.0);" +
+            "\n                    emissive = Color3(0.01);" +
+            "\n                    etaReflect = 1.3f;" +
+            "\n                    etaTransmit = 1.00f;" +
+            "\n            });" +
+            "\n        };" +
+            "\n    };" +
+            "\n";
+    }
 
     for (int i(0); i < 3; ++i) {
         scene += "\n    bubble" + (String)std::to_string(i) + " = ArticulatedModel::Specification {" +
@@ -346,21 +448,21 @@ void CoralSceneGenerator::writeModels(String& scene, int numCoralTypes, int tota
     }
 
     scene += (String) "" +
-/*        "\n    shark1 = ArticulatedModel::Specification {" +
+        "\n    shark1 = ArticulatedModel::Specification {" +
         "\n        filename = \"" + SHARK1 + "\";" +
-        "\n        scale = 0.1f;" +
+        "\n        scale = 0.15f;" +
         "\n    };" +
         "\n" +
         "\n    shark2 = ArticulatedModel::Specification {" +
         "\n        filename = \"" + SHARK2 + "\";" +
-        "\n        scale = 100.0f;" +
+        "\n        scale = 50.0f;" +
         "\n    };" +
         "\n" +
         "\n    castle = ArticulatedModel::Specification {" +
         "\n        filename = \"" + CASTLE + "\";" +
         "\n        scale = .002f;" +
         "\n    };" +
-        "\n" +*/
+        "\n" +
         "\n    chest = ArticulatedModel::Specification {" +
         "\n        filename = \"" + CHEST + "\";" +
         "\n        scale = 1.0f;" +
@@ -477,34 +579,22 @@ void CoralSceneGenerator::writeModels(String& scene, int numCoralTypes, int tota
         "\n" +
         "\n    largeRock1 = ArticulatedModel::Specification {" +
         "\n        filename = \"" + ROCK5 + "\";" +
-        "\n        scale = 0.3f;" +
-        //   "\n        preprocess = {" +
-        //   "\n            transformGeometry(all(), Matrix4::scale(0.1f,0.1f,0.1f));" + 
-         //  "\n        };" +
+        "\n        scale = 0.15f;" +
         "\n    };" +
         "\n" +
         "\n    largeRock2 = ArticulatedModel::Specification {" +
         "\n        filename = \"" + ROCK4 + "\";" +
-        "\n        scale = 0.3f;" +
-        //  "\n        preprocess = {" +
-       //   "\n            transformGeometry(all(), Matrix4::scale(0.045f,0.045f,0.045f));" + 
-       //   "\n        };" +
+        "\n        scale = 0.15f;" +
         "\n    };" +
         "\n" +
         "\n    largeRock3 = ArticulatedModel::Specification {" +
         "\n        filename = \"" + ROCK2 + "\";" +
-        "\n        scale = 0.3f;" +
-        //   "\n        preprocess = {" +
-        //   "\n            transformGeometry(all(), Matrix4::scale(0.1f,0.1f,0.1f));" + 
-        //   "\n        };" +
+        "\n        scale = 0.15f;" +
         "\n    };" +
         "\n" +
         "\n    largeRock4 = ArticulatedModel::Specification {" +
         "\n        filename = \"" + ROCK1 + "\";" +
-        "\n        scale = 0.3f;" +
-        //    "\n        preprocess = {" +
-         //   "\n            transformGeometry(all(), Matrix4::scale(0.1f,0.1f,0.1f));" + 
-         //   "\n        };" +
+        "\n        scale = 0.15f;" +
         "\n    };" +
         "\n" +
         "\n};" +

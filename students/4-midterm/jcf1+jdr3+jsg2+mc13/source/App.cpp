@@ -125,8 +125,8 @@ void App::generateCoralScene() {
 
     TextOutput text2 = TextOutput("sea.Scene.Any");
     scene = "";
-        name = "Sea Scene";
-    sceneGenerator.writeSeaScene(scene, name, 7, 250);
+    name = "Sea Scene";
+    sceneGenerator.writeSeaScene(scene, name, 7, 20);
     text2.writeSymbols(scene);
     text2.commit(true);
 }
