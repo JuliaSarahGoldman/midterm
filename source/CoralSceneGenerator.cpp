@@ -32,7 +32,7 @@ void CoralSceneGenerator::writeSeaEntities(String& scene, int numCoralTypes, int
         "\n            frame = CFrame::fromXYZYPRDegrees(0,-2.0f,0.9f,0,0,0);" +
         "\n        };" +
         "\n" +
-        "\n        shark1 = VisibleEntity {" +
+  /*      "\n        shark1 = VisibleEntity {" +
         "\n            model = \"shark1\";" +
         "\n            frame = CFrame::fromXYZYPRDegrees(5.9f, 0.5f, -2.7f, -37.6f, 22.0f, 2.8f);" +
         "\n        };" +
@@ -52,7 +52,7 @@ void CoralSceneGenerator::writeSeaEntities(String& scene, int numCoralTypes, int
         "\n            frame = CFrame::fromXYZYPRDegrees(0.5f, 0, 5.0f, -164.2, .6f, 25.2f);" +
         "\n        };" +
         "\n" +
-        "\n        aRock1 = VisibleEntity {" +
+    */    "\n        aRock1 = VisibleEntity {" +
         "\n            model = \"largeRock1\";" +
         "\n            frame = CFrame::fromXYZYPRDegrees(-4.7f,-1.7f,-2.3,0,0,0);" +
         "\n        };" +
@@ -116,7 +116,7 @@ void CoralSceneGenerator::writeTankEntities(String& scene, int numCoralTypes, in
         "\n        };" +
         "\n        light1 = Light {" +
         "\n               attenuation = (0, 0, 1);" +
-        "\n                bulbPower = Power3(20000); " +
+        "\n                bulbPower = Power3(2000); " +
         "\n                frame = CFrame::fromXYZYPRDegrees(3.9, 6.2, 1.4, -164, -77, 77);" +
         "\n                shadowMapSize = Vector2int16(2048, 2048); " +
         "\n                spotHalfAngleDegrees = 60;"
@@ -126,7 +126,7 @@ void CoralSceneGenerator::writeTankEntities(String& scene, int numCoralTypes, in
         "\n" +
         "\n        light2 = Light {" +
         "\n               attenuation = (0, 0, 1);" +
-        "\n                bulbPower = Power3(20000); " +
+        "\n                bulbPower = Power3(2000); " +
         "\n                frame = CFrame::fromXYZYPRDegrees(-4.1, 5.3, .5, -164, -77, 77);" +
         "\n                shadowMapSize = Vector2int16(2048, 2048); " +
         "\n                spotHalfAngleDegrees = 60;"
@@ -168,11 +168,11 @@ void CoralSceneGenerator::writeTankEntities(String& scene, int numCoralTypes, in
         "\n            frame = CFrame::fromXYZYPRDegrees(0,-2.0f,0.9f,0,0,0);" +
         "\n        };" +
         "\n" +
-        "\n        castle1 = VisibleEntity {" +
+/*        "\n        castle1 = VisibleEntity {" +
         "\n            model = \"castle\";" +
         "\n            frame = CFrame::fromXYZYPRDegrees(4.1f,-1.9f, 2.3f,3,4,5);" +
         "\n        };" +
-        "\n" +
+        "\n" +*/
         "\n        aRock1 = VisibleEntity {" +
         "\n            model = \"rock1\";" +
         "\n            frame = CFrame::fromXYZYPRDegrees(3.3,-1.8f,-0.2f,173.4f,0,0);" +
@@ -443,7 +443,7 @@ void CoralSceneGenerator::writeModels(String& scene, int numCoralTypes, int tota
     }
 
     scene += (String) "" +
-        "\n    shark1 = ArticulatedModel::Specification {" +
+   /*     "\n    shark1 = ArticulatedModel::Specification {" +
         "\n        filename = \"" + SHARK1 + "\";" +
         "\n        scale = 0.15f;" +
         "\n    };" +
@@ -457,12 +457,7 @@ void CoralSceneGenerator::writeModels(String& scene, int numCoralTypes, int tota
         "\n        filename = \"" + CASTLE + "\";" +
         "\n        scale = .002f;" +
         "\n    };" +
-        "\n" +
-        "\n    sub = ArticulatedModel::Specification {" +
-        "\n        filename = \"" +  + "\";" +
-        "\n        scale = 0.15f;" +
-        "\n    };" +
-        "\n" +
+        "\n" +*/
         "\n    chest = ArticulatedModel::Specification {" +
         "\n        filename = \"" + CHEST + "\";" +
         "\n        scale = 1.0f;" +
