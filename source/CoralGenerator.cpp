@@ -10,23 +10,8 @@ CoralGenerator::~CoralGenerator() {};
 void CoralGenerator::writeCoral(String coralType, Color3 coralColor, shared_ptr<Image> &color, shared_ptr<Image> &bump, float initialThickness, float minAngle, float maxAngle) {
     shared_ptr<Rasterizer> painter(new Rasterizer());
 
-    /* JOHN: 
-        I changed the code so it writes 4 faces of the coral, one in each quadrant,
-        and does it in terms of the width and height of the image.
-        It'd be useful to have arguments for:
-        1) The thickness of the root
-        2) (maybe) the initial angle and range of randomness for future angles, if that makes sense. 
-        Try to abstract this more because it's hard to figure out what each constant represents.
-
-        What I can gather from testing the parameters:
-        -Cumulative Angle determines the angle the coral as a whole is at: _|_ -90 _/_ -45, etc
-        -DrawLength when made smaller makes branch coral a lot longer and taller. Not sure about everything else.
-        -MoveAngle when it gets bigger, thing sget weird, especially for Branch
-    */
-
     Array<shared_ptr<Edges>> edgeBuffer;
 
-    //Array<Array<Point2int32>> edgeBuffer(Array<Array<Point2int32>>());
     Array<float> thickBuffer = Array<float>();
     
     int maxDepth;
@@ -61,13 +46,10 @@ void CoralGenerator::writeCoral(String coralType, Color3 coralColor, shared_ptr<
     }
 
     try {
-        //color->setAll(Color4(coralColor, 0));
         painter->drawGradiantBackground(Color4(coralColor, 0.0), Color4(Color3::black(), 0.0), height, width, color);
         bump->setAll(Color3::black());
 
         for (int i(0); i < edgeBuffer.size(); ++i) {
-          //  Point2int32 s = edgeBuffer[i][0];
-          //  Point2int32 f = edgeBuffer[i][1];
 
             Point2int32 s(edgeBuffer[i]->p0);
             Point2int32 f(edgeBuffer[i]->p1);
@@ -82,15 +64,13 @@ void CoralGenerator::writeCoral(String coralType, Color3 coralColor, shared_ptr<
 }
 
 
-void CoralGenerator::generateThinCoral(int depth, Point2int32& location, float cumulativeAngle, float drawLength, float minAngle, float maxAngle, float thick, /*Array<Array<Point2int32>>&*/Array<shared_ptr<Edges>>& edgeBuffer, Array<float>& thickBuffer) {
+void CoralGenerator::generateThinCoral(int depth, Point2int32& location, float cumulativeAngle, float drawLength, float minAngle, float maxAngle, float thick, Array<shared_ptr<Edges>>& edgeBuffer, Array<float>& thickBuffer) {
 
     Table<String, Array<String>> rules;
 
-    //Array<String> SBuffer("-[FXFXFXF]+[FXFXFXF]");
     Array<String> SBuffer("-[FXFXF]+[FXFF]");
     rules.set("S", SBuffer);
 
-    //Array<String> XBuffer("-[FX]-[-[FX]]+[FX]+[+[FX]][FX]F");
     Array<String> XBuffer("-[FFXF]+[FXF][FXFF]F");
     rules.set("X", XBuffer);
 
@@ -99,15 +79,13 @@ void CoralGenerator::generateThinCoral(int depth, Point2int32& location, float c
     applyRules(depth, location, cumulativeAngle, drawLength, minAngle, maxAngle, thick, 0.65f, 0.8f, "S", rules, edgeBuffer, thickBuffer);
 }
 
-void CoralGenerator::generateFlatCoral(int depth, Point2int32& location, float cumulativeAngle, float drawLength, float minAngle, float maxAngle, float thick, /*Array<Array<Point2int32>>&*/Array<shared_ptr<Edges>>& edgeBuffer, Array<float>& thickBuffer) {
+void CoralGenerator::generateFlatCoral(int depth, Point2int32& location, float cumulativeAngle, float drawLength, float minAngle, float maxAngle, float thick, Array<shared_ptr<Edges>>& edgeBuffer, Array<float>& thickBuffer) {
 
     Table<String, Array<String>> rules;
 
-    //Array<String> SBuffer("-[FY]+[FY]++[FY]--[FFYF]+++[FFYF]---[FY]");
     Array<String> SBuffer("Y--[FY]+[YFY]");
     rules.set("S", SBuffer);
 
-    //Array<String> YBuffer("-[FFFX]+[FFFX]++[FFFX]--[FFXFF]+++[FFXFF]---[FFFX]");
     Array<String> YBuffer("++[XFX]", "--[XFX]");
     rules.set("Y", YBuffer);
 
@@ -119,12 +97,9 @@ void CoralGenerator::generateFlatCoral(int depth, Point2int32& location, float c
     applyRules(depth, location, cumulativeAngle, drawLength, minAngle, maxAngle, thick, 0.8f, 0.75f, "S", rules, edgeBuffer, thickBuffer);
 }
 
-void CoralGenerator::generateBranchCoral(int depth, Point2int32& location, float cumulativeAngle, float drawLength, float minAngle, float maxAngle, float thick, /*Array<Array<Point2int32>>&*/Array<shared_ptr<Edges>>& edgeBuffer, Array<float>& thickBuffer) {
+void CoralGenerator::generateBranchCoral(int depth, Point2int32& location, float cumulativeAngle, float drawLength, float minAngle, float maxAngle, float thick, Array<shared_ptr<Edges>>& edgeBuffer, Array<float>& thickBuffer) {
 
     Table<String, Array<String>> rules;
-
-    /*Array<String> XBuffer("+[FX]F", "-[FX]F", "+[FX]-[FX]", "F");
-    rules.set("X", XBuffer);*/
 
     Array<String> XBuffer("+[FFFFFX]-[FFFFFX]");
     rules.set("X", XBuffer);
@@ -140,7 +115,7 @@ void CoralGenerator::generateBranchCoral(int depth, Point2int32& location, float
     applyRules(depth, location, cumulativeAngle, drawLength, minAngle, maxAngle, thick, 0.8f, 0.8f, "FX+++[YF]---[ZF]", rules, edgeBuffer, thickBuffer);
 }
 
-void CoralGenerator::generateTallCoral(int depth, Point2int32& location, float cumulativeAngle, float drawLength, float minAngle, float maxAngle, float thick, /*Array<Array<Point2int32>>&*/Array<shared_ptr<Edges>>& edgeBuffer, Array<float>& thickBuffer) {
+void CoralGenerator::generateTallCoral(int depth, Point2int32& location, float cumulativeAngle, float drawLength, float minAngle, float maxAngle, float thick, Array<shared_ptr<Edges>>& edgeBuffer, Array<float>& thickBuffer) {
 
     Table<String, Array<String>> rules;
 
@@ -161,7 +136,7 @@ void CoralGenerator::generateTallCoral(int depth, Point2int32& location, float c
     applyRules(depth, location, cumulativeAngle, drawLength, minAngle, maxAngle, thick, 0.5f, 0.5f, "X+[FFFFFW]-[FFFFFW]++[+[FFXFFFX]]--[-[FFFXFFX]]+++[+[FFXFFFX]]---[-[FFFXFFX]]++[FFFFFW]--[FFFFFW]+++[FFFFFW]---[FFFFFW]", rules, edgeBuffer, thickBuffer);
 }
 
-void CoralGenerator::generateFingerCoral(int depth, Point2int32& location, float cumulativeAngle, float drawLength, float minAngle, float maxAngle, float thick, /*Array<Array<Point2int32>>&*/Array<shared_ptr<Edges>>& edgeBuffer, Array<float>& thickBuffer) {
+void CoralGenerator::generateFingerCoral(int depth, Point2int32& location, float cumulativeAngle, float drawLength, float minAngle, float maxAngle, float thick, Array<shared_ptr<Edges>>& edgeBuffer, Array<float>& thickBuffer) {
     Table<String, Array<String>> rules;
 
     Array<String> SBuffer("-[FX]--[FX]+[FX]++[FX]+++[FX]---[FX]");
@@ -171,7 +146,6 @@ void CoralGenerator::generateFingerCoral(int depth, Point2int32& location, float
     for (int i = 0; i < 8; ++i) {
         XBuffer.append("-[FX]--[FX]+[FX]++[FX]");
     }
-    //XBuffer.append("-[FX]--[FX]+[FX]++[FX]");
     XBuffer.append("-[FX]+[FX]");
     rules.set("X", XBuffer);
 
@@ -180,7 +154,7 @@ void CoralGenerator::generateFingerCoral(int depth, Point2int32& location, float
     applyRules(depth, location, cumulativeAngle, drawLength, minAngle, maxAngle, thick, 0.75f, 0.85f, "S", rules, edgeBuffer, thickBuffer);
 }
 
-void CoralGenerator::generateCrazyCoral(int depth, Point2int32& location, float cumulativeAngle, float drawLength, float minAngle, float maxAngle, float thick, /*Array<Array<Point2int32>>&*/Array<shared_ptr<Edges>>& edgeBuffer, Array<float>& thickBuffer) {
+void CoralGenerator::generateCrazyCoral(int depth, Point2int32& location, float cumulativeAngle, float drawLength, float minAngle, float maxAngle, float thick, Array<shared_ptr<Edges>>& edgeBuffer, Array<float>& thickBuffer) {
     Table<String, Array<String>> rules;
 
     Array<String> XBuffer;
@@ -217,8 +191,6 @@ void CoralGenerator::applyRules(int depth, const Point2int32& location, float cu
 
     for (int i(0); i < symbolBuffer.length(); ++i) {
 
-        //debugPrintf("%s, %f, %f\n", symbolBuffer.substr(i, 1), angles[isBracket], angles[isBracket + 1]);
-
         if (symbolBuffer.substr(i, 1) == "-") {
             angles[isBracket + 1] = angles[isBracket + 1] - G3D::Random::threadCommon().uniform(minAngle, maxAngle);
         }
@@ -237,13 +209,11 @@ void CoralGenerator::applyRules(int depth, const Point2int32& location, float cu
             float randLen = drawLength * G3D::Random::threadCommon().uniform(0.7f, 1.0);
             float randAng = angles[isBracket] * G3D::Random::threadCommon().uniform(0.75f, 1.25f);
 
-            //debugPrintf("%f %f\n", angles[isBracket], randAng);
             float radians = (randAng / 180.0f) * pif();
             int x = lround(cos(radians) * randLen) + positions[isBracket].x;
             int y = lround(sin(radians) * randLen) + positions[isBracket].y;
 
             Point2int32 point(x, y);
-           // Array<Point2int32> edge(positions[isBracket], point);
             shared_ptr<Edges> edge(new Edges); 
             edge->p0 = positions[isBracket];
             edge->p1 = point; 

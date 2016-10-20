@@ -98,7 +98,7 @@
             type = "SPOT"; 
         };
 
-       crazy = VisibleEntity {
+       /*crazy = VisibleEntity {
             model = "starModel";
             frame = CFrame::fromXYZYPRDegrees(0, 0, 0, 0, 0, 0);
             articulatedModelPose = UniversalMaterial::Specification { 
@@ -124,7 +124,7 @@
                     }
                 }
             };
-        };
+        };*/
 
         branch = VisibleEntity {
             model = "starModel";
@@ -140,7 +140,7 @@
             };
         };
 
-        thin = VisibleEntity {
+        /*thin = VisibleEntity {
             model = "starModel";
             frame = CFrame::fromXYZYPRDegrees(0, 0, -5, 0, 0, 0);
             articulatedModelPose = UniversalMaterial::Specification { 
@@ -168,8 +168,22 @@
             };
         };
 
+        tall = VisibleEntity {
+            model = "starModel";
+            frame = CFrame::fromXYZYPRDegrees(4, 0, 2, 0, 0, 0);
+            articulatedModelPose = UniversalMaterial::Specification { 
+                lambertian = "models/Coral/Coral7.png";
+                bump = BumpMap::Specification {
+                    texture = "models/Coral/Coral7_Bump.png";
+                    settings = BumpMap::Settings {
+                        iterations = 0;
+                    }
+                }
+            };
+        };
 
-         /*friend1 = VisibleEntity {
+
+         friend1 = VisibleEntity {
             model = "fish1";
             frame = CFrame::fromXYZYPRDegrees(0.01f, 0, 0, 0,0, 0);
 
