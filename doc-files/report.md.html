@@ -9,7 +9,9 @@
 Introduction
 ================================
 
-Our project was to procedurally generate distinct species of coral using Lindernmeyer Systems (L-system). By specifying the species and specifying a color, we can generate unique corral that will look amazing in any underwater environment. Coral, like trees, can be represented as a recursive structure made of cylinders that shrink as they go farther from the base. Thus, an L-System can be used to model coral. In order to avoid having an exponential number of polygons as we recurse, we model the L-systems in 2D, generating a bump map and color gradient for each coral as we do so. Then, we create a billboard for each piece of coral, with a material that has the colored image of the coral as its lambertian and the bump map as the bump.  This gives the illusion of a 3-dimensional object, in this case coral, but requires significantly less polygons, and therefore is much easier to render, which is what made it an industry standard for decades.
+Our project was to procedurally generate distinct species of coral using Lindernmeyer Systems (L-system). By specifying the species and specifying a color, we can generate unique corral that will look amazing in any underwater environment. 
+
+Coral, like trees, can be represented as a recursive structure made of cylinders that shrink as they go farther from the base. Thus, an L-System can be used to model coral. In order to avoid having an exponential number of polygons as we recurse, we model the L-systems in 2D, generating a bump map and color gradient for each coral as we do so. Then, we create a billboard for each piece of coral, with a material that has the colored image of the coral as its lambertian and the bump map as the bump.  This gives the illusion of a 3-dimensional object, but requires significantly less polygons, making it much easier to render, which is what made it an industry standard for decades.
 
 Specification
 ============================================================================================
@@ -250,8 +252,8 @@ Change Log
 6. Creating 2D L-systems in App using line drawing code. John 10/9
 7. Created a separate class for genertaing L-systems. John 10/10
 8. Created a separate class for generating 3D coral L-systems. Jose 10/13
-9. Realized class for 3D coral was unecessary. Jose 10/14
-10. Created a new class to print out different scenes with varying types of coral. Jose 10/15
+9. As a group, decided 3D coral was unecessary. Jose 10/14
+10. Created a new class to print out two different scenes with varying fish and coral. Jose 10/15
 11. Added John and Jose's Path Tracer with fixes. John 10/19
 
 
