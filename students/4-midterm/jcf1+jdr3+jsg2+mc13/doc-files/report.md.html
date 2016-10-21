@@ -49,19 +49,16 @@ L-System
 ------------------------------------------------------------------------------------
 The Lindenmayer (L) systems are mainly used for generating fractals and realistic modeling of plants. 
 
-An L-system consists of: 
+According to Joel Castellanos, an L-system consists of: 
 - A set of variables: nonterminals that can be replaced by production rules.
 - A set of constants: terminals. Constants are any of the following symbols: [, ], +, -.
 - A single axiom which is a string composed of some number of variables and constants. The axiom is the initial state of the system. 
-- A set of production rules defining the way variables can be replaced with combinations of constants and other variables. A production consists of two strings - the predecessor and the successor. The most interesting L-systems are defined by recursive production rules (i.e. rules that include the replaced variable along with other variable and constant combinations). 
+- A set of production rules defining the way variables can be replaced with combinations of constants and other variables. A production consists of two strings - the predecessor and the successor. The most interesting L-systems are defined by recursive production rules (i.e. rules that include the replaced variable along with other variable and constant combinations). [#Castellanos] 
 
-[source](http://www.cs.unm.edu/~joel/PaperFoldingFractal/L-system-rules.html): Castellanos, Joel. "Lindenmayer Systems: Details." L-System Rules. The University of New Mexico, Computer Science, n.d. Web. 12 Oct. 2016.
+Through the above rules, L-Systems can create realistic looking trees and leave patterns using the correct textures. Many coral formations are just simply smaller versions of trees. Thus, this project uses L-systems as the base for creating different coral models.  We use the L-systems to generate lines drawn on an image that resemble the shape of different coral which is then created as a bump map and color gradient and billboarded as a 3D model. 
 
-This project used L-systems as the base for creating different coral models.  We use the L-systems to generate lines drawn on an image that resemble the shape of different coral which is then created as a bump map and color gradient and billboarded as a 3D model.
+![@[Castellanos](http://www.cs.unm.edu/~joel/PaperFoldingFractal/paper.html)](L-system2.png width=200px height=200px) ![@[Castellanos](http://www.cs.unm.edu/~joel/PaperFoldingFractal/paper.html)](L-system1.png width=200px height=200px) ![A simple L-system](simple_system.png width=200px height=200px) ![A complex L-system](complex_system.png width=200px height=200px)
 
-![L-System generated plant](L-system2.png width=200px) ![L-System generated plant](L-system1.png width=200px) ![A simple L-system](simple_system.png width=200px) ![A complex L-system](complex_system.png width=200px)
-
-L-systems are used to generate relistic tree models by describing the branching of the tree.
 
 Billboards
 ------------------------------------------------------------------------------------
@@ -87,6 +84,9 @@ We use rasterization's pixel filling techniques to create color and bump map ima
 
 Design
 =====================================================================================
+
+The following is a description of our design.
+
 Flowchart
 -------------------------------------------------------------------------------------
 *****************************************************************************************************************************************
@@ -255,6 +255,13 @@ Change Log
 9. As a group, decided 3D coral was unecessary. Jose 10/14
 10. Created a new class to print out two different scenes with varying fish and coral. Jose 10/15
 11. Added John and Jose's Path Tracer with fixes. John 10/19
+
+Acknowledgements and Bibliography
+============================================
+All of the models in the above images and in our code were found online at TurboSquid.com. We would like to acknowledge all of the wonderful artists, who allowed us to use their work.
+
+[#Castellanos]: Castellanos, Joel. "Lindenmayer Systems: Details." <I>L-System Rules</I>. The University of New Mexico, Computer Science, n.d. Web. 12 Oct. 2016. http://www.cs.unm.edu/~joel/PaperFoldingFractal/L-system-rules.html
+
 
 
 <!-- Markdeep: -->
