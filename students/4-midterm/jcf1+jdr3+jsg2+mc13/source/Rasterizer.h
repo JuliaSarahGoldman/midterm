@@ -5,6 +5,8 @@
      Jose Rivas-Garcia
      Julia Goldman
      Matheus de Carvalho Souza
+     Uses code from Julia's CS136 Rasterization Project
+     and Jose's CS136 Rasterization Project.
  */
 
 #pragma once

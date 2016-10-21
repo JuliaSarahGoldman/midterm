@@ -10,7 +10,7 @@
 class CoralSceneGenerator {
 private:
     // All Possible Fish Models
-    /** Tropical Fish Found @ http://www.turbosquid.com/FullPreview/Index.cfm/ID/652729 */
+    /** Tropical Fish Created by ZivixLLC Found @ http://www.turbosquid.com/FullPreview/Index.cfm/ID/652729 */
     const String FISH01 = "Models/TropicalFish.zip/TropicalFish/TropicalFish01.obj";
     const String FISH02 = "Models/TropicalFish.zip/TropicalFish/TropicalFish02.obj";
     const String FISH03 = "Models/TropicalFish.zip/TropicalFish/TropicalFish03.obj";
@@ -30,7 +30,7 @@ private:
     const Array<String> FISH = {FISH01, FISH02, FISH03, FISH04, FISH05, FISH06, FISH07, FISH08, FISH09, FISH10, FISH11, FISH12, FISH13, FISH14, FISH15};
 
     //All Other Models
-    /**First castlecreated by Captainmarlowe Found @ http://www.turbosquid.com/FullPreview/Index.cfm/ID/552087 */
+    /**First castle created by Captainmarlowe Found @ http://www.turbosquid.com/FullPreview/Index.cfm/ID/552087 */
     const String CASTLE = "Models/Castle.zip/Castle/Castle.obj";
 
     /**Second castle created by Captainmarlowe Found @ http://www.turbosquid.com/FullPreview/Index.cfm/ID/552091 */
